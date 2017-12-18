@@ -4,7 +4,6 @@ import History from "./History";
 import Home from "./Home";
 import Reviews from "./Reviews";
 
-
 class Content extends React.Component {
 
   render() {
