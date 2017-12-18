@@ -1,12 +1,25 @@
 import React from "react";
 import Nav from "./components/Nav";
-import Main from "./components/Main";
+import Content from "./components/Content";
+import { Row, Col, Container } from "./components/Grid";
 
+class App extends React.Component {
 
-const App = () =>
-  <div>
-    <Nav />
-    <Main />
-  </div>;
+  state = {
+  };
+
+  render() {
+    return (
+      <div>
+        <Container fluid>
+          <Row>
+            <Nav />
+            <Content />
+          </Row>
+        </Container>
+      </div>
+    );
+  }
+}
 
 export default App;
