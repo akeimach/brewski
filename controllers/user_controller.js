@@ -19,9 +19,7 @@ router.get("/api/user", (req, res) => {
 });
 // POST route to create a user account
 router.post("/api/user", (req, res) => {
-    db.User.create({
-        req.body
-    })
+    db.User.create(req.body)
     .then((dbUser) => {
         res.json(dbUser);
     })

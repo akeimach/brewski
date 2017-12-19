@@ -2,8 +2,8 @@ const db = require("../models");
 const express = require("express");
 const router = express.Router();
 
-// GET route to get all reviews for a specific beer (not based on user)
-router.get("/api/migraines", (req, res) => {
+// GET route to get all reviews for a specific beer (not based on user), can either show each review or avg them
+router.get("/api/reviews", (req, res) => {
 	db.Review.findAll({
     	where: {
     		BeerId: req.body.id
@@ -21,11 +21,9 @@ router.get("/api/migraines", (req, res) => {
 });
 
 
-// POST route to create new migraines when user clicks submit
+// POST route to create new review
 router.post("/api/reviews", (req, res) => {
-	db.Review.create({
-		req.body
-	})
+	db.Review.create(req.body)
 	.then((data) => {
 		res.json(data);
 	})

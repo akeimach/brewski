@@ -13,9 +13,6 @@ module.exports = (sequelize, DataTypes) => {
 		},
 		shortDes: {
 			type: DataTypes.STRING,
-		},
-		avgBeerScore: {
-			type: DataTypes.TINYINT(1),
 		}
 	});
 
@@ -24,8 +21,8 @@ module.exports = (sequelize, DataTypes) => {
 		Beer.hasMany(models.Review, {
 			onDelete: "CASCADE"
 		});
-		Beer.belongsToMany(models.Beer, {
-			through: {model: models.userBeer}
+		Beer.belongsToMany(models.User, {
+			through: {model: models.UserBeer}
 		});
 	};
 	return Beer;

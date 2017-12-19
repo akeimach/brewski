@@ -29,9 +29,7 @@ router.get("/api/beers", (req, res) => {
 
 // POST route to create new beer when user takes a pic of beer
 router.post("/api/beers", (req, res) => {
-	db.Beer.create({
-		req.body
-	})
+	db.Beer.create(req.body)
 	.then((data) => {
 		res.json(data);
 	})

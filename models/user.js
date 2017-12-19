@@ -52,9 +52,8 @@ module.exports = (sequelize, DataTypes) => {
 			onDelete: "CASCADE"
 		});
 		User.belongsToMany(models.Beer, {
-			through: { model: models.userBeer }
+			through: { model: models.UserBeer }
 		});
   	};
-
 	return User;
 };
