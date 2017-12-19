@@ -9,7 +9,7 @@ const router = require("express").Router();
 const beerRoute = require("./controllers/beer_controller.js");
 const userRoute = require("./controllers/user_controller.js");
 const reviewRoute = require("./controllers/review_controller.js");
-const visionRoute = require("./controllers/vision_controller.js");
+const visionRoute = require("./routes/vision.js");
 
 // Configure body parser for AJAX requests
 app.use(bodyParser.urlencoded({ extended: false }));
@@ -30,7 +30,6 @@ app.use(express.static("client/build"));
 router.use("/", beerRoute);
 router.use("/", userRoute);
 router.use("/", reviewRoute);
-router.use("/", visionRoute);
 
 // Syncing our sequelize models and then starting our Express app
 // =============================================================
