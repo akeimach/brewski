@@ -1,7 +1,7 @@
 import React from "react";
 import Nav from "./components/Nav";
 import Content from "./components/Content";
-import { Row, Col, Container } from "./components/Grid";
+import { Container } from "./components/Grid";
 
 class App extends React.Component {
 
@@ -11,13 +11,11 @@ class App extends React.Component {
   render() {
     return (
       <div>
+        <Container fullwidth>
+          <Nav />
+        </Container>
         <Container fluid>
-          <Row>
-            <Nav />
-          </Row>
-          <Row>
-            <Content />
-          </Row>
+          <Content />
         </Container>
       </div>
     );

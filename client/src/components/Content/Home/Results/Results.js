@@ -5,6 +5,7 @@ const Results = (props) => {
 
   return (
     <div>
+      <p>Results</p>
     </div>
   );
 }

@@ -5,6 +5,7 @@ const Capture = (props) => {
 
   return (
     <div>
+      <p>Capture</p>
     </div>
   );
 }

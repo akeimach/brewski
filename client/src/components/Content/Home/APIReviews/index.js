@@ -1,1 +1,1 @@
-export * from "./APIReviews";
+export { default } from "./APIReviews";
