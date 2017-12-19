@@ -14,6 +14,8 @@ class App extends React.Component {
         <Container fluid>
           <Row>
             <Nav />
+          </Row>
+          <Row>
             <Content />
           </Row>
         </Container>

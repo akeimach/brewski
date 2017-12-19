@@ -3,6 +3,8 @@ import { Col, Row, Container } from "../Grid";
 import History from "./History";
 import Home from "./Home";
 import Reviews from "./Reviews";
+import { Route } from "react-router-dom";
+
 
 
 class Content extends React.Component {
@@ -12,7 +14,15 @@ class Content extends React.Component {
       <div>
         <Container fluid>
           <Row>
-            <Home />
+            <Route exact path="(/|/home)" render={() => (
+              <Home />
+            )}/>
+            <Route exact path="/reviews" render={() => (
+              <Reviews />
+            )}/>
+            <Route exact path="/history" render={() => (
+              <History />
+            )}/>
           </Row>
         </Container>
       </div>
