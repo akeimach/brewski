@@ -18,7 +18,7 @@ const Capture = (props) => {
 				<input type="text" name="name" />
 			</label>
 		  
-		    <p><Button bsStyle="primary">Submit</Button></p>
+		    <p><Button id="imageCapture" bsStyle="primary">Submit</Button></p>
 		</Jumbotron>
 
 

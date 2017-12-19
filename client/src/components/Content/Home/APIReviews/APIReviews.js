@@ -8,8 +8,14 @@ const APIReviews = (props) => {
     	<br/>
         <Jumbotron>
 		    <h1>Beer Reviews!</h1>
+
+		    <div>
 		    <p>Beer rating go here</p>
 		    <p><Button bsStyle="primary">Submit</Button></p>
+
+		    </div>
+
+
 		</Jumbotron>
     </div>
   );
