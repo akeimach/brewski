@@ -22,7 +22,8 @@
     "axios": "^0.16.2",
     "body-parser": "^1.17.2",
     "express": "^4.15.4",
-    "mongoose": "^4.11.7",
-    "react-router-dom": "^4.1.2"
+    "path": "^0.12.7",
+    "react-router-dom": "^4.1.2",
+    "sequelize": "^4.28.6"
   }
 }
