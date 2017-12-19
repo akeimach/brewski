@@ -35,8 +35,12 @@ router.delete("/api/user", (req, res) => {
         where: {
             id: req.user.id
         }
-    }).then((dbUser) => {
+    })
+    .then((dbUser) => {
         res.json(dbUser);
+    })
+    .catch((err) => {
+        console.log(err);
     });
 });
 
