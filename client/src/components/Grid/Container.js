@@ -1,6 +1,6 @@
 import React from "react";
 
-export const Container = ({ fluid, children }) =>
-  <div className={`container${fluid ? "-fluid" : ""}`}>
+export const Container = ({ fullwidth, fluid, children }) =>
+  <div className={`container${fullwidth ? "-fullwidth" : ""}${fluid ? "-fluid" : ""}`}>
     {children}
   </div>;

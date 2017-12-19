@@ -1,1 +1,1 @@
-export * from "./ReviewDisplay";
+export { default } from "./ReviewDisplay";
