@@ -1,6 +1,7 @@
 const path = require("path");
 const router = require("express").Router();
 const apiRoutes = require("./api");
+const apiVision = require("./vision.js");
 
 // API routes for get, post, and delete
 router.use("/api/saved", apiRoutes);

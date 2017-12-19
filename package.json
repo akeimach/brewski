@@ -21,7 +21,9 @@
   "dependencies": {
     "axios": "^0.16.2",
     "body-parser": "^1.17.2",
+    "dotenv": "^4.0.0",
     "express": "^4.15.4",
+    "google-cloud": "^0.57.0",
     "mongoose": "^4.11.7",
     "react-router-dom": "^4.1.2"
   }
