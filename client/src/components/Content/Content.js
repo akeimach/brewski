@@ -5,7 +5,6 @@ import Reviews from "./Reviews";
 import { Route } from "react-router-dom";
 
 
-
 class Content extends React.Component {
 
   render() {

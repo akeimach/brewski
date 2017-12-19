@@ -1,7 +1,11 @@
-const router = require("express").Router();
-const brewRoutes = require("./brews");
+// const router = require("express").Router();
+// const beerRoute = require("./beerRoute");
+// const userRoute = require("./userRoute");
+// const reviewRoute = require("./reviewRoute");
 
-// Beer routes
-router.use("/", brewRoutes);
+// // routes
+// router.use("/", beerRoute);
+// router.use("/", userRoute);
+// router.use("/", reviewRoute);
 
-module.exports = router;
+// module.exports = router;
