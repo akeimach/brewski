@@ -8,20 +8,22 @@ class Home extends React.Component {
 
   render() {
     return (
-      <div>
-        <Row>
-          <Col size="4">
-            <Row>
-              <Capture />
-            </Row>
-            <Row>
-              <Results />
-            </Row>
-          </Col>
-          <Col size="8">
-            <APIReviews />
-          </Col>
-        </Row>
+      <div className="container">
+        <div>
+          <Row>
+            <Col size="4">
+              <Row>
+                <Capture />
+              </Row>
+              <Row>
+                <Results />
+              </Row>
+            </Col>
+            <Col size="8">
+              <APIReviews />
+            </Col>
+          </Row>
+        </div>
       </div>
     );
   }

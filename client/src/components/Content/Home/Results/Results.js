@@ -10,9 +10,14 @@ const Results = (props) => {
       <br/>
         <Jumbotron>
 		    <h3>Image Recongnition Result</h3>
+
+		    <div>
 		    <label>
-				<div>Result</div>
+				<div>Result testing</div>
 			</label>
+
+
+			</div>
 		  
 
 		</Jumbotron>
