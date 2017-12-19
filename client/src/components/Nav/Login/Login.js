@@ -5,6 +5,7 @@ const Login = (props) => {
 
   return (
     <div>
+      <p>Login</p>
     </div>
   );
 }

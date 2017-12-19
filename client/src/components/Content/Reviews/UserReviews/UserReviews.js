@@ -5,6 +5,7 @@ const UserReviews = (props) => {
 
   return (
     <div>
+      <p>UserReviews</p>
     </div>
   );
 }
