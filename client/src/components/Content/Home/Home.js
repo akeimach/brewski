@@ -4,16 +4,18 @@ import APIReviews from "./APIReviews";
 import Capture from "./Capture";
 import Results from "./Results";
 
-class Home extends React.Component {
-
-  render() {
+const Home = (props) => {
     return (
       <div className="container">
         <div>
           <Row>
             <Col size="4">
               <Row>
-                <Capture />
+                <Capture
+                  imageData={props.imageData}
+                  handleInputChange={props.handleInputChange}
+                  handleBeerImage={props.handleBeerImage}
+                />
               </Row>
               <Row>
                 <Results />
@@ -26,7 +28,6 @@ class Home extends React.Component {
         </div>
       </div>
     );
-  }
 }
 
 export default Home;
