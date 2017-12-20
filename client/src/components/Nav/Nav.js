@@ -25,7 +25,11 @@ const Nav = (props) => {
           </Link>
           <Link to="/login">
             <span className="nav-style nav-item nav-link">
-              <Login />
+              <Login 
+                isOpen={props.isOpen}
+                openModal={props.openModal}
+                closeModal={props.closeModal}
+              />
             </span>
           </Link>
         </div>

@@ -1,6 +1,5 @@
 import React from "react";
-// import Modal from "./Modal";
-import ReactModalLogin from "react-modal-login";
+import Modal from "react-modal";
 // import {facebookConfig, googleConfig} from "social-config";
 
 class Popup extends React.Component {
@@ -66,12 +65,14 @@ const Login = (props) => {
       <div>
 
         <button
-          onClick={() => this.openModal()}
+          onClick={props.openModal}
         >
           Open Modal
         </button>
 
-        <ReactModalLogin
+        <Modal
+          isOpen={props.isOpen}
+          onRequestClose={props.closeModal}
           // visible={this.state.showModal}
           // onCloseModal={this.closeModal.bind(this)}
           // loading={this.state.loading}
