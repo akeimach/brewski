@@ -1,5 +1,5 @@
 module.exports = (sequelize, DataTypes) => {
-	const User = sequelize.define("User", {
+	const Users = sequelize.define("Users", {
 		username: {
 			type: DataTypes.STRING,
 			allowNull: false,
@@ -7,7 +7,7 @@ module.exports = (sequelize, DataTypes) => {
 			validate: {
         		len: {
           			args: [2, 70],
-          			msg: "The user name must have between 2 and 70 characters"
+          			msg: "The users name must have between 2 and 70 characters"
         		}
       		}
 
@@ -47,13 +47,13 @@ module.exports = (sequelize, DataTypes) => {
 		}
 	});
 
-	User.associate = (models) => {
-		User.hasMany(models.Review, {
+	Users.associate = (models) => {
+		Users.hasMany(models.Review, {
 			onDelete: "CASCADE"
 		});
-		User.belongsToMany(models.Beer, {
-			through: { model: models.UserBeer }
+		Users.belongsToMany(models.Beer, {
+			through: { model: models.UsersBeer }
 		});
   	};
-	return User;
+	return Users;
 };
