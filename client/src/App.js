@@ -2,7 +2,8 @@ import React from "react";
 import Nav from "./components/Nav";
 import Content from "./components/Content";
 import { Container } from "./components/Grid";
-import API from "./utils/API";
+// import API from "./utils/API";
+import axios from "axios";
 
 
 class App extends React.Component {
@@ -19,8 +20,9 @@ class App extends React.Component {
   handleBeerImage = (event) => {
     event.preventDefault();
     if (this.state.imageData) {
-      API.getImageData(this.state.imageData)
-      .then(res => { console.log(res); })
+      console.log("Axios post request for: " + this.state.imageData);
+      axios.post("/api/vision", { imageData: this.state.imageData })
+      .then(res => console.log(res))
       .catch(err => console.log(err));
     }
   };

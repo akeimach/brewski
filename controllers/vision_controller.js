@@ -6,15 +6,16 @@ const config = {
 const gcloud = require('google-cloud')(config);
 const visionClient = gcloud.vision(config);
 
+
+//Google vision API "post" method
+
 module.exports = {
   searchImage: function(req, res) {
-    // console.log(req);
-    // console.log(req.body);
-    const gcsImageUri = 'gs://gapic-toolkit/President_Barack_Obama.jpg';
-
+    console.log("In vision controller");
+    console.log(req.body);
     const requestsElement = {
       image : { source : {
-        gcsImageUri : gcsImageUri
+        gcsImageUri : req.body.imageData
       }
     },
     features : { type : gcloud.vision.v1.types.Feature.Type.FACE_DETECTION }
@@ -27,10 +28,4 @@ module.exports = {
       console.error(err);
     });
   }
-}
-
-
-
-
-
-
+};

@@ -2,7 +2,7 @@ const express = require("express");
 const bodyParser = require("body-parser");
 const methodOverride = require('method-override');
 const db = require("./models");
-const apiRoutes = require("./routes");
+const routes = require("./routes");
 const beerRoute = require("./controllers/beer_controller.js");
 const userRoute = require("./controllers/user_controller.js");
 const reviewRoute = require("./controllers/review_controller.js");
@@ -22,7 +22,7 @@ app.use(bodyParser.json());
 
 // Serve up static assets
 app.use(express.static("client/build"));
-app.use("/", apiRoutes);
+app.use(routes);
 
 // routes
 const router = express.Router();
