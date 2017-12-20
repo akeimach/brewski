@@ -8,16 +8,13 @@ module.exports = (sequelize, DataTypes) => {
 			type: DataTypes.TEXT,
 		},
 		beerScore: {
-			// find way to avg score from reviews
 			type: DataTypes.TINYINT(1),
 		}
 	});
 
 	Review.associate = (models) => {
-		Review.belongsTo(models.User);
-		Review.belongsTo(models.Beer, {
-			onDelete: 'CASCADE'
-		});
+		Review.belongsTo(models.Users);
+		Review.belongsTo(models.Beer);
 	};	
 	return Review;
 };
