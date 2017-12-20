@@ -17,6 +17,12 @@ module.exports = {
       beerScore: {
         type: Sequelize.TINYINT
       },
+      UserId: {
+        type: Sequelize.INTEGER
+      },
+      BeerId: {
+        type: Sequelize.INTEGER
+      },
       createdAt: {
         allowNull: false,
         type: Sequelize.DATE

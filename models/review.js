@@ -8,7 +8,6 @@ module.exports = (sequelize, DataTypes) => {
 			type: DataTypes.TEXT,
 		},
 		beerScore: {
-			// find way to avg score from reviews
 			type: DataTypes.TINYINT(1),
 		}
 	});

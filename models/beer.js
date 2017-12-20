@@ -16,7 +16,6 @@ module.exports = (sequelize, DataTypes) => {
 		}
 	});
 
-
 	Beer.associate = (models) => {
 		Beer.hasMany(models.Review, {
 			onDelete: "CASCADE"
