@@ -60,7 +60,7 @@ class Popup extends React.Component {
 
 }
 
-export const Login = (props) => {
+const Login = (props) => {
 
     return (
       <div>
@@ -72,22 +72,24 @@ export const Login = (props) => {
         </button>
 
         <ReactModalLogin
-          visible={this.state.showModal}
-          onCloseModal={this.closeModal.bind(this)}
-          loading={this.state.loading}
-          error={this.state.error}
-          tabs={{
-            onChange: this.onTabsChange.bind(this)
-          }}
-          loginError={{
-            label: "Couldn't sign in, please try again."
-          }}
-          registerError={{
-            label: "Couldn't sign up, please try again."
-          }}
-          startLoading={this.startLoading.bind(this)}
-          finishLoading={this.finishLoading.bind(this)}
+          // visible={this.state.showModal}
+          // onCloseModal={this.closeModal.bind(this)}
+          // loading={this.state.loading}
+          // error={this.state.error}
+          // tabs={{
+          //   onChange: this.onTabsChange.bind(this)
+          // }}
+          // loginError={{
+          //   label: "Couldn't sign in, please try again."
+          // }}
+          // registerError={{
+          //   label: "Couldn't sign up, please try again."
+          // }}
+          // startLoading={this.startLoading.bind(this)}
+          // finishLoading={this.finishLoading.bind(this)}
         />
       </div>
     )
 }
+
+export default Login;
