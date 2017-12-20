@@ -2,12 +2,16 @@ import axios from "axios";
 
 
 export default {
-
-  // Saves an article to the database
-  searchBeerImage: function(imageData) {
-    console.log("API.js: searchBeerImage: ");
+  getImageData: function(imageData) {
+    console.log("API.js: getImageData: ");
     console.log(imageData);
-    return axios.get("/api/vision", imageData);
+    return axios.get("/api/vision", imageData)
+      .catch(function (error) {
+        if (error.response) {
+          console.log(error.response.data);
+          console.log(error.response.status);
+          console.log(error.response.headers);
+        }
+      });
   }
-
 };

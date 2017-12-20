@@ -19,16 +19,9 @@ class App extends React.Component {
   handleBeerImage = (event) => {
     event.preventDefault();
     if (this.state.imageData) {
-      API.searchBeerImage(this.state.imageData);
-      // API.searchArticles({
-      //   searchTerm: this.state.searchTerm,
-      //   startYear: this.state.startYear,
-      //   endYear: this.state.endYear
-      // })
-      // .then(res => {
-      //   console.log(res);
-      // })
-      // .catch(err => console.log(err));
+      API.getImageData(this.state.imageData)
+      .then(res => { console.log(res); })
+      .catch(err => console.log(err));
     }
   };
 

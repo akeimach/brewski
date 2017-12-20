@@ -1,14 +1,19 @@
-// const path = require("path");
-// const router = require("express").Router();
-// const apiRoutes = require("./api");
+const axios = require("axios");
+const router = require("express").Router();
+const visionRoute = require("./api/visionRoute");
 
-// // API routes for get, post, and delete
-// router.use("/api/saved", apiRoutes);
 
-// // If no API routes are hit, send the React app
-// router.use(function(req, res) {
-//    res.sendFile(path.join(__dirname, "../client/public/index.html"));
-//    // res.sendFile(path.join(__dirname, "../client/build/static/index.html"));
+router.route("/api/vision")
+  .get(visionRoute.searchImage, (req, res) => {
+    console.log(req);
+  });
+
+
+// router.get("/api/vision", (req, res) => {
+//   axios
+//     .get("http://www.recipepuppy.com/api/", { params: req.query })
+//     .then(({ data: { results } }) => res.json(results))
+//     .catch(err => res.status(422).json(err));
 // });
 
-// module.exports = router;
+module.exports = router;

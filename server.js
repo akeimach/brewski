@@ -1,15 +1,14 @@
-var express = require("express");
-var bodyParser = require("body-parser");
-var methodOverride = require('method-override');
-var routes = require("./routes");
-var app = express();
-var db = require("./models");
-var PORT = process.env.PORT || 3001;
-const router = require("express").Router();
+const express = require("express");
+const bodyParser = require("body-parser");
+const methodOverride = require('method-override');
+const db = require("./models");
+const apiRoutes = require("./routes");
 const beerRoute = require("./controllers/beer_controller.js");
 const userRoute = require("./controllers/user_controller.js");
 const reviewRoute = require("./controllers/review_controller.js");
-const visionRoute = require("./controllers/vision_controller.js");
+
+const app = express();
+const PORT = process.env.PORT || 3001;
 
 // Configure body parser for AJAX requests
 app.use(bodyParser.urlencoded({ extended: false }));
@@ -23,14 +22,13 @@ app.use(bodyParser.json());
 
 // Serve up static assets
 app.use(express.static("client/build"));
-// app.use(routes);
-
+app.use("/", apiRoutes);
 
 // routes
+const router = express.Router();
 router.use("/", beerRoute);
 router.use("/", userRoute);
 router.use("/", reviewRoute);
-router.use("/api/vision", visionRoute);
 
 // Syncing our sequelize models and then starting our Express app
 // =============================================================
