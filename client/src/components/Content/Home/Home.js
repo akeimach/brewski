@@ -4,27 +4,30 @@ import APIReviews from "./APIReviews";
 import Capture from "./Capture";
 import Results from "./Results";
 
-class Home extends React.Component {
-
-  render() {
+const Home = (props) => {
     return (
-      <div>
-        <Row>
-          <Col size="4">
-            <Row>
-              <Capture />
-            </Row>
-            <Row>
-              <Results />
-            </Row>
-          </Col>
-          <Col size="8">
-            <APIReviews />
-          </Col>
-        </Row>
+      <div className="container">
+        <div>
+          <Row>
+            <Col size="4">
+              <Row>
+                <Capture
+                  imageData={props.imageData}
+                  handleInputChange={props.handleInputChange}
+                  handleBeerImage={props.handleBeerImage}
+                />
+              </Row>
+              <Row>
+                <Results />
+              </Row>
+            </Col>
+            <Col size="8">
+              <APIReviews />
+            </Col>
+          </Row>
+        </div>
       </div>
     );
-  }
 }
 
 export default Home;

@@ -5,14 +5,16 @@ import Reviews from "./Reviews";
 import { Route } from "react-router-dom";
 
 
+const Content = (props) => {
 
-class Content extends React.Component {
-
-  render() {
     return (
       <div>
         <Route exact path="(/|/home)" render={() => (
-          <Home />
+          <Home
+            imageData={props.imageData}
+            handleInputChange={props.handleInputChange}
+            handleBeerImage={props.handleBeerImage}
+          />
         )}/>
         <Route exact path="/reviews" render={() => (
           <Reviews />
@@ -22,7 +24,7 @@ class Content extends React.Component {
         )}/>
       </div>
     );
-  };
+
 }
 
 export default Content;

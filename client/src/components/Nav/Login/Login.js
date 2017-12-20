@@ -57,6 +57,7 @@ class Popup extends React.Component {
       error: null
     });
   }
+
 }
 
 export const Login = (props) => {
@@ -90,5 +91,3 @@ export const Login = (props) => {
       </div>
     )
 }
-
-// keep until branch push
