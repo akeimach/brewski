@@ -14,10 +14,8 @@ module.exports = (sequelize, DataTypes) => {
 	});
 
 	Review.associate = (models) => {
-		Review.belongsTo(models.User);
-		Review.belongsTo(models.Beer, {
-			onDelete: 'CASCADE'
-		});
+		Review.belongsTo(models.Users);
+		Review.belongsTo(models.Beer);
 	};	
 	return Review;
 };

@@ -7,7 +7,7 @@ var db = require("./models");
 var PORT = process.env.PORT || 3001;
 const router = require("express").Router();
 const beerRoute = require("./controllers/beer_controller.js");
-const userRoute = require("./controllers/user_controller.js");
+const usersRoute = require("./controllers/user_controller.js");
 const reviewRoute = require("./controllers/review_controller.js");
 const visionRoute = require("./routes/vision.js");
 
@@ -28,7 +28,7 @@ app.use(express.static("client/build"));
 
 // routes
 router.use("/", beerRoute);
-router.use("/", userRoute);
+router.use("/", usersRoute);
 router.use("/", reviewRoute);
 
 // Syncing our sequelize models and then starting our Express app
