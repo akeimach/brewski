@@ -1,11 +1,7 @@
-// const router = require("express").Router();
-// const beerRoute = require("./beerRoute");
-// const userRoute = require("./userRoute");
-// const reviewRoute = require("./reviewRoute");
+const router = require("express").Router();
+const visionRoutes = require("./visionRoutes");
 
-// // routes
-// router.use("/", beerRoute);
-// router.use("/", userRoute);
-// router.use("/", reviewRoute);
+// Google vision api route
+router.use("/vision", visionRoutes);
 
-// module.exports = router;
+module.exports = router;
