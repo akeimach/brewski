@@ -1,7 +1,7 @@
+require('dotenv').config();
 const express = require("express");
 const bodyParser = require("body-parser");
 const methodOverride = require('method-override');
-require('dotenv').config();
 const db = require("./models");
 const routes = require("./routes");
 const beerRoute = require("./controllers/beer_controller.js");
