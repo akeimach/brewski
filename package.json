@@ -21,11 +21,12 @@
   "dependencies": {
     "axios": "^0.16.2",
     "body-parser": "^1.17.2",
+    "dotenv": "^4.0.0",
     "express": "^4.15.4",
-    "google-cloud": "^0.57.0",
     "method-override": "^2.3.10",
     "mongoose": "^4.11.7",
     "mysql2": "^1.5.1",
+    "node-cloud-vision-api": "^0.2.0",
     "path": "^0.12.7",
     "react-router-dom": "^4.1.2",
     "sequelize": "^4.28.6",
