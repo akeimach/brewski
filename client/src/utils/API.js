@@ -1,10 +1,13 @@
 import axios from "axios";
 
+
 export default {
 
   // Saves an article to the database
-  saveBeer: function(beerData) {
-    return axios.post("/api/saved", beerData);
+  searchBeerImage: function(imageData) {
+    console.log("API.js: searchBeerImage: ");
+    console.log(imageData);
+    return axios.get("/api/vision", imageData);
   }
 
 };
