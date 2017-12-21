@@ -12,6 +12,7 @@ const Content = (props) => {
         <Route exact path="(/|/home)" render={() => (
           <Home
             imageData={props.imageData}
+            imageResults={props.imageResults}
             handleInputChange={props.handleInputChange}
             handleBeerImage={props.handleBeerImage}
           />

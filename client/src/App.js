@@ -2,14 +2,14 @@ import React from "react";
 import Nav from "./components/Nav";
 import Content from "./components/Content";
 import { Container } from "./components/Grid";
-// import API from "./utils/API";
-import axios from "axios";
+import API from "./utils/API";
 
 
 class App extends React.Component {
 
   state = {
     imageData: "",
+    imageResults: [],
     modalIsOpen: false
   };
 
@@ -19,11 +19,14 @@ class App extends React.Component {
   };
 
   handleBeerImage = (event) => {
-    event.preventDefault();
+    if (event.base64) this.setState({ imageData: event.base64 });
     if (this.state.imageData) {
-      console.log("Axios post request for: " + this.state.imageData);
-      axios.post("/api/vision", { imageData: this.state.imageData })
-      .then(res => console.log(res))
+      console.log("Axios post request in App.js");
+      API.postVision({ imageData: this.state.imageData })
+      .then(res => {
+        this.setState({ imageResults: [res.data.logoDescription, res.data.textDescription] });
+        console.log(this.state.imageResults);
+      })
       .catch(err => console.log(err));
     }
   };
@@ -35,7 +38,6 @@ class App extends React.Component {
   closeModal = function() {
     this.setState({modalIsOpen: false})
   };
-
 
   render() {
     return (
@@ -50,6 +52,7 @@ class App extends React.Component {
         <Container fluid>
           <Content
             imageData={this.state.imageData}
+            imageResults={this.state.imageResults}
             handleInputChange={this.handleInputChange}
             handleBeerImage={this.handleBeerImage}
           />
