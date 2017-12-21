@@ -7,24 +7,13 @@ const Results = (props) => {
 
   return (
     <div>
-
       <br/>
         <Jumbotron>
         <h3>Image Recongnition Result</h3>
-
         <div>
-        <label>
-        <div>Result testing</div>
-      </label>
-
-
-      </div>
-      
-
-    </Jumbotron>
-
-
-
+          <p>{props.imageResults}</p>
+        </div>
+      </Jumbotron>
     </div>
   );
 }

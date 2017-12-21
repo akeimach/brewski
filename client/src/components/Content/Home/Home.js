@@ -18,7 +18,9 @@ const Home = (props) => {
                 />
               </Row>
               <Row>
-                <Results />
+                <Results
+                  imageResults={props.imageResults}
+                />
               </Row>
             </Col>
             <Col size="8">

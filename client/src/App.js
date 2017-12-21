@@ -23,7 +23,7 @@ class App extends React.Component {
       console.log("Axios post request in App.js");
       API.postVision({ imageData: this.state.imageData })
       .then(res => {
-        this.setState({ imageResults: res.data });
+        this.setState({ imageResults: [res.data.logoDescription, res.data.textDescription] });
         console.log(this.state.imageResults);
       })
       .catch(err => console.log(err));
@@ -39,6 +39,7 @@ class App extends React.Component {
         <Container fluid>
           <Content
             imageData={this.state.imageData}
+            imageResults={this.state.imageResults}
             handleInputChange={this.handleInputChange}
             handleBeerImage={this.handleBeerImage}
           />
