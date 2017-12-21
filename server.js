@@ -1,10 +1,12 @@
+require('dotenv').config();
 const express = require("express");
 const bodyParser = require("body-parser");
 const methodOverride = require('method-override');
 const db = require("./models");
 const routes = require("./routes");
+// const apiRoutes = require("./routes/api/visionRoutes");
 const beerRoute = require("./controllers/beer_controller.js");
-const userRoute = require("./controllers/user_controller.js");
+const usersRoute = require("./controllers/user_controller.js");
 const reviewRoute = require("./controllers/review_controller.js");
 
 const app = express();
@@ -29,7 +31,7 @@ app.use("/", beerRoute);
 // routes
 const router = express.Router();
 router.use("/", beerRoute);
-router.use("/", userRoute);
+router.use("/", usersRoute);
 router.use("/", reviewRoute);
 
 // Syncing our sequelize models and then starting our Express app
