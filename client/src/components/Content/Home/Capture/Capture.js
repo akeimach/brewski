@@ -4,6 +4,7 @@ import { Button } from 'react-bootstrap';
 // import { Container, Row, Col, Jumbotron } from 'react-bootstrap';
 import { Jumbotron } from 'react-bootstrap';
 import { Input, FormBtn } from "../../../Form"
+import ReactFileReader from "react-file-reader";
 
 
 const Capture = (props) => {
@@ -26,6 +27,12 @@ const Capture = (props) => {
           disabled={!(props.imageData)}
           onClick={props.handleBeerImage}
         />
+        <ReactFileReader
+        base64={true}
+        multipleFiles={false}
+        handleFiles={props.handleBeerImage}>
+          <button className='btn'>Upload</button>
+        </ReactFileReader>
       </Jumbotron>
     </div>
   );

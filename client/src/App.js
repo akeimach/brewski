@@ -18,7 +18,9 @@ class App extends React.Component {
   };
 
   handleBeerImage = (event) => {
-    event.preventDefault();
+    if (event.base64) { // if the file is in base64 (not a url)
+      this.setState({ imageData: event.base64 });
+    }
     if (this.state.imageData) {
       console.log("Axios post request for: " + this.state.imageData);
       axios.post("/api/vision", { imageData: this.state.imageData })
