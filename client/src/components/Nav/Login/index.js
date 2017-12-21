@@ -1,2 +1,2 @@
-export { default } from "./Login";
-export * from "./Modal";
+export { default } from "./Popup";
+export * from "./google";
