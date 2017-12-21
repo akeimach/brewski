@@ -24,7 +24,13 @@ const Nav = (props) => {
             <span className="nav-style nav-item nav-link">History</span>
           </Link>
           <Link to="/login">
-            <span className="nav-style nav-item nav-link">Login</span>
+            <span className="nav-style nav-item nav-link">
+              <Login 
+                isOpen={props.isOpen}
+                openModal={props.openModal}
+                closeModal={props.closeModal}
+              />
+            </span>
           </Link>
         </div>
       </div>
@@ -33,5 +39,4 @@ const Nav = (props) => {
 }
 
 export default Nav;
-
 
