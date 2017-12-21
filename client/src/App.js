@@ -23,9 +23,14 @@ class App extends React.Component {
     if (this.state.imageData) {
       console.log("Axios post request in App.js");
       API.postVision({ imageData: this.state.imageData })
-      .then(res => {
-        this.setState({ imageResults: [res.data.logoDescription, res.data.textDescription] });
-        console.log(this.state.imageResults);
+        .then(res => {
+          this.setState({ imageResults: [res.data.logoDescription, res.data.textDescription] });
+          console.log(this.state.imageResults);
+          API.postRateBeer({ imageResults: this.state.imageResults })
+            .then(res => {
+              console.log(res);
+            })
+            .catch(err => console.log(err));
       })
       .catch(err => console.log(err));
     }
@@ -38,6 +43,10 @@ class App extends React.Component {
   closeModal = function() {
     this.setState({modalIsOpen: false})
   };
+
+  componentDidMount() {
+    
+  }
 
   render() {
     return (
