@@ -10,6 +10,7 @@ class App extends React.Component {
   state = {
     imageData: "",
     imageResults: [],
+    modalIsOpen: false
   };
 
   handleInputChange = (event) => {
@@ -30,11 +31,23 @@ class App extends React.Component {
     }
   };
 
+  openModal = function() {
+    this.setState({modalIsOpen: true})
+  };
+
+  closeModal = function() {
+    this.setState({modalIsOpen: false})
+  };
+
   render() {
     return (
       <div>
         <Container fullwidth>
-          <Nav />
+          <Nav 
+            isOpen={this.state.modalIsOpen}
+            openModal={this.openModal}
+            closeModal={this.closeModal}
+          />
         </Container>
         <Container fluid>
           <Content
