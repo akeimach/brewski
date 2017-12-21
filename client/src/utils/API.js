@@ -1,17 +1,9 @@
-// import axios from "axios";
+import axios from "axios";
 
-
-// export default {
-//   getImageData: function(imageData) {
-//     console.log("API.js: getImageData: ");
-//     console.log(imageData);
-//     return axios.get("/api/vision", imageData)
-//       .catch(function (error) {
-//         if (error.response) {
-//           console.log(error.response.data);
-//           console.log(error.response.status);
-//           console.log(error.response.headers);
-//         }
-//       });
-//   }
-// };
+// The getVision method retrieves label annotations from the server
+// It accepts a base64 image or url to search the google vision api
+export default {
+  postVision: function(imageData) {
+    return axios.post("/api/vision", imageData );
+  }
+};

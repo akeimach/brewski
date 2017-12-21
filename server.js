@@ -4,6 +4,7 @@ const bodyParser = require("body-parser");
 const methodOverride = require('method-override');
 const db = require("./models");
 const routes = require("./routes");
+// const apiRoutes = require("./routes/api/visionRoutes");
 const beerRoute = require("./controllers/beer_controller.js");
 const usersRoute = require("./controllers/user_controller.js");
 const reviewRoute = require("./controllers/review_controller.js");
