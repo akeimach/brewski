@@ -5,5 +5,8 @@ import axios from "axios";
 export default {
   postVision: function(imageData) {
     return axios.post("/api/vision", imageData );
+  },
+  postRateBeer: function(beerData) {
+    return axios.post("/api/ratebeer", beerData );
   }
 };

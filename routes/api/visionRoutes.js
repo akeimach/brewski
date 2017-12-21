@@ -1,4 +1,3 @@
-const axios = require("axios");
 const router = require("express").Router();
 const vision = require('node-cloud-vision-api');
 
