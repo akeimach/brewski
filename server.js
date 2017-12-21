@@ -20,7 +20,27 @@ app.use(bodyParser.json());
 // app.use(bodyParser.json({ type: "application/vnd.api+json" }));
 // app.use(bodyParser.text());
 // app.use(bodyParser.urlencoded({ extended: true }));
+const request = require("request");
 
+var headers = {
+  "content-type": "application/json",
+  "accept": "application/json",
+  "x-api-key": process.env.RATE_BEER
+};
+
+var dataString = 
+'{"query":"query { beerSearch(query: "sculpin", first: 5) { items { id name brewer { name } abv description averageRating ratingCount imageUrl }}}"}';
+
+var options = {
+  url: "https://api.r8.beer/v1/api/graphql/",
+  method: "POST",
+  headers: headers,
+  body: dataString
+};
+
+request(options, (req, res) => {
+  console.log(res.body);
+});
 
 // Serve up static assets
 app.use(express.static("client/build"));
