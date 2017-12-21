@@ -32,7 +32,7 @@ class APIReviews extends Component {
   };
 
 
-   handleInputChange = event => {
+  handleInputChange = event => {
     // Destructure the name and value properties off of event.target
     // Update the appropriate state
     const { name, value } = event.target;
@@ -79,9 +79,6 @@ class APIReviews extends Component {
   }
 
 }
-
-
-
 
 
 export default APIReviews;
