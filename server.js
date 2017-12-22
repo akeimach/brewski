@@ -24,15 +24,13 @@ app.use(bodyParser.json());
 
 // Serve up static assets
 app.use(express.static("client/build"));
-<<<<<<< HEAD
+
 app.use(routes);
 // app.use("/", beerRoute);
 
-=======
 
-// API routes
-app.use(routes); // for rate beer and google vision 3rd party APIs
->>>>>>> 54960028b2358dd920851514e722ba89a635c1c9
+
+
 
 // routes
 const router = express.Router();

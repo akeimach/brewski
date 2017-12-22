@@ -25,6 +25,8 @@ const Home = (props) => {
             </Col>
             <Col size="8">
               <APIReviews />
+              
+              
             </Col>
           </Row>
         </div>
