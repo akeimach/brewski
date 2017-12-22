@@ -9,7 +9,7 @@ import axios from "axios";
 
 class Content extends React.Component {
 
-    state = {
+  state = {
     imageData: "",
     imageResults: [],
     modalIsOpen: false,
@@ -40,6 +40,20 @@ class Content extends React.Component {
               console.log(res);
             })
             .catch(err => console.log(err));
+          axios.get("/api/breweryDB/" + this.state.imageResults.textDescription)
+            .then((response) => {
+              console.log('this is response testing', response);
+              if (response.data.data) {
+                this.setState({
+                  isLoading: false,
+                  beerName: response.data.data[0].name,
+                  abv: response.data.data[0].abv,
+                  description: response.data.data[0].description,
+
+              }); 
+              }
+          });
+
       })
       .catch(err => console.log(err));
     }
@@ -47,18 +61,7 @@ class Content extends React.Component {
 
   componentDidMount() {
     console.log('component mounted!!!');
-        
-    axios.get("/api/breweryDB/corona extra")
-      .then((response) => {
-          console.log('this is response testing', response);
-          this.setState({
-              isLoading: false,
-              articles: response.data.data[0].name,
-              rating: response.data.data[0].abv,
-              description: response.data.data[0].description,
 
-          }); 
-      });
     API.getUser( this.state.userId )
       .then(res => {
         this.setState({ userData: res.data });
@@ -91,6 +94,9 @@ class Content extends React.Component {
             imageResults={this.state.imageResults}
             handleInputChange={this.handleInputChange}
             handleBeerImage={this.handleBeerImage}
+            beerName={this.state.beerName}
+            abv={this.state.abv}
+            description={this.state.description}
           />
         )}/>
         <Route exact path="/reviews" render={() => (
