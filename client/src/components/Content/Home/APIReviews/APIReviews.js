@@ -18,7 +18,7 @@ class APIReviews extends Component {
   componentDidMount() {
     console.log('component mounted!!!');
         
-    axios.get("api/breweryDB")
+    axios.get("/breweryDB")
       .then((response) => {
           console.log('this is response testing', response);
           this.setState({

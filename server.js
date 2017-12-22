@@ -25,12 +25,12 @@ app.use(bodyParser.json());
 // Serve up static assets
 app.use(express.static("client/build"));
 app.use(routes);
-app.use("/", beerRoute);
+// app.use("/", beerRoute);
 
 
 // routes
 const router = express.Router();
-router.use("/", beerRoute);
+// router.use("/", beerRoute);
 router.use("/", usersRoute);
 router.use("/", reviewRoute);
 

@@ -1,5 +1,5 @@
 const router = require("express").Router();
-const beerController = require("../../controllers/beer_controller");
+// const beerController = require("../../controllers/beer_controller");
 const axios = require("axios");
 
 
