@@ -3,11 +3,11 @@ const express = require("express");
 const router = express.Router();
 
 // GET route to display user name at user's page
-router.get("/api/user", (req, res) => {
-    console.log(req.user);
-    db.User.findOne({
+router.get("/:id", (req, res) => {
+// router.get("/api/user", (req, res) => {
+    db.Users.findOne({
         where: {
-            id: req.user.id
+            id: req.params.id
         }
     })
     .then((dbUser) => {
@@ -18,8 +18,9 @@ router.get("/api/user", (req, res) => {
     });
 });
 // POST route to create a user account
-router.post("/api/user", (req, res) => {
-    db.User.create(req.body)
+router.post("/", (req, res) => {
+// router.post("/api/user", (req, res) => {
+    db.Users.create(req.body)
     .then((dbUser) => {
         res.json(dbUser);
     })
@@ -28,8 +29,9 @@ router.post("/api/user", (req, res) => {
     });
 });
 // DELETE route to delete user account 
-router.delete("/api/user", (req, res) => {
-    db.User.destroy({
+router.delete("/", (req, res) => {
+// router.delete("/api/user", (req, res) => {
+    db.Users.destroy({
         where: {
             id: req.user.id
         }

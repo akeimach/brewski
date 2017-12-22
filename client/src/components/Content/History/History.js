@@ -1,30 +1,35 @@
 import React from "react";
-// import { List, ListBar, ListItem } from "./List";
+import { List, ListItem } from "./List";
 // import { Button } from 'react-bootstrap';
 // import { Container, Row, Col, Jumbotron } from 'react-bootstrap';
 import { Jumbotron } from 'react-bootstrap';
 
 
-const History = (params) => {
-
+const History = (props) => {
   return (
     <div>
-
-        <br/>
+      <br/>
         <Jumbotron>
-        <h3>Viewing History</h3>
-        
-        <div>
-
-        <label>
-        <div>All Result</div>
-      </label>
-
-      </div>
-
-
-    </Jumbotron>
-
+          <h3>Viewing History</h3>
+          <div>
+          {props.userHistory.length ? (
+            <List>
+              {props.userHistory.map(review => {
+                return (
+                  <ListItem
+                    key={review.id}
+                    id={review.id}
+                    beerRev={review.beerRev}
+                    beerScore={review.beerScore}
+                  />
+                );
+              })}
+            </List>
+          ) : (
+            <h3>Nothing here yet</h3>
+          )}
+          </div>
+        </Jumbotron>
     </div>
   );
 }

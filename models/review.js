@@ -1,5 +1,5 @@
 module.exports = (sequelize, DataTypes) => {
-	const Review = sequelize.define("Review", {
+	const Reviews = sequelize.define("Reviews", {
 		starred: {
 			type: DataTypes.BOOLEAN,
 			allowNull: false
@@ -12,9 +12,9 @@ module.exports = (sequelize, DataTypes) => {
 		}
 	});
 
-	Review.associate = (models) => {
-		Review.belongsTo(models.Users);
-		Review.belongsTo(models.Beer);
+	Reviews.associate = (models) => {
+		Reviews.belongsTo(models.Users);
+		Reviews.belongsTo(models.Beers);
 	};	
-	return Review;
+	return Reviews;
 };

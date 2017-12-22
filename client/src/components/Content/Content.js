@@ -21,7 +21,9 @@ const Content = (props) => {
           <Reviews />
         )}/>
         <Route exact path="/history" render={() => (
-          <History />
+          <History
+            userHistory={props.userHistory}
+          />
         )}/>
       </div>
     );
