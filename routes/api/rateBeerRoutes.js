@@ -5,7 +5,11 @@ const headers = {
     "accept": "application/json",
     "x-api-key": process.env.RATE_BEER
 };
+const { createApolloFetch } = require('apollo-fetch');
 
+const fetch = createApolloFetch({
+  uri: 'https://api.r8.beer/v1/api/graphql',
+});
 const dataString = '{"query":"query { beer(id: 4934) { id name }}","variables":"{}"}';
 
 const options = {
@@ -14,27 +18,37 @@ const options = {
   headers: headers,
   body: dataString
 };
-// // Matches with "/api/ratebeer"
-// router.post("/", (req, res) => {
+// Matches with "/api/ratebeer"
+router.post("/", (req, res) => {
 
 
-//   request(options, (req, res) => {
-//     console.log(res.body);
-//   });
+  // You can also easily pass variables for dynamic arguments
+  fetch({
+    headers: headers,
 
-// });
+    query: `{
+      beer(id: 934) {
+        name
+      }
+    }
+  `,
+  }).then(res => {
+    console.log(res.body);
+  });
 
-// module.exports = router;
+  request(options, (req, res) => {
+    console.log(res.body);
+  });
 
-const { createApolloFetch } = require('apollo-fetch');
-
-const fetch = createApolloFetch({
-  uri: 'https://api.r8.beer/v1/api/graphql/',
 });
+
+module.exports = router;
+
+
 
 fetch({
   headers: headers,
-    body: dataString
+  query: dataString
 
 
 }).then(res => {
@@ -43,14 +57,14 @@ fetch({
 
 // You can also easily pass variables for dynamic arguments
 fetch({
-    headers: headers,
+  headers: headers,
 
-  query: `query {
-    beer(id: 4934) {
+  query: `{
+    beer(id: 934) {
       name
     }
   }
-`
+`,
 }).then(res => {
   console.log(res);
 });
