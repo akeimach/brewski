@@ -24,7 +24,11 @@ const Home = (props) => {
               </Row>
             </Col>
             <Col size="8">
-              <APIReviews />
+              <APIReviews
+                beerName={props.beerName}
+                abv={props.abv}
+                description={props.description}
+              />
             </Col>
           </Row>
         </div>

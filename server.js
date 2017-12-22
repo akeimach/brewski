@@ -49,8 +49,12 @@ var options = {
 // Serve up static assets
 app.use(express.static("client/build"));
 
-// API routes
-app.use(routes); // for rate beer and google vision 3rd party APIs
+app.use(routes);
+// app.use("/", beerRoute);
+
+
+
+
 
 // routes
 // const router = express.Router();

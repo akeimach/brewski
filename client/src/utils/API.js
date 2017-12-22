@@ -7,7 +7,10 @@ export default {
     return axios.post("/api/vision", imageData);
   },
   postRateBeer: function(beerData) {
-    return axios.post("/api/ratebeer", beerData);
+    return axios.post("/api/ratebeer", beerData );
+  },
+  postBeerRate: function(data) {
+  	return axios.post("/api/breweryDB", data);
   },
   getUser: function(userId) {
     return axios.get("api/user/" + userId);
