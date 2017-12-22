@@ -8,5 +8,8 @@ export default {
   },
   postRateBeer: function(beerData) {
     return axios.post("/api/ratebeer", beerData );
-  }
+  },
+  postBeerRate: function(data) {
+  	return axios.post("/api/breweryDB", data);
+  },
 };

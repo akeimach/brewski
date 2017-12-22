@@ -26,6 +26,7 @@ router.post("/", (req, res) => {
         logoDescription: "",
         textDescription: ""
     }
+    console.log("=======================")
     const logoDescription = visionResult.responses[0].logoAnnotations[0].description;
     console.log(logoDescription);
     response.logoDescription = logoDescription;

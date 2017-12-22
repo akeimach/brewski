@@ -18,17 +18,17 @@ class APIReviews extends Component {
   componentDidMount() {
     console.log('component mounted!!!');
         
-    // axios.get("/api/breweryDB")
-    //   .then((response) => {
-    //       console.log('this is response testing', response);
-    //       this.setState({
-    //           isLoading: false,
-    //           articles: response.data.data[0].name,
-    //           rating: response.data.data[0].abv,
-    //           description: response.data.data[0].description,
+    axios.get("/api/breweryDB")
+      .then((response) => {
+          console.log('this is response testing', response);
+          this.setState({
+              isLoading: false,
+              articles: response.data.data[0].name,
+              rating: response.data.data[0].abv,
+              description: response.data.data[0].description,
 
-    //       }); 
-    //   });
+          }); 
+      });
   };
 
 
@@ -56,17 +56,16 @@ class APIReviews extends Component {
       <div>
         <br/>
         <Jumbotron>
-          <h1>Beer Reviews!</h1>
+          <h1>Beer Information!</h1>
 
           <div>
 
-            <h1>{this.state.articles} <br/>
-                  {this.state.rating} <br />
-                  {this.state.description}
+            <h5>Name: {this.state.articles} <br/>
+                 ABV: {this.state.rating} <br />
+                 Description: {this.state.description}
 
-            </h1>
+            </h5>
 
-            <p>Beer rating go here</p>
             <p><Button bsStyle="primary">Submit</Button></p>
         
           </div>
