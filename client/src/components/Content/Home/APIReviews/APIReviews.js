@@ -18,17 +18,17 @@ class APIReviews extends Component {
   componentDidMount() {
     console.log('component mounted!!!');
         
-    axios.get("/breweryDB")
-      .then((response) => {
-          console.log('this is response testing', response);
-          this.setState({
-              isLoading: false,
-              articles: response.data.data[0].name,
-              rating: response.data.data[0].abv,
-              description: response.data.data[0].description,
+    // axios.get("/api/breweryDB")
+    //   .then((response) => {
+    //       console.log('this is response testing', response);
+    //       this.setState({
+    //           isLoading: false,
+    //           articles: response.data.data[0].name,
+    //           rating: response.data.data[0].abv,
+    //           description: response.data.data[0].description,
 
-          }); 
-      });
+    //       }); 
+    //   });
   };
 
 

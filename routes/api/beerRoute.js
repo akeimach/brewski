@@ -4,7 +4,7 @@ const axios = require("axios");
 
 
 
-router.get("/breweryDB", (req, res) => {
+router.get("/", (req, res) => {
   axios
     .get("http://api.brewerydb.com/v2/beers?key=b269c222a8599122e8f011edb23e3bbb&name=lagunitas ipa")
     .then(({data}) => {
