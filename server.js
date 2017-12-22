@@ -28,8 +28,28 @@ var headers = {
   "x-api-key": process.env.RATE_BEER
 };
 
+function encode_utf8( s ) {
+  return unescape( encodeURIComponent( s ) );
+}
+
+console.log(encode_utf8( "corona" ));
+
 var dataString = 
-'{"query":"query { beerSearch(query: "sculpin", first: 5) { items { id name brewer { name } abv description averageRating ratingCount imageUrl }}}"}';
+
+'{"query":"query { beerSearch(query: \'corona\') { items { id name description } } }"}';
+
+
+// '{"query":"query { beerReviews(beerId: 4934, first: 5) { items { id score } totalCount last } }"}';
+
+// { beerReviews(beerId: 4934, first: 5) { items { id score } totalCount last } }
+
+
+// '{"query":"query { beerSearch(query: "corona", first: 5) { items { id name brewer { name } abv description averageRating ratingCount imageUrl } totalCount last }}"}';
+// query { beerSearch(query: "sculpin", first: 5) { items { id name brewer { name } abv description averageRating ratingCount imageUrl } totalCount last }}
+
+
+// '{"query":"query { beer(id: 4934) { name }}"}';
+        // query { beer(id: 4934) { name }}
 
 var options = {
   url: "https://api.r8.beer/v1/api/graphql/",
@@ -39,6 +59,7 @@ var options = {
 };
 
 request(options, (req, res) => {
+  console.log(dataString);
   console.log(res.body);
 });
 
