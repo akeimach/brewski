@@ -6,50 +6,51 @@ import axios from "axios";
 
 //put class here
 
-class APIReviews extends Component {
+const APIReviews = (props) => {
+// class APIReviews extends Component {
 
-  state = {
-    isLoading: true,
-    articles: "",
-    rating: "",
-    description: "",
-  };
+  // state = {
+  //   isLoading: true,
+  //   articles: "",
+  //   rating: "",
+  //   description: "",
+  // };
 
-  componentDidMount() {
-    console.log('component mounted!!!');
+  // componentDidMount() {
+  //   console.log('component mounted!!!');
         
-    axios.get("/api/breweryDB")
-      .then((response) => {
-          console.log('this is response testing', response);
-          this.setState({
-              isLoading: false,
-              articles: response.data.data[0].name,
-              rating: response.data.data[0].abv,
-              description: response.data.data[0].description,
+  //   axios.get("/api/breweryDB")
+  //     .then((response) => {
+  //         console.log('this is response testing', response);
+  //         this.setState({
+  //             isLoading: false,
+  //             articles: response.data.data[0].name,
+  //             rating: response.data.data[0].abv,
+  //             description: response.data.data[0].description,
 
-          }); 
-      });
-  };
-
-
-  handleInputChange = event => {
-    // Destructure the name and value properties off of event.target
-    // Update the appropriate state
-    const { name, value } = event.target;
-    this.setState({
-      [name]: value
-    });
-  };
+  //         }); 
+  //     });
+  // };
 
 
+  // handleInputChange = event => {
+  //   // Destructure the name and value properties off of event.target
+  //   // Update the appropriate state
+  //   const { name, value } = event.target;
+  //   this.setState({
+  //     [name]: value
+  //   });
+  // };
 
-  render() {
 
-    if (this.state.isLoading) {
-      return (
-          <h3>Loading...</h3>
-      );
-    }
+
+  // render() {
+
+  //   if (this.state.isLoading) {
+  //     return (
+  //         <h3>Loading...</h3>
+  //     );
+  //   }
 
 
     return (
@@ -60,9 +61,9 @@ class APIReviews extends Component {
 
           <div>
 
-            <h5>Name: {this.state.articles} <br/>
-                 ABV: {this.state.rating} <br />
-                 Description: {this.state.description}
+            <h5>Name: {props.beerName} <br/>
+                 ABV: {props.abv} <br />
+                 Description: {props.description}
 
             </h5>
 
@@ -75,7 +76,7 @@ class APIReviews extends Component {
       </div>
     );
 
-  }
+  // }
 
 }
 
