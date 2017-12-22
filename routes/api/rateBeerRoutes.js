@@ -24,8 +24,8 @@ router.post("/", (req, res) => {
 
   // You can also easily pass variables for dynamic arguments
   fetch({
+    credentials: 'include',  
     headers: headers,
-
     query: `{
       beer(id: 934) {
         name
@@ -33,7 +33,9 @@ router.post("/", (req, res) => {
     }
   `,
   }).then(res => {
-    console.log(res.body);
+        console.log(JSON.stringify(res));
+
+    console.log("will this work " + res);
   });
 
   request(options, (req, res) => {
@@ -46,25 +48,25 @@ module.exports = router;
 
 
 
-fetch({
-  headers: headers,
-  query: dataString
+// fetch({
+//   headers: headers,
+//   query: dataString
 
 
-}).then(res => {
-  console.log(res);
-});
+// }).then(res => {
+//   console.log(res);
+// });
 
-// You can also easily pass variables for dynamic arguments
-fetch({
-  headers: headers,
+// // You can also easily pass variables for dynamic arguments
+// fetch({
+//   headers: headers,
 
-  query: `{
-    beer(id: 934) {
-      name
-    }
-  }
-`,
-}).then(res => {
-  console.log(res);
-});
+//   query: `{
+//     beer(id: 934) {
+//       name
+//     }
+//   }
+// `,
+// }).then(res => {
+//   console.log(res);
+// });
