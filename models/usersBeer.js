@@ -1,4 +1,4 @@
 module.exports = function (sequelize, DataTypes) {
-	const UsersBeer = sequelize.define("UsersBeer");
-	return UsersBeer;
+	const UsersBeers = sequelize.define("UsersBeers");
+	return UsersBeers;
 };

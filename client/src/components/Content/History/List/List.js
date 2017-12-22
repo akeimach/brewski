@@ -1,10 +1,11 @@
 import React from "react";
 
-const List = (props) => {
+export const List = ({ children }) => {
   return (
-    <div>
+    <div className="list-overflow-container">
+      <ul className="list-group">
+        {children}
+      </ul>
     </div>
   );
-}
-
-export default List;
+};

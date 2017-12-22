@@ -3,18 +3,18 @@ const express = require("express");
 const router = express.Router();
 
 // GET route to get a specific user's beer and review
-router.get("/api/beers", (req, res) => {
-	db.User.findAll({
+router.get("/", (req, res) => {
+	db.Users.findAll({
 		where: {
 			id: req.body.id
 		},
 		include: [{
-			model: db.Beer,
+			model: db.Beers,
 			through: {
 				attributes: ["beername", "brewery", "abv", "shortDes", "avgBeerScore"]
 			},
 			include: [{
-				model: db.Review,
+				model: db.Reviews,
 				through: ["starred", "beerRev", "beerScore"]
 			}]
 		}]	
@@ -28,8 +28,8 @@ router.get("/api/beers", (req, res) => {
 });
 
 // POST route to create new beer when user takes a pic of beer
-router.post("/api/beers", (req, res) => {
-	db.Beer.create(req.body)
+router.post("/", (req, res) => {
+	db.Beers.create(req.body)
 	.then((data) => {
 		res.json(data);
 	})
@@ -40,7 +40,7 @@ router.post("/api/beers", (req, res) => {
 
 // // PUT route to update avgBeerScore LOOK INTO THIS
 // router.put("/api/beers", (req, res) => {
-//   db.Beer.update({
+//   db.Beers.update({
 //   	req.body,
 //     },
 //     {    

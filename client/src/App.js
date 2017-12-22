@@ -10,7 +10,10 @@ class App extends React.Component {
   state = {
     imageData: "",
     imageResults: [],
-    modalIsOpen: false
+    modalIsOpen: false,
+    userId: 1,
+    userData: [],
+    userHistory: []
   };
 
   handleInputChange = (event) => {
@@ -45,7 +48,16 @@ class App extends React.Component {
   };
 
   componentDidMount() {
-    
+    API.getUser( this.state.userId )
+      .then(res => {
+        this.setState({ userData: res.data });
+        console.log(res);
+      });
+    API.getHistory( this.state.userId )
+      .then(res => {
+        this.setState({ userHistory: res.data });
+        console.log(res);
+      });
   }
 
   render() {
@@ -64,6 +76,7 @@ class App extends React.Component {
             imageResults={this.state.imageResults}
             handleInputChange={this.handleInputChange}
             handleBeerImage={this.handleBeerImage}
+            userHistory={this.state.userHistory}
           />
         </Container>
       </div>

@@ -1,5 +1,5 @@
 module.exports = (sequelize, DataTypes) => {
-	const Beer = sequelize.define("Beer", {
+	const Beers = sequelize.define("Beers", {
 		beername: {
 			type: DataTypes.STRING,
 			allowNull: false,
@@ -16,13 +16,13 @@ module.exports = (sequelize, DataTypes) => {
 		}
 	});
 
-	Beer.associate = (models) => {
-		Beer.hasMany(models.Review, {
+	Beers.associate = (models) => {
+		Beers.hasMany(models.Reviews, {
 			onDelete: "CASCADE"
 		});
-		Beer.belongsToMany(models.Users, {
-			through: {model: models.UsersBeer}
+		Beers.belongsToMany(models.Users, {
+			through: {model: models.UsersBeers}
 		});
 	};
-	return Beer;
+	return Beers;
 };
