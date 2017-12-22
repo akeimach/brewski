@@ -48,11 +48,11 @@ module.exports = (sequelize, DataTypes) => {
 	});
 
 	Users.associate = (models) => {
-		Users.hasMany(models.Review, {
+		Users.hasMany(models.Reviews, {
 			onDelete: "CASCADE"
 		});
-		Users.belongsToMany(models.Beer, {
-			through: { model: models.UsersBeer }
+		Users.belongsToMany(models.Beers, {
+			through: { model: models.UsersBeers }
 		});
   	};
 	return Users;

@@ -3,10 +3,10 @@ const express = require("express");
 const router = express.Router();
 
 // GET route to get all reviews for a specific beer (not based on user), can either show each review or avg them
-router.get("/api/reviews", (req, res) => {
-	db.Review.findAll({
+router.get("/:id", (req, res) => {
+	db.Reviews.findAll({
     	where: {
-    		BeerId: req.body.id
+    		UserId: req.params.id
     	},
     	order: [
     		["createdAt", "DESC"]
@@ -22,19 +22,19 @@ router.get("/api/reviews", (req, res) => {
 
 
 // POST route to create new review
-router.post("/api/reviews", (req, res) => {
-	db.Review.create(req.body)
+router.post("/", (req, res) => {
+	db.Reviews.create(req.body)
 	.then((data) => {
 		res.json(data);
 	})
 	.catch((err) => {
-        console.log(err);
-    }); 
+    console.log(err);
+  }); 
 });   
 
 // PUT route to update previous review
-router.put("/api/reviews", (req, res) => {
-	db.Review.update(req.body, {    
+router.put("/", (req, res) => {
+	db.Reviews.update(req.body, {    
 		where: {
 			UserId: req.body.UserId,
 			id: req.body.id,
@@ -45,13 +45,13 @@ router.put("/api/reviews", (req, res) => {
 		res.json(data);
 	})
 	.catch((err) => {
-        console.log(err);
-    });  
+    console.log(err);
+  });  
 });
 
 // DELETE route to delete previous review for a user based on UserId and id
-router.delete("/api/reviews", (req, res) => {
-	db.Review.destroy({
+router.delete("/:id", (req, res) => {
+	db.Reviews.destroy({
 		where: {
 			UserId: req.body.UserId,
 			id: req.body.id,
@@ -62,8 +62,8 @@ router.delete("/api/reviews", (req, res) => {
 		res.json(data);
 	})
 	.catch((err) => {
-        console.log(err);
-    });
+    console.log(err);
+  });
 });
 
 module.exports = router;
