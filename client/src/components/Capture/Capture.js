@@ -3,7 +3,7 @@ import React from "react";
 // import { Button } from 'react-bootstrap';
 // import { Container, Row, Col, Jumbotron } from 'react-bootstrap';
 import { Jumbotron } from 'react-bootstrap';
-import { Input, FormBtn } from "../../../Form"
+import { Input, FormBtn } from "../Form"
 import ReactFileReader from "react-file-reader";
 
 

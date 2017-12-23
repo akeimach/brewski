@@ -1,6 +1,6 @@
 import React from "react";
-import { Container, Row, Col } from "../../../Grid";
-import { FormBtn } from "../../../Form";
+import { Container, Row, Col } from "../Grid";
+import { FormBtn } from "../Form";
 
 
 export const ListItem = props =>

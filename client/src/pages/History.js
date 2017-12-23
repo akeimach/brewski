@@ -1,5 +1,5 @@
 import React from "react";
-import { List, ListItem } from "./List";
+import { List, ListItem } from "../components/List";
 // import { Button } from 'react-bootstrap';
 // import { Container, Row, Col, Jumbotron } from 'react-bootstrap';
 import { Jumbotron } from 'react-bootstrap';
