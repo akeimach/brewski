@@ -2,8 +2,6 @@ import React from "react";
 import { Col, Row } from "../components/Grid";
 import Capture from "../components/Capture";
 import IdentifyBeer from "../components/IdentifyBeer";
-// import API from "../utils/API";
-// import Results from "./Results";
 
 
 const Home = (props) => {

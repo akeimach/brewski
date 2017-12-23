@@ -1,31 +1,27 @@
 import React from "react";
 import { Button, Jumbotron } from 'react-bootstrap';
-// import axios from "axios";
 
 
 const IdentifyBeer = (props) => {
-
   return (
     <div>
       <br/>
       <Jumbotron>
-        <h1>Beer Information!</h1>
+        <h1>Your identified beer</h1>
         <div>
-          <h5>Name: {props.beerName} <br/>
-               ABV: {props.abv} <br />
-               Description: {props.description}
-          </h5>
-          <p><Button bsStyle="primary">Submit</Button></p>
+        {props.beerName.length ? (
+          <div>
+            <h5>Name: {props.beerName}</h5>
+            <h5>ABV: {props.abv}</h5>
+            <h5>Description: {props.description}</h5>
+          </div>
+        ) : (
+          <h5>Nothing here yet</h5>
+        )}
         </div>
       </Jumbotron>
     </div>
   );
 }
 
-
 export default IdentifyBeer;
-
-
-
-
-

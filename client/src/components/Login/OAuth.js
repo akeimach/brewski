@@ -1,7 +1,8 @@
 import React from 'react';
 import { GoogleLogin } from 'react-google-login-component';
- 
-export default class google extends React.Component{
+
+
+export default class OAuth extends React.Component{
  
   constructor (props, context) {
     super(props, context);
@@ -16,14 +17,15 @@ export default class google extends React.Component{
   render () {
     return (
       <div>
-        <GoogleLogin socialId="yourClientID"
-                     className="google-login"
-                     scope="profile"
-                     fetchBasicProfile={false}
-                     responseHandler={this.responseGoogle}
-                     buttonText="Login With Google"/>
+        <GoogleLogin
+          socialId="yourClientID"
+          className="google-login"
+          scope="profile"
+          fetchBasicProfile={false}
+          responseHandler={this.responseGoogle}
+          buttonText="Login With Google"
+        />
       </div>
     );
   }
- 
 }

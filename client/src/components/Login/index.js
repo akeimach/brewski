@@ -1,2 +1,2 @@
-export { default } from "./Popup";
-export * from "./google";
+export { default } from "./Login";
+export * from "./OAuth";

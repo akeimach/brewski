@@ -23,17 +23,31 @@ class App extends React.Component {
     modalIsOpen: false
   };
 
-  openModal = function() {
-    this.setState({modalIsOpen: true})
-  };
-
-  closeModal = function() {
-    this.setState({modalIsOpen: false})
-  };
+  componentDidMount() {
+    console.log('component mounted!!!');
+    API.getUser( this.state.userId )
+    .then(res => {
+      this.setState({ userData: res.data });
+      console.log(res);
+    });
+    API.getHistory( this.state.userId )
+    .then(res => {
+      this.setState({ userHistory: res.data });
+      console.log(res);
+    });
+  }
 
   handleInputChange = (event) => {
     const { name, value } = event.target;
     this.setState({ [name]: value });
+  };
+
+  onOpenModal = () => {
+    this.setState({ modalIsOpen: true });
+  };
+
+  onCloseModal = () => {
+    this.setState({ modalIsOpen: false });
   };
 
   handleBeerImage = (event) => {
@@ -64,28 +78,14 @@ class App extends React.Component {
     }
   };
 
-  componentDidMount() {
-    console.log('component mounted!!!');
-    API.getUser( this.state.userId )
-    .then(res => {
-      this.setState({ userData: res.data });
-      console.log(res);
-    });
-    API.getHistory( this.state.userId )
-    .then(res => {
-      this.setState({ userHistory: res.data });
-      console.log(res);
-    });
-  }
-
   render() {
     return (
       <div>
         <Container fullwidth>
           <Nav
-            isOpen={this.state.modalIsOpen}
-            openModal={this.openModal}
-            closeModal={this.closeModal}
+            modalIsOpen={this.state.modalIsOpen}
+            onOpenModal={this.onOpenModal}
+            onCloseModal={this.onCloseModal}
           />
         </Container>
         <Container fluid>

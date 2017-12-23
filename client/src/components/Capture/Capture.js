@@ -1,14 +1,10 @@
 import React from "react";
-// import axios from "axios";
-// import { Button } from 'react-bootstrap';
-// import { Container, Row, Col, Jumbotron } from 'react-bootstrap';
+import ReactFileReader from "react-file-reader";
 import { Jumbotron } from 'react-bootstrap';
 import { Input, FormBtn } from "../Form"
-import ReactFileReader from "react-file-reader";
 
 
 const Capture = (props) => {
-
   return (
     <div>
       <br/>
