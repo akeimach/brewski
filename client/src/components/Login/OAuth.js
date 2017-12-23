@@ -3,17 +3,13 @@ import { GoogleLogin } from 'react-google-login-component';
 
 
 export default class OAuth extends React.Component{
- 
-  constructor (props, context) {
-    super(props, context);
-  }
- 
-  responseGoogle (googleUser) {
+
+  responseGoogle = (googleUser) => {
     var id_token = googleUser.getAuthResponse().id_token;
     console.log({accessToken: id_token});
     //anything else you want to do(save to localStorage)...
   }
- 
+
   render () {
     return (
       <div>

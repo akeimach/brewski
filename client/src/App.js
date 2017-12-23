@@ -20,7 +20,8 @@ class App extends React.Component {
     beerName: "",
     abv: "",
     description: "",
-    modalIsOpen: false
+    loginModalOpen: false,
+    reviewModalOpen: false
   };
 
   componentDidMount() {
@@ -43,11 +44,11 @@ class App extends React.Component {
   };
 
   onOpenModal = () => {
-    this.setState({ modalIsOpen: true });
+    this.setState({ loginModalOpen: true });
   };
 
   onCloseModal = () => {
-    this.setState({ modalIsOpen: false });
+    this.setState({ loginModalOpen: false });
   };
 
   handleBeerImage = (event) => {
@@ -83,7 +84,7 @@ class App extends React.Component {
       <div>
         <Container fullwidth>
           <Nav
-            modalIsOpen={this.state.modalIsOpen}
+            loginModalOpen={this.state.loginModalOpen}
             onOpenModal={this.onOpenModal}
             onCloseModal={this.onCloseModal}
           />

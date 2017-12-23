@@ -23,10 +23,7 @@ const Capture = (props) => {
           disabled={!(props.imageData)}
           onClick={props.handleBeerImage}
         />
-        <ReactFileReader
-        base64={true}
-        multipleFiles={false}
-        handleFiles={props.handleBeerImage}>
+        <ReactFileReader base64={true} multipleFiles={false} handleFiles={props.handleBeerImage}>
           <button className='btn'>Upload</button>
         </ReactFileReader>
       </Jumbotron>

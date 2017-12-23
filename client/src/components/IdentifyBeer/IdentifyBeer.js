@@ -1,5 +1,5 @@
 import React from "react";
-import { Button, Jumbotron } from 'react-bootstrap';
+import { Jumbotron } from 'react-bootstrap';
 
 
 const IdentifyBeer = (props) => {

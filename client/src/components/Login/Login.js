@@ -7,7 +7,7 @@ const Login = (props) => {
   return (
     <div className="example">
       <button className="btn btn-action" onClick={props.onOpenModal}>Login</button>
-      <Modal open={props.modalIsOpen} onClose={props.onCloseModal} little>
+      <Modal open={props.loginModalOpen} onClose={props.onCloseModal} little>
         <br />
         <h2>Google or Facebook Login</h2>
         <p>Social Media Login Coming Soon</p>
