@@ -1,6 +1,6 @@
 import React from "react";
 import { List, ListItem } from "../components/List";
-import { Jumbotron } from 'react-bootstrap';
+import { Jumbotron } from "react-bootstrap";
 
 
 const History = (props) => {
@@ -18,7 +18,8 @@ const History = (props) => {
                   key={review.id}
                   id={review.id}
                   beerRev={review.beerRev}
-                  beerScore={review.beerScore}
+                  reviewModalOpen={props.reviewModalOpen}
+                  toggleModal={props.toggleModal}
                 />
               );
             })}

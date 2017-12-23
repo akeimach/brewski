@@ -43,12 +43,14 @@ class App extends React.Component {
     this.setState({ [name]: value });
   };
 
-  onOpenModal = () => {
-    this.setState({ loginModalOpen: true });
-  };
-
-  onCloseModal = () => {
-    this.setState({ loginModalOpen: false });
+  toggleModal = (event) => {
+    if (event) this.setState({ [event.target.name]: true });
+    else {
+      this.setState({
+        loginModalOpen: false,
+        reviewModalOpen: false
+      });
+    }
   };
 
   handleBeerImage = (event) => {
@@ -85,8 +87,7 @@ class App extends React.Component {
         <Container fullwidth>
           <Nav
             loginModalOpen={this.state.loginModalOpen}
-            onOpenModal={this.onOpenModal}
-            onCloseModal={this.onCloseModal}
+            toggleModal={this.toggleModal}
           />
         </Container>
         <Container fluid>
@@ -105,6 +106,8 @@ class App extends React.Component {
           <Route exact path="/history" render={() => (
             <History
               userHistory={this.state.userHistory}
+              reviewModalOpen={this.state.reviewModalOpen}
+              toggleModal={this.toggleModal}
             />
           )}/>
         </Container>
