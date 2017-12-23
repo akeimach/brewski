@@ -1,6 +1,6 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import Login from "./Login";
+import {Popup} from "./Login";
 
 
 const Nav = (props) => {
@@ -24,7 +24,7 @@ const Nav = (props) => {
             <span className="nav-style nav-item nav-link">History</span>
           </Link>
           <span className="nav-style nav-item nav-link">
-            <Login 
+            <Popup 
               isOpen={props.isOpen}
               openModal={props.openModal}
               closeModal={props.closeModal}

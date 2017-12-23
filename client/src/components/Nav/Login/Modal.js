@@ -1,6 +1,6 @@
 import React from 'react';
 import Modal from 'react-responsive-modal';
-import { Google } from "./google";
+import GoogleLoginButton from "./google";
 
 export default class Popup extends React.Component {
   state = {
@@ -25,10 +25,11 @@ export default class Popup extends React.Component {
         <Modal open={open} onClose={this.onCloseModal} little>
           <br />
           <h2>Google or Facebook Login</h2>
+          <GoogleLoginButton />
           <p>
             Social Media Login Coming Soon
           </p>
-          <Google />
+          <google />
         </Modal>
       </div>
     );

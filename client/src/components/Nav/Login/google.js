@@ -6,16 +6,14 @@ import { GoogleLogout } from 'react-google-login';
 const responseGoogle = (response) => {
   console.log(response);
 }
-export const Google = props =>
 
-ReactDOM.render (
-    <GoogleLogin 
-      clientId="797711707852-9pq5g661rsj547c4a5l7g3grbvhmmqjv.apps.googleusercontent.com"
-      buttonText="Login With Google"
-      onSuccess={responseGoogle}
-      onFailure={responseGoogle}
-      uxMode="popup"
-    />,
-    document.getElementById('googleButton')
-)
+const  GoogleLoginButton = props => 
+	<GoogleLogin 
+	  clientId="797711707852-9pq5g661rsj547c4a5l7g3grbvhmmqjv.apps.googleusercontent.com"
+	  buttonText="Login With Google"
+	  onSuccess={responseGoogle}
+	  onFailure={responseGoogle}
+	  uxMode="popup"
+	/>
 
+export default GoogleLoginButton

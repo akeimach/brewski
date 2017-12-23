@@ -1,2 +1,2 @@
-export { default } from "./Popup";
-export * from "./google";
+export { default as Popup } from "./Modal";
+export {default as GoogleLoginButton } from "./google";
