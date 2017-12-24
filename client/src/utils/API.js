@@ -6,16 +6,13 @@ export default {
   postVision: function(imageData) {
     return axios.post("/api/vision", imageData);
   },
-  postRateBeer: function(beerData) {
-    return axios.post("/api/ratebeer", beerData );
-  },
-  postBeerRate: function(data) {
-  	return axios.post("/api/breweryDB", data);
+  getBeerID: function(imageResults) {
+    return axios.get("/api/identifybeer/" + imageResults);
   },
   getUser: function(userId) {
-    return axios.get("api/user/" + userId);
+    return axios.get("/api/user/" + userId);
   },
   getHistory: function(userId) {
-    return axios.get("api/reviews/" + userId);
+    return axios.get("/api/reviews/" + userId);
   }
 };

@@ -1,6 +1,6 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import Login from "./Login";
+import Login from "../Login";
 
 
 const Nav = (props) => {
@@ -24,11 +24,7 @@ const Nav = (props) => {
             <span className="nav-style nav-item nav-link">History</span>
           </Link>
           <span className="nav-style nav-item nav-link">
-            <Login 
-              isOpen={props.isOpen}
-              openModal={props.openModal}
-              closeModal={props.closeModal}
-            />
+            <Login {...props} />
           </span>
         </div>
       </div>
@@ -37,4 +33,3 @@ const Nav = (props) => {
 }
 
 export default Nav;
-
