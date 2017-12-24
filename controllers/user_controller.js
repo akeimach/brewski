@@ -5,23 +5,23 @@ const router = express.Router();
 // GET route to display user name at user's page
 router.get("/api/user", (req, res) => {
     console.log(req.user);
-    db.User.findOne({
+    db.Users.findOne({
         where: {
-            id: req.user.id
+            id: req.users.id
         }
     })
-    .then((dbUser) => {
-        res.json(dbUser);
+    .then((dbUsers) => {
+        res.json(dbUsers);
     })
     .catch((err) => {
         console.log(err);
     });
 });
-// POST route to create a user account
+// POST route to create a users account
 router.post("/api/user", (req, res) => {
-    db.User.create(req.body)
-    .then((dbUser) => {
-        res.json(dbUser);
+    db.Users.create(req.body)
+    .then((dbUsers) => {
+        res.json(dbUsers);
     })
     .catch((err) => {
         console.log(err);
@@ -29,13 +29,13 @@ router.post("/api/user", (req, res) => {
 });
 // DELETE route to delete user account 
 router.delete("/api/user", (req, res) => {
-    db.User.destroy({
+    db.Users.destroy({
         where: {
-            id: req.user.id
+            id: req.users.id
         }
     })
-    .then((dbUser) => {
-        res.json(dbUser);
+    .then((dbUsers) => {
+        res.json(dbUsers);
     })
     .catch((err) => {
         console.log(err);

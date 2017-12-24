@@ -7,6 +7,17 @@ const headers = {
 };
 const { createApolloFetch } = require('apollo-fetch');
 
+// var ba = require('beeradvocate-api');
+
+// ba.beerSearch("Sculpin", function(beers) {
+//     const brews = JSON.stringify(JSON.parse(beers), null, 2);
+//     // console.log(brews);
+//     const urlBeer = brews[0];
+//     console.log(urlBeer);
+// });
+
+
+
 const fetch = createApolloFetch({
   uri: 'https://api.r8.beer/v1/api/graphql',
 });
@@ -24,17 +35,23 @@ router.post("/", (req, res) => {
 
   // You can also easily pass variables for dynamic arguments
   fetch({
-    credentials: 'include',  
-    headers: headers,
-    query: `{
+    method: "POST",
+    credentials: "include",
+    headers: {
+      "content-type": "application/json",
+      "accept": "application/json",
+      "x-api-key": process.env.RATE_BEER
+    },
+    body: `{
       beer(id: 934) {
         name
       }
     }
-  `,
+    `,
   }).then(res => {
-        console.log(JSON.stringify(res));
-
+    console.log(req);
+    // console.log(req.body);
+    // console.log(JSON.stringify(res));
     console.log("will this work " + res);
   });
 
