@@ -25,16 +25,13 @@ class App extends React.Component {
   };
 
   componentDidMount() {
-    console.log('component mounted!!!');
     API.getUser( this.state.userId )
     .then(res => {
       this.setState({ userData: res.data });
-      console.log(res);
     });
     API.getHistory( this.state.userId )
     .then(res => {
       this.setState({ userHistory: res.data });
-      console.log(res);
     });
   }
 
@@ -102,7 +99,11 @@ class App extends React.Component {
               description={this.state.description}
             />
           )}/>
-          <Route exact path="/reviews" component={Reviews} />
+          <Route exact path="/reviews" render={() => (
+            <Reviews
+              userHistory={this.state.userHistory}
+            />
+          )}/>
           <Route exact path="/history" render={() => (
             <History
               userHistory={this.state.userHistory}
