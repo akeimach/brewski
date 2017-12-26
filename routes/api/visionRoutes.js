@@ -1,7 +1,6 @@
 const router = require("express").Router();
 const vision = require('node-cloud-vision-api');
 
-
 //TODO: replace with oauthClient
 vision.init({ auth: process.env.VISION_API_KEY });
 
@@ -40,9 +39,5 @@ router.post("/", (req, res) => {
     console.log('Error: ', error)
   });
 });
-
-
-
-
 
 module.exports = router;
