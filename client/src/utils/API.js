@@ -14,8 +14,5 @@ export default {
   },
   getHistory: function(userId) {
     return axios.get("/api/reviews/" + userId);
-  },
-  getBeerInformation: function(beerName) {
-    return axios.get("/api/beerInfo/" + beerName);
   }
 };

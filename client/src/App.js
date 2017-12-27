@@ -24,20 +24,6 @@ class App extends React.Component {
     reviewModalOpen: false
   };
 
-  handleBeerInfomation = (nameOfBeer = "bock") => {
-    API.getBeerID(nameOfBeer)
-    .then(res => {
-      this.setState({beerName: res.data.data[0].name, 
-        abv: res.data.data[0].abv, 
-        description: res.data.data[0].description });
-      console.log(res.data.data[0]);
-      // console.log(res.data.data[0].name);
-      // console.log(res.data.data[0].abv);
-      // console.log(res.data.data[0].description);
-    })
-    .catch(err => console.log(err));
-  }
-
   componentDidMount() {
     API.getUser( this.state.userId )
     .then(res => {
@@ -64,22 +50,32 @@ class App extends React.Component {
     }
   };
 
+  handleBeerInfomation = (nameOfBeer) => {
+    API.getBeerID(nameOfBeer)
+    .then(res => {
+      console.log(res);
+      if (res.data.data) {
+        this.setState({
+          isLoading: false,
+          beerName: res.data.data[0].name,
+          abv: res.data.data[0].abv,
+          description: res.data.data[0].description,
+        }); 
+      }
+    });
+  };
+
   handleBeerImage = (event) => {
     if (event.base64) this.setState({ imageData: event.base64 });
     if (this.state.imageData) {
       console.log("Axios post request in App.js");
       API.postVision({ imageData: this.state.imageData })
       .then(res => {
-        this.setState({ imageResults: [res.data.logoDescription, res.data.textDescription] });
-        
-        // console.log("======================================");
-        // console.log("Beer Name: " + this.state.imageResults[0]);   
-        this.handleBeerInfomation(this.state.imageResults[0]);
+        this.setState({ imageResults: 
+          [res.data.logoDescription.replace(/[\n\r]/g, ' '),
+           res.data.textDescription.replace(/[\n\r]/g, ' ')] });
         console.log(this.state.imageResults);
-        
-        API.postRateBeer({ imageResults: this.state.imageResults })
-        .then(res => console.log(res))
-        .catch(err => console.log(err));
+        this.handleBeerInfomation(this.state.imageResults[1]); 
       })
       .catch(err => console.log(err));
     }
