@@ -77,8 +77,8 @@ class App extends React.Component {
         
         // console.log("======================================");
         // console.log("Beer Name: " + this.state.imageResults[0]);   
-        this.handleBeerInfomation(this.state.imageResults[0]);
         console.log(this.state.imageResults);
+        this.handleBeerInfomation(this.state.imageResults[0]);
         
         API.postRateBeer({ imageResults: this.state.imageResults })
         .then(res => console.log(res))
