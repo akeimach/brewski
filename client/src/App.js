@@ -85,8 +85,8 @@ class App extends React.Component {
       API.postVision({ imageData: this.state.imageData })
       .then(res => {
         this.setState({ imageResults: 
-          [res.data.logoDescription.replace(/[\n\r]/g, ' '),
-           res.data.textDescription.replace(/[\n\r]/g, ' ')] });
+          [res.data.logoDescription.replace(/[\n\r]/g, ' ').trim(),
+           res.data.textDescription.replace(/[\n\r]/g, ' ').trim()] });
         this.handleBeerInfomation();
       })
       .catch(err => console.log(err));
