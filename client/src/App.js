@@ -17,6 +17,7 @@ class App extends React.Component {
     userData: [],
     userHistory: [],
     isLoading: true,
+    breweryName: "",
     beerName: "",
     abv: "",
     description: "",
@@ -51,43 +52,41 @@ class App extends React.Component {
   };
 
   handleBeerInfomation = () => {
-    console.log(this.state.imageResults);
-    let nameOfBeer = this.state.imageResults[1];
-    let nameOfBrewery = this.state.imageResults[0];
-    API.getBeerID(nameOfBeer)
+    API.postBreweryID({ nameOfBrewery: this.state.imageResults[0] })
     .then(res => {
-      console.log(res);
-      if (res.data.data) {
+      console.log("Brewery results: ", res.data);
+      if (res.data) {
         this.setState({
-          isLoading: false,
-          beerName: res.data.data[0].name,
-          abv: res.data.data[0].abv,
-          description: res.data.data[0].description,
-        });
-      }
-      else {
-        this.setState({
-          isLoading: false,
-          beerName: nameOfBeer
+          breweryName: res.data.name
         });
       }
     });
-    API.getBreweryID(nameOfBrewery)
+    API.postBeerID({ nameOfBeer: this.state.imageResults[1] })
     .then(res => {
-      console.log(res);
+      console.log("Beer results: ", res.data);
+      if (res.data) {
+        this.setState({
+          isLoading: false,
+          beerName: res.data.name,
+          abv: res.data.abv,
+          description: res.data.description,
+        });
+      }
     });
   };
 
   handleBeerImage = (event) => {
     if (event.base64) this.setState({ imageData: event.base64 });
     if (this.state.imageData) {
-      console.log("Axios post request in App.js");
       API.postVision({ imageData: this.state.imageData })
       .then(res => {
-        this.setState({ imageResults: 
-          [res.data.logoDescription.replace(/[\n\r]/g, ' ').trim(),
-           res.data.textDescription.replace(/[\n\r]/g, ' ').trim()] });
-        this.handleBeerInfomation();
+        console.log("Image results: ", res.data);
+        if (res.data) {
+          this.setState({ imageResults: 
+            [res.data.logoDescription.replace(/[\n\r]/g, ' ').trim(),
+             res.data.textDescription.replace(/[\n\r]/g, ' ').trim()] });
+          this.handleBeerInfomation();
+        }
       })
       .catch(err => console.log(err));
     }
@@ -109,6 +108,7 @@ class App extends React.Component {
               imageResults={this.state.imageResults}
               handleInputChange={this.handleInputChange}
               handleBeerImage={this.handleBeerImage}
+              breweryName={this.state.breweryName}
               beerName={this.state.beerName}
               abv={this.state.abv}
               description={this.state.description}

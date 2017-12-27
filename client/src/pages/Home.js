@@ -19,6 +19,7 @@ const Home = (props) => {
             </Row>
             <Row>
               <IdentifyBeer
+                breweryName={props.breweryName}
                 beerName={props.beerName}
                 abv={props.abv}
                 description={props.description}

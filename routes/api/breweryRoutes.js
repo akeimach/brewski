@@ -4,16 +4,17 @@ const BreweryDb = require('brewerydb-node');
 const brewdb = new BreweryDb(process.env.BREWERY_DB);
 
 
-router.get("/:name", (req, res) => {
+router.post("/", (req, res) => {
+  
   console.log("In brewery router");
-  brewdb.search.breweries({ q: req.params.name }, (request, result) => {
-    console.log("Searching breweries for: " + req.params.name);
-    for (let i in result) {
-      console.log(result[i].name);
+  brewdb.search.breweries({ q: req.body.nameOfBrewery }, (request, brewdbResult) => {
+    console.log("Searching breweries for: " + req.body.nameOfBrewery);
+    if (brewdbResult) {
+      const response = brewdbResult[0];
+      res.json(response);
     }
   });
 });
-
 
 
 module.exports = router;

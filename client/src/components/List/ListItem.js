@@ -1,6 +1,7 @@
 import React from "react";
 import Modal from "react-responsive-modal";
 import { Row, Col } from "../Grid";
+import { Item } from "./Item";
 
 
 export const ListItem = (props) => {
@@ -8,15 +9,9 @@ export const ListItem = (props) => {
     <li className="list-group-item">
       <Row>
         <Col size="8">
-          {props.content ? (
-            <div>
-              {props.content.map(item => {
-                return <h5>{item}</h5>;
-              })}
-            </div>
-          ) : (
-            <p></p>
-          )}
+          <Item
+            content={props.content}
+          />
         </Col>
         <Col size="4">
           {props.toggleModal ? (

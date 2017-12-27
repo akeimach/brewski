@@ -21,10 +21,15 @@ router.post("/", (req, res) => {
   });
   vision.annotate(request)
   .then((visionResult) => {
-    // handle response
-    const response = {
-      logoDescription: visionResult.responses[0].logoAnnotations[0].description,
-      textDescription: visionResult.responses[0].fullTextAnnotation.text
+    let response = {
+      logoDescription: "",
+      textDescription: ""
+    }
+    if (visionResult.responses[0].logoAnnotations) {
+      response.logoDescription = visionResult.responses[0].logoAnnotations[0].description;
+    }
+    if (visionResult.responses[0].fullTextAnnotation) {
+      response.textDescription = visionResult.responses[0].fullTextAnnotation.text;
     }
     console.log("Sending vision route response: \n" + response.logoDescription + "\n" + response.textDescription);
     res.json(response);

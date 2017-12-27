@@ -1,27 +1,30 @@
 const router = require("express").Router();
 const axios = require("axios");
 const BreweryDb = require('brewerydb-node');
-const brewdb = new BreweryDb(process.env.BREWERY_DB);
 const spelling = require("spelling");
 const dict = new spelling(require("spelling/dictionaries/en_US"));
+const brewdb = new BreweryDb(process.env.BREWERY_DB);
 
 
-router.get("/:name", (req, res) => {
+router.post("/", (req, res) => {
+  
   console.log("In beer router");
-  let arrayOfBeer = req.params.name.split(" ");
+  let name = "";
+  let arrayOfBeer = req.body.nameOfBeer.split(" ");
   for (let i = 0; i < arrayOfBeer.length; i++) {
-    console.log(dict.lookup(arrayOfBeer[i]));
+    const lookupRes = dict.lookup(arrayOfBeer[i]); // is rank useful?
+    if (lookupRes.found) { // if the word is a real word
+      name += arrayOfBeer[i] + " ";
+    }
   }
-  console.log(arrayOfBeer);
-
-  brewdb.search.beers({ q: req.params.name }, (request, result) => {
-    console.log("Searching beer names for: " + req.params.name);
-    for (let i in result) {
-      console.log(result[i].name);
+  brewdb.search.beers({ q: name }, (request, brewdbResult) => {
+    console.log("Searching beer names for: " + name);
+    if (brewdbResult) {
+      const response = brewdbResult[0];
+      res.json(response);
     }
   });
 });
-
 
 
 module.exports = router;
