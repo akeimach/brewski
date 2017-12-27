@@ -50,7 +50,10 @@ class App extends React.Component {
     }
   };
 
-  handleBeerInfomation = (nameOfBeer) => {
+  handleBeerInfomation = () => {
+    console.log(this.state.imageResults);
+    let nameOfBeer = this.state.imageResults[1];
+    let nameOfBrewery = this.state.imageResults[0];
     API.getBeerID(nameOfBeer)
     .then(res => {
       console.log(res);
@@ -60,8 +63,18 @@ class App extends React.Component {
           beerName: res.data.data[0].name,
           abv: res.data.data[0].abv,
           description: res.data.data[0].description,
-        }); 
+        });
       }
+      else {
+        this.setState({
+          isLoading: false,
+          beerName: nameOfBeer
+        });
+      }
+    });
+    API.getBreweryID(nameOfBrewery)
+    .then(res => {
+      console.log(res);
     });
   };
 
@@ -74,8 +87,7 @@ class App extends React.Component {
         this.setState({ imageResults: 
           [res.data.logoDescription.replace(/[\n\r]/g, ' '),
            res.data.textDescription.replace(/[\n\r]/g, ' ')] });
-        console.log(this.state.imageResults);
-        this.handleBeerInfomation(this.state.imageResults[1]); 
+        this.handleBeerInfomation();
       })
       .catch(err => console.log(err));
     }

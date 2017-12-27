@@ -6,8 +6,11 @@ export default {
   postVision: function(imageData) {
     return axios.post("/api/vision", imageData);
   },
-  getBeerID: function(imageResults) {
-    return axios.get("/api/identifybeer/" + imageResults);
+  getBeerID: function(nameOfBeer) {
+    return axios.get("/api/identifybeer/" + nameOfBeer);
+  },
+  getBreweryID: function(nameOfBrewery) {
+    return axios.get("/api/identifybrewery/" + nameOfBrewery);
   },
   getUser: function(userId) {
     return axios.get("/api/user/" + userId);

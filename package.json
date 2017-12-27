@@ -21,6 +21,7 @@
   "dependencies": {
     "axios": "^0.16.2",
     "body-parser": "^1.17.2",
+    "brewerydb-node": "0.0.1",
     "dotenv": "^4.0.0",
     "express": "^4.15.4",
     "method-override": "^2.3.10",

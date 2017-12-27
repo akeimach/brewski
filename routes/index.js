@@ -2,15 +2,16 @@ const path = require("path");
 const router = require("express").Router();
 const visionRoutes = require("./api/visionRoutes");
 const rateBeerRoutes = require("./api/rateBeerRoutes");
-const beerRoute = require("./api/beerRoute");
+const beerRoutes = require("./api/beerRoutes");
+const breweryRoutes = require("./api/breweryRoutes");
 const userController = require("../controllers/user_controller");
 const beerController = require("../controllers/beer_controller");
 const reviewController = require("../controllers/review_controller");
 
 // API Routes
 router.use("/api/vision", visionRoutes);
-// router.use("/api/ratebeer", rateBeerRoutes);
-router.use("/api/identifybeer", beerRoute);
+router.use("/api/identifybeer", beerRoutes);
+router.use("/api/identifybrewery", breweryRoutes);
 
 router.use("/api/user", userController);
 router.use("/api/beers", beerController);
