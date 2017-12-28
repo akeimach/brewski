@@ -1,6 +1,7 @@
 import React from "react";
 import Modal from "react-responsive-modal";
 import { Row, Col } from "../Grid";
+import { Item } from "./Item";
 
 
 export const ListItem = (props) => {
@@ -8,15 +9,22 @@ export const ListItem = (props) => {
     <li className="list-group-item">
       <Row>
         <Col size="8">
-          <h5>Score: {props.beerScore}</h5>
-          <h5>Review: {props.beerRev}</h5>
+          <Item
+            content={props.content}
+          />
         </Col>
         <Col size="4">
-          <button className="btn btn-action" name="reviewModalOpen" onClick={props.toggleModal}>Review This Beer</button>
-          <Modal open={props.reviewModalOpen} onClose={props.toggleModal} little>
-            <br />
-            <h2>Add your review</h2>
-          </Modal>
+          {props.toggleModal ? (
+            <div>
+              <button className="btn btn-action" name="reviewModalOpen" onClick={props.toggleModal}>{props.buttonValue}</button>
+              <Modal open={props.reviewModalOpen} onClose={props.toggleModal} little>
+                <br />
+                <h2>{props.modalValue}</h2>
+              </Modal>
+            </div>
+          ) : (
+            <p></p>
+          )}
         </Col>
       </Row>
     </li>

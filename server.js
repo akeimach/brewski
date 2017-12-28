@@ -20,6 +20,7 @@ app.use(bodyParser.json());
 // Serve up static assets
 app.use(express.static("client/build"));
 
+// API routes
 app.use(routes);
 
 // Syncing our sequelize models and then starting our Express app

@@ -20,19 +20,17 @@ router.post("/", (req, res) => {
   });
   vision.annotate(request)
   .then((visionResult) => {
-    // handle response
     let response = {
-        logoDescription: "",
-        textDescription: ""
+      logoDescription: "",
+      textDescription: ""
     }
-    console.log("=======================")
-    const logoDescription = visionResult.responses[0].logoAnnotations[0].description;
-    console.log(logoDescription);
-    response.logoDescription = logoDescription;
-    const textDescription = visionResult.responses[0].textAnnotations[0].description;
-    console.log(textDescription);
-    response.textDescription = textDescription;
-    console.log("sending route response");
+    if (visionResult.responses[0].logoAnnotations) {
+      response.logoDescription = visionResult.responses[0].logoAnnotations[0].description;
+    }
+    if (visionResult.responses[0].fullTextAnnotation) {
+      response.textDescription = visionResult.responses[0].fullTextAnnotation.text;
+    }
+    console.log("Sending vision route response: \n" + response.logoDescription + "\n" + response.textDescription);
     res.json(response);
   })
   .catch((error) => {

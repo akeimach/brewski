@@ -2,7 +2,6 @@ import React from "react";
 import { List, ListItem } from "../components/List";
 import { Jumbotron } from "react-bootstrap";
 
-
 const History = (props) => {
   return (
     <div>
@@ -17,9 +16,11 @@ const History = (props) => {
                 <ListItem
                   key={review.id}
                   id={review.id}
-                  beerRev={review.beerRev}
+                  content={[(`${review.Beer.beername}`)]}
                   reviewModalOpen={props.reviewModalOpen}
                   toggleModal={props.toggleModal}
+                  modalValue={`Write your review`}
+                  buttonValue={`Review this Beer`}
                 />
               );
             })}

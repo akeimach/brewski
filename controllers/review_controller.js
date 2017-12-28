@@ -2,18 +2,42 @@ const db = require("../models");
 const express = require("express");
 const router = express.Router();
 
-// GET route to get all reviews for a specific beer (not based on user), can either show each review or avg them
-router.get("/:id", (req, res) => {
-	db.Reviews.findAll({
-    	where: {
-    		UserId: req.params.id
-    	},
-    	order: [
-    		["createdAt", "DESC"]
-    	]
+
+// GET route to get all reviews written by one user
+router.get("/:userId", (req, res) => {
+  console.log("Reviews for user " + req.params.userId);
+  // db.Reviews.findAll({include: [{model: db.Beers, where: {active: true}}];
+  db.Reviews.findAll({
+      where: {
+        UserId: req.params.userId,
+      },
+      include: [{
+          model: db.Beers
+      }],
+      order: [
+        ["createdAt", "DESC"]
+      ]
     })
     .then((data) => {
-    	res.json(data);
+      res.json(data);
+    })
+    .catch((err) => {
+        console.log(err);
+    });
+});
+
+// GET route to get all reviews for a specific beer (not based on user), can either show each review or avg them
+router.get("/beers/:beerId", (req, res) => {
+  db.Reviews.findAll({
+      where: {
+        UserId: req.params.beerId
+      },
+      order: [
+        ["createdAt", "DESC"]
+      ]
+    })
+    .then((data) => {
+      res.json(data);
     })
     .catch((err) => {
         console.log(err);

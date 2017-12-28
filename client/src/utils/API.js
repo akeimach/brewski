@@ -6,19 +6,19 @@ export default {
   postVision: function(imageData) {
     return axios.post("/api/vision", imageData);
   },
-  getBeerID: function(imageResults) {
-    return axios.get("/api/identifybeer/" + imageResults);
+  postBeerID: function(imageResults) {
+    return axios.post("/api/identifybeer", imageResults);
+  },
+  postBreweryID: function(nameOfBrewery) {
+    return axios.post("/api/identifybrewery", nameOfBrewery);
+  },
+  postRateBeer: function(beerName) {
+    return axios.post("/api/ratebeer", beerName);
   },
   getUser: function(userId) {
     return axios.get("/api/user/" + userId);
   },
   getHistory: function(userId) {
     return axios.get("/api/reviews/" + userId);
-  },
-  // postRateBeer: function(beerData) {
-  //   return axios.post("/api/ratebeer", beerData);
-  // },
-  getBeerInformation: function(beerName) {
-    return axios.get("/api/beerInfo/" + beerName);
   }
 };

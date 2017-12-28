@@ -2,6 +2,7 @@ import React from "react";
 import { Col, Row } from "../components/Grid";
 import Capture from "../components/Capture";
 import IdentifyBeer from "../components/IdentifyBeer";
+import ShowReviews from "../components/ShowReviews";
 
 
 const Home = (props) => {
@@ -19,6 +20,7 @@ const Home = (props) => {
             </Row>
             <Row>
               <IdentifyBeer
+                breweryName={props.breweryName}
                 beerName={props.beerName}
                 abv={props.abv}
                 description={props.description}
@@ -26,6 +28,11 @@ const Home = (props) => {
             </Row>
           </Col>
           <Col size="8">
+            <Row>
+              <ShowReviews
+                beerReviews={props.beerReviews}
+              />
+            </Row>
           </Col>
         </Row>
       </div>

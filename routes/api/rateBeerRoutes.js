@@ -1,55 +1,36 @@
 const router = require("express").Router();
 const request = require("request");
-const headers = {
-  "content-type": "application/json",
-  "accept": "application/json",
-  "x-api-key": process.env.RATE_BEER
-};
-const dataString = '{"query":"query { beer(id: 4934) { id name }}","variables":"{}"}';
-// const options = {
-//   url: "https://api.r8.beer/v1/api/graphql/",
-//   method: "POST",
-//   headers: headers,
-//   body: dataString
-// };
-const beerURL = "https://api.r8.beer/v1/api/graphql/";
-// const fetch = createApolloFetch({
-//   uri: 'https://api.r8.beer/v1/api/graphql',
-// });
-require("isomorphic-fetch");
+
 // Matches with "/api/ratebeer"
 router.post("/", (req, res) => {
 
-  fetch(beerURL, {
+  const headers = {
+    "content-type": "application/json",
+    "accept": "application/json",
+    "x-api-key": process.env.RATE_BEER
+  };
+
+  let dataString = {
+    query: 'query { beerSearch(query: "' + req.body.beerName + '") { items { id name }}}'
+  };
+
+  let options = {
+    url: "https://api.r8.beer/v1/api/graphql/",
     method: "POST",
-    credentials: "include",
-    headers: {
-      // "headers": {
-        "content-type": "application/json",
-        "accept": "application/json",
-        "x-api-key": process.env.RATE_BEER
-      // }
-    },
-    body: `beer(id: 934) {
-      name
-    }
-    `,
-  }).then(res => {
-    res.status;
-    res.statusText;
-    res.headers;
-    res.url;
-    console.log(res.headers); 
-    console.log(req.headers);
+    headers: headers,
+    body: JSON.stringify(dataString)
+  };
 
-  }).catch(err => {
-    console.log(err);
+  request(options, (req1, res1) => {
+    const beerID = JSON.parse(res1.body).data.beerSearch.items[0].id;
+    dataString.query = 'query { beerReviews(beerId: ' + beerID + ') { items { score comment scores { aroma flavor mouthfeel overall }}}}';
+    options.body = JSON.stringify(dataString);
+    request(options, (req2, res2) => {
+      const reviews = JSON.parse(res2.body).data.beerReviews.items;
+      res.json(reviews);
+    });
   });
-
-  // request(options, (req, res) => {
-  //   console.log(res.body);
-  // });
-
 });
+
 
 module.exports = router;
