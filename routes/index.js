@@ -9,9 +9,8 @@ const reviewController = require("../controllers/review_controller");
 
 // API Routes
 router.use("/api/vision", visionRoutes);
-// router.use("/api/ratebeer", rateBeerRoutes);
+router.use("/api/ratebeer", rateBeerRoutes);
 router.use("/api/identifybeer", beerRoute);
-
 router.use("/api/user", userController);
 router.use("/api/beers", beerController);
 router.use("/api/reviews", reviewController);
