@@ -24,6 +24,20 @@ class App extends React.Component {
     reviewModalOpen: false
   };
 
+  handleBeerInfomation = (nameOfBeer = "bock") => {
+    API.getBeerID(nameOfBeer)
+    .then(res => {
+      this.setState({beerName: res.data.data[0].name, 
+        abv: res.data.data[0].abv, 
+        description: res.data.data[0].description });
+      console.log(res.data.data[0]);
+      // console.log(res.data.data[0].name);
+      // console.log(res.data.data[0].abv);
+      // console.log(res.data.data[0].description);
+    })
+    .catch(err => console.log(err));
+  }
+
   componentDidMount() {
     console.log('component mounted!!!');
     API.getUser( this.state.userId )
@@ -60,22 +74,15 @@ class App extends React.Component {
       API.postVision({ imageData: this.state.imageData })
       .then(res => {
         this.setState({ imageResults: [res.data.logoDescription, res.data.textDescription] });
+        
+        // console.log("======================================");
+        // console.log("Beer Name: " + this.state.imageResults[0]);   
+        this.handleBeerInfomation(this.state.imageResults[0]);
         console.log(this.state.imageResults);
+        
         API.postRateBeer({ imageResults: this.state.imageResults })
         .then(res => console.log(res))
         .catch(err => console.log(err));
-        API.getBeerID(this.state.imageResults.textDescription)
-        .then((response) => {
-          console.log('this is response testing', response);
-          if (response.data.data) {
-            this.setState({
-              isLoading: false,
-              beerName: response.data.data[0].name,
-              abv: response.data.data[0].abv,
-              description: response.data.data[0].description,
-            }); 
-          }
-        });
       })
       .catch(err => console.log(err));
     }
