@@ -20,6 +20,7 @@ class App extends React.Component {
     breweryName: "",
     beerName: "",
     beerID: "",
+    beerReviews: [],
     abv: "",
     description: "",
     loginModalOpen: false,
@@ -76,6 +77,11 @@ class App extends React.Component {
         API.postRateBeer({ beerName: this.state.beerName })
         .then(res => {
           console.log("Review results: ", res.data);
+          if (res.data) {
+            this.setState({
+              beerReviews: res.data
+            });
+          }
         });
       }
     });
@@ -118,6 +124,7 @@ class App extends React.Component {
               beerName={this.state.beerName}
               abv={this.state.abv}
               description={this.state.description}
+              beerReviews={this.state.beerReviews}
             />
           )}/>
           <Route exact path="/reviews" render={() => (
