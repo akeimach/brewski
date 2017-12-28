@@ -5,7 +5,7 @@ const router = express.Router();
 
 // GET route to get all reviews written by one user
 router.get("/:userId", (req, res) => {
-  console.log(req.params.userId);
+  console.log("Reviews for user " + req.params.userId);
   // db.Reviews.findAll({include: [{model: db.Beers, where: {active: true}}];
   db.Reviews.findAll({
       where: {
