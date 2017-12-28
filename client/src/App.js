@@ -45,10 +45,13 @@ class App extends React.Component {
       this.setState({ userData: res.data });
       console.log(res);
     });
+
     API.getHistory( this.state.userId )
     .then(res => {
       this.setState({ userHistory: res.data });
-      console.log(res);
+      console.log("Reviews history======================")
+      console.log(res.data);
+      console.log(this.state.userId);
     });
   }
 

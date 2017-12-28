@@ -18,6 +18,7 @@ const History = (props) => {
                   key={review.id}
                   id={review.id}
                   beerRev={review.beerRev}
+                  beerScore={review.beerScore}
                   reviewModalOpen={props.reviewModalOpen}
                   toggleModal={props.toggleModal}
                 />
