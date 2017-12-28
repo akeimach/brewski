@@ -20,7 +20,7 @@ router.post("/", (req, res) => {
   };
 
   request(options, (req, res) => {
-    console.log("--------------")
+    console.log("--------------");
     console.log(res.body);
   });
 

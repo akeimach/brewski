@@ -19,6 +19,7 @@ class App extends React.Component {
     isLoading: true,
     breweryName: "",
     beerName: "",
+    beerID: "",
     abv: "",
     description: "",
     loginModalOpen: false,
@@ -61,16 +62,18 @@ class App extends React.Component {
         });
       }
     });
-    API.postBeerID({ nameOfBeer: this.state.imageResults[1] })
+    // const extendedName = this.state.imageResults[0] + " " + this.state.imageResults[1];
+    API.postBeerID({ imageResults: this.state.imageResults })
     .then(res => {
       console.log("Beer results: ", res.data);
       if (res.data) {
         this.setState({
           isLoading: false,
           beerName: res.data.name,
-          abv: res.data.abv,
+          abv: res.data.abv + "%",
           description: res.data.description,
         });
+        API.postRateBeer( this.state.beerID );
       }
     });
   };
