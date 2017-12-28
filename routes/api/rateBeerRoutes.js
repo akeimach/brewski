@@ -14,16 +14,21 @@ router.post("/", (req, res) => {
     query: 'query { beerSearch(query: "' + req.body.beerName + '") { items { id name }}}'
   };
 
-  const options = {
+  let options = {
     url: "https://api.r8.beer/v1/api/graphql/",
     method: "POST",
     headers: headers,
     body: JSON.stringify(dataString)
   };
 
-  request(options, (req, res) => {
-    console.log("--------------");
-    console.log(res.body);
+  request(options, (req1, res1) => {
+    const beerID = JSON.parse(res1.body).data.beerSearch.items[0].id;
+    dataString.query = 'query { beerReviews(beerId: ' + beerID + ') { items { score comment scores { aroma flavor mouthfeel overall }}}}';
+    options.body = JSON.stringify(dataString);
+    request(options, (req2, res2) => {
+      const reviews = JSON.parse(res2.body).data.beerReviews.items;
+      res.json(reviews);
+    });
   });
 
 });

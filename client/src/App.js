@@ -73,7 +73,10 @@ class App extends React.Component {
           abv: res.data.abv + "%",
           description: res.data.description,
         });
-        API.postRateBeer({ beerName: this.state.beerName });
+        API.postRateBeer({ beerName: this.state.beerName })
+        .then(res => {
+          console.log("Review results: ", res.data);
+        });
       }
     });
   };
