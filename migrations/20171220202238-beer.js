@@ -21,7 +21,7 @@ module.exports = {
         type: Sequelize.INTEGER
       },
       foodPairings: {
-        type: Sequelize.INTEGER
+        type: Sequelize.STRING
       },
       isOrganic: {
         type: Sequelize.BOOLEAN
