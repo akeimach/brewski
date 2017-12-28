@@ -12,8 +12,8 @@ export default {
   postBreweryID: function(nameOfBrewery) {
     return axios.post("/api/identifybrewery", nameOfBrewery);
   },
-  postRateBeer: function(beerID) {
-    return axios.post("/api/ratebeer", beerID);
+  postRateBeer: function(beerName) {
+    return axios.post("/api/ratebeer", beerName);
   },
   getUser: function(userId) {
     return axios.get("/api/user/" + userId);

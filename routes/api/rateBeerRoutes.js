@@ -10,14 +10,15 @@ router.post("/", (req, res) => {
     "x-api-key": process.env.RATE_BEER
   };
 
-  let dataString = '{"query":"query { beer(id: 4934) { id name }}","variables":"{}"}';
-  dataString = '{"query":"query { beerSearch(query: "Sculpin") { items { id name }}}"}';
+  let dataString = {
+    query: 'query { beerSearch(query: "' + req.body.beerName + '") { items { id name }}}'
+  };
 
   const options = {
     url: "https://api.r8.beer/v1/api/graphql/",
     method: "POST",
     headers: headers,
-    body: dataString
+    body: JSON.stringify(dataString)
   };
 
   request(options, (req, res) => {
