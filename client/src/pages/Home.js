@@ -1,5 +1,5 @@
 import React from "react";
-import { Col, Row } from "../components/Grid";
+import { Col, Row, Container } from "../components/Grid";
 import Capture from "../components/Capture";
 import IdentifyBeer from "../components/IdentifyBeer";
 import ShowReviews from "../components/ShowReviews";
@@ -10,29 +10,33 @@ const Home = (props) => {
     <div className="container">
       <div>
         <Row>
-          <Col size="4">
+          <Col size="5">
             <Row>
-              <Capture
-                imageData={props.imageData}
-                handleInputChange={props.handleInputChange}
-                handleBeerImage={props.handleBeerImage}
-              />
+              <Container fluid>
+                <Capture
+                  imageData={props.imageData}
+                  handleInputChange={props.handleInputChange}
+                  handleBeerImage={props.handleBeerImage}
+                />
+              </Container>
             </Row>
             <Row>
-              <IdentifyBeer
-                breweryName={props.breweryName}
-                beerName={props.beerName}
-                abv={props.abv}
-                description={props.description}
-              />
+              <Container fluid>
+                <IdentifyBeer
+                  breweryName={props.breweryName}
+                  beerName={props.beerName}
+                  abv={props.abv}
+                  description={props.description}
+                />
+              </Container>
             </Row>
           </Col>
-          <Col size="8">
-            <Row>
+          <Col size="7">
+            <Container fluid>
               <ShowReviews
                 beerReviews={props.beerReviews}
               />
-            </Row>
+            </Container>
           </Col>
         </Row>
       </div>
