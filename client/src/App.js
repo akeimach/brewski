@@ -113,7 +113,7 @@ class App extends React.Component {
             toggleModal={this.toggleModal}
           />
         </Container>
-        <Container fluid>
+        <Container>
           <Route exact path="(/|/home)" render={() => (
             <Home
               imageData={this.state.imageData}
