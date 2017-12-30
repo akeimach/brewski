@@ -10,8 +10,9 @@ const Login = (props) => {
       <Modal open={props.loginModalOpen} onClose={props.toggleModal} little>
         <br />
         <h2>Google Authentication</h2>
-        <p>Social Media Login Coming Soon</p>
-        <OAuth />
+        <OAuth
+          onClose={props.toggleModal}
+        />
       </Modal>
     </div>
   );

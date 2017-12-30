@@ -6,6 +6,7 @@ import History from "./pages/History";
 import API from "./utils/API";
 import { Container } from "./components/Grid";
 import { Route } from "react-router-dom";
+import dotenv from "dotenv";
 
 
 class App extends React.Component {
@@ -28,6 +29,7 @@ class App extends React.Component {
   };
 
   componentDidMount() {
+    dotenv.config();
     API.getUser( this.state.userId )
     .then(res => {
       this.setState({ userData: res.data });
