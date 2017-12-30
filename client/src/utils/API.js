@@ -16,6 +16,6 @@ export default {
     return axios.get("/api/reviews/" + userId);
   },
   postReview: function(userReview) {
-    return axios.get("/api/postReview/" + userReview);
+    return axios.post("/api/postReview", userReview);
   }
 };

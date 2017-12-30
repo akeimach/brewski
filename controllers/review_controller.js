@@ -4,6 +4,7 @@ const router = express.Router();
 
 // GET route to get all reviews for a specific beer (not based on user), can either show each review or avg them
 router.get("/:id", (req, res) => {
+	console.log(req)
 	db.Reviews.findAll({
     	where: {
     		UserId: req.params.id
