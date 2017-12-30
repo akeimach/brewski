@@ -44,7 +44,9 @@ class App extends React.Component {
     API.postReview({
         starred: true,
         beerRev: "Patrick Test beer post!",
-        beerScore: 5
+        beerScore: 5,
+        UserId: 1,
+        BeerId: 2
       // this.state.userId 
       })
     .then(res => {
