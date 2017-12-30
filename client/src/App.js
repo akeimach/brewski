@@ -108,6 +108,7 @@ class App extends React.Component {
     if (this.state.imageData) {
       API.postVision({ imageData: this.state.imageData })
       .then(res => {
+        //need to remove
 // <<<<<<< HEAD
 //         this.setState({ imageResults: [res.data.logoDescription, res.data.textDescription] });
         
