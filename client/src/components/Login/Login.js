@@ -9,7 +9,7 @@ const Login = (props) => {
       <button className="btn btn-action" name="loginModalOpen" onClick={props.toggleModal}>Login</button>
       <Modal open={props.loginModalOpen} onClose={props.toggleModal} little>
         <br />
-        <h2>Google or Facebook Login</h2>
+        <h2>Google Authentication</h2>
         <p>Social Media Login Coming Soon</p>
         <OAuth />
       </Modal>
