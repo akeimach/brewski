@@ -1,7 +1,6 @@
 const router = require("express").Router();
 const vision = require('node-cloud-vision-api');
 
-
 //TODO: replace with oauthClient
 vision.init({ auth: process.env.VISION_API_KEY });
 
@@ -21,28 +20,22 @@ router.post("/", (req, res) => {
   });
   vision.annotate(request)
   .then((visionResult) => {
-    // handle response
     let response = {
-        logoDescription: "",
-        textDescription: ""
+      logoDescription: "",
+      textDescription: ""
     }
-    console.log("=======================")
-    const logoDescription = visionResult.responses[0].logoAnnotations[0].description;
-    console.log(logoDescription);
-    response.logoDescription = logoDescription;
-    const textDescription = visionResult.responses[0].textAnnotations[0].description;
-    console.log(textDescription);
-    response.textDescription = textDescription;
-    console.log("sending route response");
+    if (visionResult.responses[0].logoAnnotations) {
+      response.logoDescription = visionResult.responses[0].logoAnnotations[0].description;
+    }
+    if (visionResult.responses[0].fullTextAnnotation) {
+      response.textDescription = visionResult.responses[0].fullTextAnnotation.text;
+    }
+    console.log("Sending vision route response: \n" + response.logoDescription + "\n" + response.textDescription);
     res.json(response);
   })
   .catch((error) => {
     console.log('Error: ', error)
   });
 });
-
-
-
-
 
 module.exports = router;

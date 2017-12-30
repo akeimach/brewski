@@ -1,5 +1,6 @@
 import React from "react";
-import { Jumbotron } from 'react-bootstrap';
+import { Jumbotron } from "react-bootstrap";
+import { Item } from "../List";
 
 
 const IdentifyBeer = (props) => {
@@ -10,13 +11,11 @@ const IdentifyBeer = (props) => {
         <h1>Your identified beer</h1>
         <div>
         {props.beerName.length ? (
-          <div>
-            <h5>Name: {props.beerName}</h5>
-            <h5>ABV: {props.abv}</h5>
-            <h5>Description: {props.description}</h5>
-          </div>
+          <Item
+            content={[(`Name: ${props.beerName}`), (`Brewery: ${props.breweryName}`), (`ABV: ${props.abv}`), (`Description: ${props.description}`)]}
+          />
         ) : (
-          <h5>Nothing here yet</h5>
+          <p>Nothing here yet</p>
         )}
         </div>
       </Jumbotron>

@@ -11,6 +11,15 @@ module.exports = (sequelize, DataTypes) => {
 		abv: {
 			type: DataTypes.INTEGER(3),
 		},
+		ibu: {
+			type: DataTypes.INTEGER(3),
+		},
+		foodPairings: {
+			type: DataTypes.STRING,
+		},
+		isOrganic: {
+			type: DataTypes.BOOLEAN,
+		},
 		shortDes: {
 			type: DataTypes.STRING,
 		}

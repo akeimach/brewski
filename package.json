@@ -21,8 +21,10 @@
   "dependencies": {
     "axios": "^0.16.2",
     "body-parser": "^1.17.2",
+    "brewerydb-node": "0.0.1",
     "dotenv": "^4.0.0",
     "express": "^4.15.4",
+    "isomorphic-fetch": "^2.2.1",
     "method-override": "^2.3.10",
     "mongoose": "^4.11.7",
     "mysql2": "^1.5.1",
@@ -31,6 +33,7 @@
     "react-router-dom": "^4.1.2",
     "request": "^2.83.0",
     "sequelize": "^4.28.6",
-    "sequelize-cli": "^3.2.0"
+    "sequelize-cli": "^3.2.0",
+    "spelling": "^2.0.0"
   }
 }

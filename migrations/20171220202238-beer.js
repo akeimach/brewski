@@ -17,6 +17,15 @@ module.exports = {
       abv: {
         type: Sequelize.INTEGER
       },
+      ibu: {
+        type: Sequelize.INTEGER
+      },
+      foodPairings: {
+        type: Sequelize.STRING
+      },
+      isOrganic: {
+        type: Sequelize.BOOLEAN
+      },
       shortDes: {
         type: Sequelize.STRING
       },

@@ -11,7 +11,7 @@ router.get("/", (req, res) => {
 		include: [{
 			model: db.Beers,
 			through: {
-				attributes: ["beername", "brewery", "abv", "shortDes", "avgBeerScore"]
+				attributes: ["beername", "brewery", "abv", "ibu", "foodPairings", "isOrganic", "shortDes", "avgBeerScore"]
 			},
 			include: [{
 				model: db.Reviews,

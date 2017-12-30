@@ -17,33 +17,20 @@ class App extends React.Component {
     userData: [],
     userHistory: [],
     isLoading: true,
+    breweryName: "",
     beerName: "",
+    beerID: "",
+    beerReviews: [],
     abv: "",
     description: "",
     loginModalOpen: false,
     reviewModalOpen: false
   };
 
-  handleBeerInfomation = (nameOfBeer = "bock") => {
-    API.getBeerID(nameOfBeer)
-    .then(res => {
-      this.setState({beerName: res.data.data[0].name, 
-        abv: res.data.data[0].abv, 
-        description: res.data.data[0].description });
-      console.log(res.data.data[0]);
-      // console.log(res.data.data[0].name);
-      // console.log(res.data.data[0].abv);
-      // console.log(res.data.data[0].description);
-    })
-    .catch(err => console.log(err));
-  }
-
   componentDidMount() {
-    console.log('component mounted!!!');
     API.getUser( this.state.userId )
     .then(res => {
       this.setState({ userData: res.data });
-      console.log(res);
     });
 
     API.getHistory( this.state.userId )
@@ -64,8 +51,6 @@ class App extends React.Component {
       console.log("Post Reviews+++++++++++++++++++++++++++")
       console.log(res.data);
       console.log(this.state.userId);
-
-
     });
   }
 
@@ -84,22 +69,65 @@ class App extends React.Component {
     }
   };
 
+  handleBeerInfomation = () => {
+    API.postBreweryID({ nameOfBrewery: this.state.imageResults[0] })
+    .then(res => {
+      console.log("Brewery results: ", res.data);
+      if (res.data) {
+        this.setState({
+          breweryName: res.data.name
+        });
+      }
+    });
+    // const extendedName = this.state.imageResults[0] + " " + this.state.imageResults[1];
+    API.postBeerID({ imageResults: this.state.imageResults })
+    .then(res => {
+      console.log("Beer results: ", res.data);
+      if (res.data) {
+        this.setState({
+          isLoading: false,
+          beerName: res.data.name,
+          abv: res.data.abv + "%",
+          description: res.data.description,
+        });
+        API.postRateBeer({ beerName: this.state.beerName })
+        .then(res => {
+          console.log("Review results: ", res.data);
+          if (res.data) {
+            this.setState({
+              beerReviews: res.data
+            });
+          }
+        });
+      }
+    });
+  };
+
   handleBeerImage = (event) => {
     if (event.base64) this.setState({ imageData: event.base64 });
     if (this.state.imageData) {
-      console.log("Axios post request in App.js");
       API.postVision({ imageData: this.state.imageData })
       .then(res => {
-        this.setState({ imageResults: [res.data.logoDescription, res.data.textDescription] });
+// <<<<<<< HEAD
+//         this.setState({ imageResults: [res.data.logoDescription, res.data.textDescription] });
         
-        // console.log("======================================");
-        // console.log("Beer Name: " + this.state.imageResults[0]);   
-        console.log(this.state.imageResults);
-        this.handleBeerInfomation(this.state.imageResults[0]);
+//         // console.log("======================================");
+//         // console.log("Beer Name: " + this.state.imageResults[0]);   
+//         console.log(this.state.imageResults);
+//         this.handleBeerInfomation(this.state.imageResults[0]);
         
-        API.postRateBeer({ imageResults: this.state.imageResults })
-        .then(res => console.log(res))
-        .catch(err => console.log(err));
+//         API.postRateBeer({ imageResults: this.state.imageResults })
+//         .then(res => console.log(res))
+//         .catch(err => console.log(err));
+// =======
+        console.log("Image results: ", res.data);
+        if (res.data) {
+          this.setState({ imageResults: 
+            [res.data.logoDescription.replace(/[\n\r]/g, ' ').trim(),
+             res.data.textDescription.replace(/[\n\r]/g, ' ').trim()] });
+          this.handleBeerInfomation();
+        }
+// >>>>>>> 91a3e768f9483b06324d50a6132577fd858c087e
       })
       .catch(err => console.log(err));
     }
@@ -116,21 +144,26 @@ class App extends React.Component {
             toggleModal={this.toggleModal}
           />
         </Container>
-        <Container fluid>
+        <Container>
           <Route exact path="(/|/home)" render={() => (
             <Home
               imageData={this.state.imageData}
               imageResults={this.state.imageResults}
               handleInputChange={this.handleInputChange}
               handleBeerImage={this.handleBeerImage}
+              breweryName={this.state.breweryName}
               beerName={this.state.beerName}
               abv={this.state.abv}
               description={this.state.description}
+              beerReviews={this.state.beerReviews}
+            />
+          )}/>
+          <Route exact path="/reviews" render={() => (
+            <Reviews
+              userHistory={this.state.userHistory}
             />
           )}/>
           
-          <Route exact path="/reviews" component={Reviews} />
-
           <Route exact path="/history" render={() => (
             <History
               userHistory={this.state.userHistory}

@@ -4,26 +4,32 @@ const request = require("request");
 // Matches with "/api/ratebeer"
 router.post("/", (req, res) => {
 
-  var headers = {
+  const headers = {
     "content-type": "application/json",
     "accept": "application/json",
     "x-api-key": process.env.RATE_BEER
   };
 
-  var dataString = '{"query":"query { beer(id: 4934) { id name }}","variables":"{}"}';
+  let dataString = {
+    query: 'query { beerSearch(query: "' + req.body.beerName + '") { items { id name }}}'
+  };
 
-  var options = {
+  let options = {
     url: "https://api.r8.beer/v1/api/graphql/",
     method: "POST",
     headers: headers,
-    body: dataString
+    body: JSON.stringify(dataString)
   };
 
-  request(options, (req, res) => {
-    console.log("testing--------------");
-    console.log(res.body);
+  request(options, (req1, res1) => {
+    const beerID = JSON.parse(res1.body).data.beerSearch.items[0].id;
+    dataString.query = 'query { beerReviews(beerId: ' + beerID + ') { items { score comment scores { aroma flavor mouthfeel overall }}}}';
+    options.body = JSON.stringify(dataString);
+    request(options, (req2, res2) => {
+      const reviews = JSON.parse(res2.body).data.beerReviews.items;
+      res.json(reviews);
+    });
   });
-
 });
 
 
