@@ -4,6 +4,7 @@ const router = express.Router();
 
 // GET route to get all reviews for a specific beer (not based on user), can either show each review or avg them
 router.get("/:id", (req, res) => {
+	console.log(req)
 	db.Reviews.findAll({
     	where: {
     		UserId: req.params.id
@@ -31,6 +32,54 @@ router.post("/", (req, res) => {
     console.log(err);
   }); 
 }); 
+
+
+// router.get("/reviews", (req, res) => {
+// 	console.log("-------------------------")
+// 	console.log(req)
+// 	.then((data) => {
+// 		// res.json(data);
+// 	})
+// 	.catch((err) => {
+//     console.log(err);
+//   }); 
+// }); 
+
+//post review
+// router.post("/", (req, res) => {
+// 	db.Reviews.create({ 
+// 		starred: true,
+//         beerRev: "Patrick Test beer post!",
+//         beerScore: 5,     
+//         createdAt : new Date(),
+//         updatedAt : new Date()
+
+// 	})
+// 	.then((data) => {
+// 		res.json(data);
+// 	})
+// 	.catch((err) => {
+//     console.log(err);
+//   }); 
+// }); 
+
+
+// router.post("/", (req, res) => {
+// 	db.Reviews.create({ 
+// 		starred: true,
+//         beerRev: "I really enjoyed it!",
+//         beerScore: 5,     
+//         createdAt : new Date(),
+//         updatedAt : new Date()
+
+// 	})
+// 	.then((data) => {
+// 		res.json(data);
+// 	})
+// 	.catch((err) => {
+//     console.log(err);
+//   }); 
+// }); 
 
 
 // PUT route to update previous review

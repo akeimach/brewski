@@ -15,6 +15,7 @@ router.use("/api/identifybeer", beerRoute);
 router.use("/api/user", userController);
 router.use("/api/beers", beerController);
 router.use("/api/reviews", reviewController);
+router.use("/api/postReview", reviewController);
 // If no API routes are hit, send the React app
 router.use(function(req, res) {
   res.sendFile(path.join(__dirname, "../client/build/index.html"));

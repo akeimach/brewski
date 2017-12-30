@@ -53,6 +53,20 @@ class App extends React.Component {
       console.log(res.data);
       console.log(this.state.userId);
     });
+
+    API.postReview({
+        starred: true,
+        beerRev: "Patrick Test beer post!",
+        beerScore: 5
+      // this.state.userId 
+      })
+    .then(res => {
+      console.log("Post Reviews+++++++++++++++++++++++++++")
+      console.log(res.data);
+      console.log(this.state.userId);
+
+
+    });
   }
 
   handleInputChange = (event) => {
@@ -114,7 +128,9 @@ class App extends React.Component {
               description={this.state.description}
             />
           )}/>
+          
           <Route exact path="/reviews" component={Reviews} />
+
           <Route exact path="/history" render={() => (
             <History
               userHistory={this.state.userHistory}
