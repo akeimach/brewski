@@ -22,7 +22,7 @@ router.get("/:userId", (req, res) => {
       res.json(data);
     })
     .catch((err) => {
-        console.log(err);
+      console.log(err);
     });
 });
 

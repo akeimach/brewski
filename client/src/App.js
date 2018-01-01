@@ -8,7 +8,6 @@ import { Container } from "./components/Grid";
 import { Route } from "react-router-dom";
 import dotenv from "dotenv";
 
-
 class App extends React.Component {
 
   state = {
