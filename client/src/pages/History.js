@@ -1,6 +1,7 @@
 import React from "react";
-import { List, ListItem } from "../components/List";
+import { List, ListButtonItem } from "../components/List";
 import { Jumbotron } from "react-bootstrap";
+
 
 const History = (props) => {
   return (
@@ -13,14 +14,13 @@ const History = (props) => {
           <List>
             {props.userHistory.map(review => {
               return (
-                <ListItem
+                <ListButtonItem
                   key={review.id}
                   id={review.id}
+                  name="reviewModalOpen"
                   content={[(`${review.Beer.beername}`)]}
-                  reviewModalOpen={props.reviewModalOpen}
-                  toggleModal={props.toggleModal}
-                  modalValue={`Write your review`}
                   buttonValue={`Review this Beer`}
+                  onClick={props.handleBeerReview}
                 />
               );
             })}

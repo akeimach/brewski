@@ -8,7 +8,7 @@ const IdentifyBeer = (props) => {
     <div>
       <br/>
       <Jumbotron>
-        <h1>Your identified beer</h1>
+        <h3>Your Identified Beer</h3>
         <div>
         {props.beerName.length ? (
           <Item

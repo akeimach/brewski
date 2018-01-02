@@ -7,6 +7,8 @@ import API from "./utils/API";
 import { Container } from "./components/Grid";
 import { Route } from "react-router-dom";
 import dotenv from "dotenv";
+import Modal from 'react-modal';
+import { TextArea, FormBtn } from "./components/Form";
 
 
 class App extends React.Component {
@@ -22,10 +24,20 @@ class App extends React.Component {
     beerName: "",
     beerID: "",
     beerReviews: [],
+    currBeerReview: "",
     abv: "",
     description: "",
     loginModalOpen: false,
     reviewModalOpen: false
+  };
+
+
+  openModal = event => {
+    this.setState({reviewModalOpen: true});
+  };
+
+  closeModal = event => {
+    this.setState({reviewModalOpen: false});
   };
 
   componentDidMount() {
@@ -40,10 +52,12 @@ class App extends React.Component {
     });
   }
 
+
   handleInputChange = (event) => {
     const { name, value } = event.target;
     this.setState({ [name]: value });
   };
+
 
   toggleModal = (event) => {
     if (event) this.setState({ [event.target.name]: true });
@@ -53,7 +67,9 @@ class App extends React.Component {
         reviewModalOpen: false
       });
     }
+    console.log(this.state.reviewModalOpen);
   };
+
 
   handleBeerInfomation = () => {
     API.postBreweryID({ nameOfBrewery: this.state.imageResults[0] })
@@ -65,7 +81,7 @@ class App extends React.Component {
         });
       }
     });
-    // const extendedName = this.state.imageResults[0] + " " + this.state.imageResults[1];
+
     API.postBeerID({ imageResults: this.state.imageResults })
     .then(res => {
       console.log("Beer results: ", res.data);
@@ -89,6 +105,7 @@ class App extends React.Component {
     });
   };
 
+
   handleBeerImage = (event) => {
     if (event.base64) this.setState({ imageData: event.base64 });
     if (this.state.imageData) {
@@ -106,12 +123,63 @@ class App extends React.Component {
     }
   };
 
+  handleBeerReview = (event) => {
+    this.toggleModal(event);
+    this.setState({
+        beerID: event.target.id
+      });
+    if (this.state.currBeerReview) {
+      const beerReviewData = {
+        currBeerReview: this.state.currBeerReview,
+        currBeer: 1
+      }
+      API.postBeerReview( beerReviewData )
+      .then(res => {
+        console.log("Review results: ", res.data);
+        if (res.data) {
+          
+        }
+      })
+      .catch(err => console.log(err));
+    }
+  };
+
+
   render() {
+
+    const reviewModal = (
+      <Modal
+        isOpen={this.state.reviewModalOpen}
+        onRequestClose={this.closeModal}
+        contentLabel="Example Modal"
+        // appElement={el}
+      >
+        <br />
+        <h6>Write a review for {this.state.beerID}</h6>
+        <TextArea
+          value={this.currBeerReview}
+          onChange={this.handleInputChange}
+          name="currBeerReview"
+          placeholder="This beer was..."
+          type="text"
+        />
+        <FormBtn
+          name="Submit"
+          value={this.state.beerID}
+          onClick={this.closeModal}
+        />
+        <h2 ref={subtitle => this.subtitle = subtitle}>Hello</h2>
+        <button onClick={this.closeModal}>close</button>
+        <div>I am a modal</div>
+        <div>{this.state.beerID}</div>
+      </Modal>
+    );
+
     return (
       <div>
         <Container fullwidth>
           <Nav
-            loginModalOpen={this.state.loginModalOpen}
+            modalOpen={this.state.loginModalOpen}
             toggleModal={this.toggleModal}
           />
         </Container>
@@ -134,11 +202,11 @@ class App extends React.Component {
               userHistory={this.state.userHistory}
             />
           )}/>
+          {reviewModal}
           <Route exact path="/history" render={() => (
             <History
               userHistory={this.state.userHistory}
-              reviewModalOpen={this.state.reviewModalOpen}
-              toggleModal={this.toggleModal}
+              handleBeerReview={this.handleBeerReview}
             />
           )}/>
         </Container>

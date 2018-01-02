@@ -20,5 +20,9 @@ export default {
   },
   getHistory: function(userId) {
     return axios.get("/api/reviews/" + userId);
+  },
+  postBeerReview: function(beerReviewData) {
+    console.log("API.js: ", beerReviewData);
+    return axios.post("/api/reviews", beerReviewData);
   }
 };

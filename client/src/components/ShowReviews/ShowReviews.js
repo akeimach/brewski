@@ -2,18 +2,18 @@ import React from "react";
 import { Jumbotron } from "react-bootstrap";
 import { List, Item } from "../List";
 
+
 let index = 0;
 const ShowReviews = (props) => {
   return (
     <div>
       <br/>
       <Jumbotron>
-        <h1>Reviews</h1>
+        <h3>Public Reviews</h3>
         <div>
         {props.beerReviews.length ? (
           <List>
             {props.beerReviews.map(review => {
-              // console.log(review);
               return (
                 <Item
                   key={index++}
@@ -23,7 +23,7 @@ const ShowReviews = (props) => {
             })}
           </List>
         ) : (
-          <h3>Nothing here yet</h3>
+          <p>Nothing here yet</p>
         )}
         </div>
       </Jumbotron>

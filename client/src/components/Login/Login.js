@@ -4,16 +4,22 @@ import OAuth from "./OAuth";
 
 
 const Login = (props) => {
+  const modalContent = (
+    <div>
+      <br />
+      <h2>Google Authentication</h2>
+      <OAuth />
+    </div>
+  );
   return (
-    <div className="example">
+    <div>
       <button className="btn btn-action" name="loginModalOpen" onClick={props.toggleModal}>Login</button>
-      <Modal open={props.loginModalOpen} onClose={props.toggleModal} little>
-        <br />
-        <h2>Google Authentication</h2>
-        <OAuth
-          onClose={props.toggleModal}
-        />
-      </Modal>
+      <Modal
+        open={props.modalOpen}
+        onClose={props.toggleModal}
+        children={modalContent}
+        little
+      />
     </div>
   );
 }
