@@ -11,8 +11,14 @@ module.exports = (sequelize, DataTypes) => {
         		}
       		}
 		},
-		password: {
+		secret: {
 			type: DataTypes.STRING,
+			allowNull: false,
+
+		},
+		googleId: {
+			type: DataTypes.STRING,
+			unique: true
 		},
 		age: {
 			type: DataTypes.INTEGER(3),

@@ -17,10 +17,21 @@ router.get("/:id", (req, res) => {
         console.log(err);
     });
 });
-// POST route to create a user account
+// POST route to create a user account or to see if User already exists
 router.post("/", (req, res) => {
 // router.post("/api/user", (req, res) => {
-    db.Users.create(req.body)
+    db.Users.findOrCreate({
+        where: {
+            userId: req.body.userId,
+            googleId: req.body.googleId
+        }
+    })
+    .spread((user, created) => {
+        console.log(user.get({
+            plain: true
+        }));
+        console.log(created);
+    })
     .then((dbUser) => {
         res.json(dbUser);
     })
@@ -45,3 +56,14 @@ router.delete("/", (req, res) => {
 });
 
 module.exports = router;
+
+passport.use(new GoogleTokenStrategy({
+    clientID: GOOGLE_CLIENT_ID,
+    clientSecret: GOOGLE_CLIENT_SECRET
+  },
+  function(accessToken, refreshToken, profile, done) {
+    User.findOrCreate({ googleId: profile.id }, function (err, user) {
+      return done(err, user);
+    });
+  }
+));

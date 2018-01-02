@@ -29,6 +29,7 @@
     "mongoose": "^4.11.7",
     "mysql2": "^1.5.1",
     "node-cloud-vision-api": "^0.2.0",
+    "passport-google-token": "^0.1.2",
     "path": "^0.12.7",
     "react-router-dom": "^4.1.2",
     "request": "^2.83.0",
