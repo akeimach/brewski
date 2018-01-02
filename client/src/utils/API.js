@@ -12,6 +12,9 @@ export default {
   postBreweryID: function(nameOfBrewery) {
     return axios.post("/api/identifybrewery", nameOfBrewery);
   },
+  postUser: function(googleToken) {
+    return axios.post("/api/user", googleToken)
+  },
   postRateBeer: function(beerName) {
     return axios.post("/api/ratebeer", beerName);
   },
