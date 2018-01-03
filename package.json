@@ -24,6 +24,7 @@
     "brewerydb-node": "0.0.1",
     "dotenv": "^4.0.0",
     "express": "^4.15.4",
+    "google-auth-library": "^0.12.0",
     "isomorphic-fetch": "^2.2.1",
     "method-override": "^2.3.10",
     "mysql2": "^1.5.1",

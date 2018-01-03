@@ -10,7 +10,6 @@ import dotenv from "dotenv";
 import Modal from 'react-modal';
 import { TextArea, FormBtn } from "./components/Form";
 
-
 class App extends React.Component {
 
   state = {

@@ -2,7 +2,6 @@ import React from "react";
 import { Jumbotron } from "react-bootstrap";
 import { Item } from "../List";
 
-
 const IdentifyBeer = (props) => {
   return (
     <div>

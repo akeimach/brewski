@@ -10,15 +10,13 @@ module.exports = (sequelize, DataTypes) => {
           			msg: "The users name must have between 2 and 70 characters"
         		}
       		}
-
 		},
-		password: {
-			type: DataTypes.STRING,
-
+		googleId: {
+			type: DataTypes.TEXT('long')
 		},
 		age: {
 			type: DataTypes.INTEGER(3),
-			allowNull: false,
+			allowNull: true,
 			validate: {
 				min: {
 					args: 21,
@@ -32,18 +30,17 @@ module.exports = (sequelize, DataTypes) => {
 		},
 		email: {
 			type: DataTypes.STRING,
-			allowNull: false,
+			allowNull: true,
 			validate: {
         		isEmail: {
           			args: true,
           			msg: "The email must be in a valid format"
 		        }
 		    }
-
 		},
 		location: {
 			type: DataTypes.STRING,
-			allowNull: false
+			allowNull: true
 		}
 	});
 

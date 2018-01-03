@@ -11,8 +11,8 @@ module.exports = {
       username: {
         type: Sequelize.STRING
       },
-      password: {
-        type: Sequelize.STRING
+      googleId: {
+        type: Sequelize.TEXT('long')
       },
       age: {
         type: Sequelize.INTEGER
