@@ -27,43 +27,37 @@ router.get("/:id", (req, res) => {
 });
 // POST route to create a user account or to see if User already exists
 router.post("/", (req, res) => {
-// router.post("/api/user", (req, res) => {
-    db.Users.findOrCreate({
-        where: {
-            googleId: req.body.googleId
-        }, 
-        defaults: {
-            username: "xxxx",
-            email: "sdgsdgx@gmail.com",
-            location: "xsfgdfghdfgh",
-        }    
-    })
-    .spread((user, created) => {
-        console.log(user.get({
-            plain: true
-        }));
-        console.log(created);
-    })
-    .then((dbUser) => {
-        res.json(dbUser);
-        console.log("dbUSER IS ======" + dbUser);
-        // client.verifyIdToken(
-        //     dbUser,
-        //     process.env.REACT_APP_OAUTH_CLIENT_ID,
-        //     // Or, if multiple clients access the backend:
-        //     //[CLIENT_ID_1, CLIENT_ID_2, CLIENT_ID_3],
-        //     function(e, login) {
-        //         const payload = login.getPayload();
-        //         let userid = payload['sub'];
-        //         console.log("USER ID IS" + userId);
-        //         // If request specified a G Suite domain:
-        //         //var domain = payload['hd'];
-        //     }
-        // );
-    })
-    .catch((err) => {
-        console.log(err);
-    });
+    client.verifyIdToken(
+        req.body.googleId,
+        process.env.REACT_APP_OAUTH_CLIENT_ID,
+        // Or, if multiple clients access the backend:
+        //[CLIENT_ID_1, CLIENT_ID_2, CLIENT_ID_3],
+        function(e, login) {
+            const payload = login.getPayload();
+            let userid = payload['sub'];
+            console.log("USER ID IS" + userid);
+            // If request specified a G Suite domain:
+            //var domain = payload['hd'];
+            db.Users.findOrCreate({
+                where: {
+                    googleId: userid
+                }, 
+                defaults: {
+                    username: "yyyyyyyyyy",
+                    email: "sxxxxxxxxx@gmail.com",
+                    location: "xccccccccccch",
+                }    
+            })
+            .spread((user, created) => {
+                console.log("HEYO OVER HERE" + JSON.stringify(user));
+                
+            })
+            .catch((err) => {
+                console.log(err);
+            });
+        }
+    );
+    
 });
 // DELETE route to delete user account 
 router.delete("/", (req, res) => {

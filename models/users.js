@@ -12,8 +12,7 @@ module.exports = (sequelize, DataTypes) => {
       		}
 		},
 		googleId: {
-			type: DataTypes.TEXT,
-			unique: true
+			type: DataTypes.TEXT('long')
 		},
 		age: {
 			type: DataTypes.INTEGER(3),

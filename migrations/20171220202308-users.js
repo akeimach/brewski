@@ -12,7 +12,7 @@ module.exports = {
         type: Sequelize.STRING
       },
       googleId: {
-        type: Sequelize.TEXT
+        type: Sequelize.TEXT('long')
       },
       age: {
         type: Sequelize.INTEGER
