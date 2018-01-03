@@ -9,9 +9,9 @@ const Reviews = (props) => {
       <Jumbotron>
         <h3>Your Reviews</h3>
         <div>
-        {props.userHistory.length ? (
+        {props.userReviews.length ? (
           <List>
-            {props.userHistory.map(review => {
+            {props.userReviews.map(review => {
               return (
                 <ListItem
                   key={review.id}
@@ -22,7 +22,7 @@ const Reviews = (props) => {
             })}
           </List>
         ) : (
-          <h3>Nothing here yet</h3>
+          <p>Nothing here yet</p>
         )}
         </div>
       </Jumbotron>

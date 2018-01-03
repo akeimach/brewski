@@ -3,7 +3,7 @@ module.exports = {
   up: (queryInterface, Sequelize) => {
     return queryInterface.bulkInsert('Users', [{
         username: 'Vlad',
-        password: "dsagsdgf",
+        googleId: "sdgdflgkdflgkjljk35345345",
         age: 21,
         email: "something@gmail.com",
         location: "Oakland",
@@ -12,7 +12,7 @@ module.exports = {
       },
       {
         username: 'Boofer',
-        password: "j",
+        googleId: "sdgdflgkdflgkjljk35345345",
         age: 21,
         email: "something@gmail.com",
         location: "Oakland",
@@ -21,7 +21,7 @@ module.exports = {
       },
       {
         username: 'Borris',
-        password: "heyo",
+        googleId: "sdgdflgkdflgkjljk35345345",
         age: 27,
         email: "something@gmail.com",
         location: "Oakland",
@@ -30,7 +30,7 @@ module.exports = {
       },
       {
         username: 'John',
-        password: "heyo",
+        googleId: "sdgdflgkdflgkjljk35345345",
         age: 29,
         email: "something@gmail.com",
         location: "Oakland",
@@ -39,7 +39,7 @@ module.exports = {
       },
       {
         username: 'Korkie',
-        password: "j",
+        googleId: "sdgdflgkdflgkjljk35345345",
         age: 21,
         email: "something@gmail.com",
         location: "Oakland",
@@ -48,7 +48,7 @@ module.exports = {
       },
       {
         username: 'Dork Man',
-        password: "j",
+        googleId: "sdgdflgkdflgkjljk35345345",
         age: 21,
         email: "something@gmail.com",
         location: "Oakland",
@@ -57,7 +57,7 @@ module.exports = {
       },
       {
         username: 'An alligator',
-        password: "j",
+        googleId: "sdgdflgkdflgkjljk35345345",
         age: 22,
         email: "something@gmail.com",
         location: "Oakland",
@@ -66,7 +66,7 @@ module.exports = {
       },
       {
         username: 'Mohammad Sanchez',
-        password: "j",
+        googleId: "sdgdflgkdflgkjljk35345345",
         age: 22,
         email: "something@gmail.com",
         location: "Oakland",
@@ -75,7 +75,7 @@ module.exports = {
       },
       {
         username: 'Peeee',
-        password: "j",
+        googleId: "sdgdflgkdflgkjljk35345345",
         age: 22,
         email: "something@gmail.com",
         location: "Oakland",
@@ -85,7 +85,7 @@ module.exports = {
       {
 
         username: 'Gorn',
-        password: "j",
+        googleId: "sdgdflgkdflgkjljk35345345",
         age: 23,
         email: "something@gmail.com",
         location: "Oakland",
@@ -94,7 +94,7 @@ module.exports = {
       },
       {
         username: 'Passionfruit',
-        password: "j",
+        googleId: "sdgdflgkdflgkjljk35345345",
         age: 24,
         email: "something@gmail.com",
         location: "Oakland",
@@ -103,7 +103,7 @@ module.exports = {
       },
       {
         username: 'Mike',
-        password: "j",
+        googleId: "sdgdflgkdflgkjljk35345345",
         age: 25,
         email: "something@gmail.com",
         location: "Oakland",
@@ -112,7 +112,7 @@ module.exports = {
       },
       {
         username: 'Mark',
-        password: "j",
+        googleId: "sdgdflgkdflgkjljk35345345",
         age: 26,
         email: "something@gmail.com",
         location: "Oakland",
@@ -121,7 +121,7 @@ module.exports = {
       },
       {
         username: 'abe',
-        password: "heyo",
+        googleId: "sdgdflgkdflgkjljk35345345",
         age: 28,
         email: "something@gmail.com",
         location: "Oakland",
@@ -130,7 +130,7 @@ module.exports = {
       },
       {
         username: 'dope',
-        password: "heyo",
+        googleId: "sdgdflgkdflgkjljk35345345",
         age: 29,
         email: "something@gmail.com",
         location: "Oakland",
@@ -139,7 +139,7 @@ module.exports = {
       },
       {
         username: 'rrrrrrrrrrrrrrrrrrrrrrrrrreeerrrrrrr',
-        password: "heyo",
+        googleId: "sdgdflgkdflgkjljk35345345",
         age: 24,
         email: "something@gmail.com",
         location: "Oakland",

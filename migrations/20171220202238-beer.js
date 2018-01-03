@@ -15,10 +15,10 @@ module.exports = {
         type: Sequelize.STRING
       },
       abv: {
-        type: Sequelize.INTEGER
+        type: Sequelize.FLOAT
       },
       ibu: {
-        type: Sequelize.INTEGER
+        type: Sequelize.FLOAT
       },
       foodPairings: {
         type: Sequelize.STRING
@@ -27,7 +27,7 @@ module.exports = {
         type: Sequelize.BOOLEAN
       },
       shortDes: {
-        type: Sequelize.STRING
+        type: Sequelize.TEXT("long")
       },
       createdAt: {
         allowNull: false,

@@ -8,8 +8,8 @@ import { Container } from "./components/Grid";
 import { Route } from "react-router-dom";
 import dotenv from "dotenv";
 import Modal from 'react-modal';
-import { TextArea, FormBtn } from "./components/Form";
-
+import { TextArea } from "./components/Form";
+import StarRatings from "react-star-ratings";
 
 class App extends React.Component {
 
@@ -19,7 +19,9 @@ class App extends React.Component {
     userId: 1, //temporary
     userData: [],
     userHistory: [],
+    userReviews: [],
     reviewId: "",
+    rating: 0,
     isNewReview: true,
     beerReviews: [],
     beerRev: "",
@@ -29,6 +31,10 @@ class App extends React.Component {
     beerAbv: "",
     beerShortDes: "",
     breweryName: "",
+    visionBeerName: "",
+    visionBreweryName: "",
+    visionBeerAbv: "",
+    visionBeerShortDes: "",
     loginModalOpen: false,
     reviewModalOpen: false,
   };
@@ -42,7 +48,12 @@ class App extends React.Component {
     });
     API.getHistory( this.state.userId )
     .then(res => {
-      this.setState({ userHistory: res.data });
+      this.setState({ userHistory: res.data[0] });
+      console.log(this.state.userHistory);
+    });
+    API.getReviews( this.state.userId )
+    .then(res => {
+      this.setState({ userReviews: res.data });
     });
   }
 
@@ -66,36 +77,56 @@ class App extends React.Component {
   };
 
 
+  changeRating = (newRating) => {
+    this.setState({
+      rating: newRating,
+      beerScore: newRating
+    });
+  };
+
+
   handleBeerInfomation = () => {
     API.postBreweryID({ nameOfBrewery: this.state.imageResults[0] })
     .then(res => {
       console.log("Brewery results: ", res.data);
       if (res.data) {
         this.setState({
-          breweryName: res.data.name
+          visionBreweryName: res.data.name
         });
       }
-    });
+      API.postBeerID({ imageResults: this.state.imageResults })
+      .then(res => {
+        console.log("Beer results: ", res.data);
+        if (res.data) {
+          this.setState({
+            visionBeerName: res.data.name,
+            visionBeerAbv: res.data.abv + "%",
+            visionBeerShortDes: res.data.description,
+          });
+          API.postRateBeer({ visionBeerName: this.state.visionBeerName })
+          .then(res => {
+            console.log("Review results: ", res.data);
+            if (res.data) {
+              this.setState({
+                visionBeerReviews: res.data
+              });
+            }
+          })
+          .catch(err => console.log(err));
 
-    API.postBeerID({ imageResults: this.state.imageResults })
-    .then(res => {
-      console.log("Beer results: ", res.data);
-      if (res.data) {
-        this.setState({
-          beerName: res.data.name,
-          beerAbv: res.data.abv + "%",
-          beerShortDes: res.data.description,
-        });
-        API.postRateBeer({ beerName: this.state.beerName })
-        .then(res => {
-          console.log("Review results: ", res.data);
-          if (res.data) {
-            this.setState({
-              beerReviews: res.data
-            });
+          const userBeer = {
+            beername: this.state.visionBeerName,
+            brewery: this.state.visionBreweryName,
+            abv: this.state.visionBeerAbv,
+            shortDes: this.state.visionBeerShortDes
           }
-        });
-      }
+          API.postUsersBeers( this.state.userId, userBeer )
+          .then(res => {
+            console.log("Added to history: ", res.data);
+          })
+          .catch(err => console.log(err));
+        }
+      });
     });
   };
 
@@ -120,10 +151,11 @@ class App extends React.Component {
 
   handleReviewModal = (event) => {
     const valueArr = event.target.value.split(",");
+    console.log(valueArr);
     this.setState({
       reviewId: event.target.id,
       beerName: valueArr[0],
-      beerScore: valueArr[1],
+      beerScore: (valueArr[1] ? valueArr[1] : 0),
       beerRev: valueArr[2],
       isNewReview: (valueArr[2] ? false : true)
     });
@@ -134,18 +166,17 @@ class App extends React.Component {
   handleBeerReview = (event) => {
     if (this.state.beerRev) {
       const beerReviewData = {
-        id: this.state.reviewId,
+        BeerId: this.state.reviewId,
         UserId: this.state.userId,
         beerScore: this.state.beerScore,
         beerRev: this.state.beerRev,
         starred: true //just for now
       }
-      console.log(beerReviewData);
-      console.log(this.state.beerName);
+      console.log("App.js handleBeerReview: ", beerReviewData, this.state.beerName, this.state.isNewReview);
       if (this.state.isNewReview) {
         API.postBeerReview( beerReviewData )
         .then(res => {
-          console.log("Review results: ", res.data);
+          console.log("Add review results: ", res.data);
           if (res.data) {
             this.setState({ isNewReview: false });
           }
@@ -155,7 +186,7 @@ class App extends React.Component {
       else {
         API.updateBeerReview( beerReviewData )
         .then(res => {
-          console.log("Review results: ", res.data);
+          console.log("Update review results: ", res.data);
           if (res.data) {
             
           }
@@ -170,22 +201,27 @@ class App extends React.Component {
   render() {
 
     const reviewModal = (
-      <Modal isOpen={this.state.reviewModalOpen} onRequestClose={this.closeModal}>
+      <Modal isOpen={this.state.reviewModalOpen} onRequestClose={this.closeModal} ariaHideApp={false}>
         <br />
         <h6>Write a review for {this.state.beerName}</h6>
+        <StarRatings
+          rating={this.state.rating}
+          isSelectable={true}
+          isAggregateRating={false}
+          changeRating={this.changeRating}
+          numOfStars={5}
+          starRatedColor={"red"}
+          starWidthAndHeight={"30px"}
+        />
         <TextArea
-          value={this.beerRev}
+          value={this.state.beerRev ? this.state.beerRev : ""} //if there is already a review written, let them edit it
           onChange={this.handleInputChange}
           name="beerRev"
-          placeholder={this.state.beerRev ? this.state.beerRev : "This beer was..."}
+          placeholder={this.state.beerRev ? "" : "This beer was..."} //if there is no review yet, put a placeholder
           type="text"
         />
-        <FormBtn
-          name="Submit"
-          value={this.state.beerId}
-          onClick={this.handleBeerReview}
-        />
-        <button onClick={this.closeModal}>Close</button>
+        <button style={{ margin: 5 }} className="btn btn-primary" value={this.state.beerId} onClick={this.handleBeerReview}>Submit</button>
+        <button style={{ margin: 5 }} className="btn btn-dark" onClick={this.closeModal}>Close</button>
       </Modal>
     );
 
@@ -205,16 +241,16 @@ class App extends React.Component {
               imageResults={this.state.imageResults}
               handleInputChange={this.handleInputChange}
               handleBeerImage={this.handleBeerImage}
-              breweryName={this.state.breweryName}
-              beerName={this.state.beerName}
-              beerAbv={this.state.beerAbv}
-              beerShortDes={this.state.beerShortDes}
+              visionBreweryName={this.state.visionBreweryName}
+              visionBeerName={this.state.visionBeerName}
+              visionBeerAbv={this.state.visionBeerAbv}
+              visionBeerShortDes={this.state.visionBeerShortDes}
               beerReviews={this.state.beerReviews}
             />
           )}/>
           <Route exact path="/reviews" render={() => (
             <Reviews
-              userHistory={this.state.userHistory}
+              userReviews={this.state.userReviews}
             />
           )}/>
           {reviewModal}

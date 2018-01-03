@@ -9,10 +9,10 @@ module.exports = (sequelize, DataTypes) => {
 			type: DataTypes.TEXT,
 		},
 		abv: {
-			type: DataTypes.INTEGER(3),
+			type: DataTypes.FLOAT,
 		},
 		ibu: {
-			type: DataTypes.INTEGER(3),
+			type: DataTypes.FLOAT,
 		},
 		foodPairings: {
 			type: DataTypes.STRING,
@@ -21,7 +21,7 @@ module.exports = (sequelize, DataTypes) => {
 			type: DataTypes.BOOLEAN,
 		},
 		shortDes: {
-			type: DataTypes.STRING,
+			type: DataTypes.TEXT("long"),
 		}
 	});
 

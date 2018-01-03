@@ -1,12 +1,18 @@
 import React from 'react';
 import { GoogleLogin } from 'react-google-login-component';
-
+import API from '../../utils/API.js';
 
 export default class OAuth extends React.Component {
 
   responseGoogle = (googleUser) => {
-    var id_token = googleUser.getAuthResponse().id_token;
-    console.log({accessToken: id_token});
+    let id_token = googleUser.getAuthResponse().id_token;
+    console.log(id_token);
+    API.postUser({
+      googleId: id_token
+    })
+    .then(res => {
+      console.log("data is " + res.data);
+    });
   }
 
   render () {
