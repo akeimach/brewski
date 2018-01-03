@@ -3,20 +3,13 @@ const express = require("express");
 const router = express.Router();
 
 // GET route to get a specific user's beer and review
-router.get("/", (req, res) => {
+router.get("/:id", (req, res) => {
   db.Users.findAll({
     where: {
-      id: req.body.id
+      id: req.params.id
     },
     include: [{
-      model: db.Beers,
-      through: {
-        attributes: ["beername", "brewery", "abv", "ibu", "foodPairings", "isOrganic", "shortDes", "avgBeerScore"]
-      },
-      include: [{
-        model: db.Reviews,
-        through: ["starred", "beerRev", "beerScore"]
-      }]
+      model: db.Beers
     }]
   })
   .then((data) => {
@@ -29,31 +22,21 @@ router.get("/", (req, res) => {
 
 // POST route to create new beer when user takes a pic of beer
 router.post("/:id", (req, res) => {
-  db.Beers.create(req.body, {
-    include: [ Users ]
+  db.Beers.create(req.body)
+  .then((data1) => {
+    db.UsersBeers.create({
+      UserId: req.params.id,
+      BeerId: data1.dataValues.id
+    })
+    .then((data2) => {
+      res.json(data2);
+    })
+    .catch((err2) => {
+      console.log(err2);
+    });
   })
-  .then((data) => {
-    // db.UsersBeers.create({
-    //   UserId: req.params.id,
-    //   BeerId: data.dataValues.id
-    // })
-    // db.Beers.prototype.setUsers(db.Users, {
-    //  through: {
-    //    BeerId: data.dataValues.id,
-    //    UserId: 1,
-    //    id: 1
-    //  }
-    // });
-
-    // .then((data2) => {
-    //   res.json(data2);
-    // })
-    // .catch((err) => {
-    //   console.log(err);
-    // });
-  })
-  .catch((err) => {
-    console.log(err);
+  .catch((err1) => {
+    console.log(err1);
   });
 });
 

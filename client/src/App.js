@@ -19,6 +19,7 @@ class App extends React.Component {
     userId: 1, //temporary
     userData: [],
     userHistory: [],
+    userReviews: [],
     reviewId: "",
     isNewReview: true,
     beerReviews: [],
@@ -42,7 +43,12 @@ class App extends React.Component {
     });
     API.getHistory( this.state.userId )
     .then(res => {
-      this.setState({ userHistory: res.data });
+      this.setState({ userHistory: res.data[0] });
+      console.log(this.state.userHistory);
+    });
+    API.getReviews( this.state.userId )
+    .then(res => {
+      this.setState({ userReviews: res.data });
     });
   }
 
@@ -226,7 +232,7 @@ class App extends React.Component {
           )}/>
           <Route exact path="/reviews" render={() => (
             <Reviews
-              userHistory={this.state.userHistory}
+              userReviews={this.state.userReviews}
             />
           )}/>
           {reviewModal}

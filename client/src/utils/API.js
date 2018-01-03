@@ -13,12 +13,16 @@ export default {
     return axios.post("/api/identifybrewery", nameOfBrewery);
   },
   postRateBeer: function(beerName) {
+    console.log(beerName);
     return axios.post("/api/ratebeer", beerName);
   },
   getUser: function(userId) {
     return axios.get("/api/user/" + userId);
   },
   getHistory: function(userId) {
+    return axios.get("/api/beers/" + userId);
+  },
+  getReviews: function(userId) {
     return axios.get("/api/reviews/" + userId);
   },
   postBeerReview: function(beerReviewData) {
