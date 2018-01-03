@@ -3,25 +3,25 @@ import axios from "axios";
 // The getVision method retrieves label annotations from the server
 // It accepts a base64 image or url to search the google vision api
 export default {
-  postVision: function(imageData) {
+  postVision: (imageData) => {
     return axios.post("/api/vision", imageData);
   },
-  postBeerID: function(imageResults) {
+  postBeerID: (imageResults) => {
     return axios.post("/api/identifybeer", imageResults);
   },
-  postBreweryID: function(nameOfBrewery) {
+  postBreweryID: (nameOfBrewery) => {
     return axios.post("/api/identifybrewery", nameOfBrewery);
   },
-  postUser: function(googleToken) {
+  postUser: (googleToken) => {
     return axios.post("/api/user", googleToken)
   },
-  postRateBeer: function(beerName) {
+  postRateBeer: (beerName) => {
     return axios.post("/api/ratebeer", beerName);
   },
-  getUser: function(userId) {
+  getUser: (userId) => {
     return axios.get("/api/user/" + userId);
   },
-  getHistory: function(userId) {
+  getHistory: (userId) => {
     return axios.get("/api/reviews/" + userId);
   }
 };
