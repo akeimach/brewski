@@ -22,6 +22,19 @@ export default {
     return axios.get("/api/user/" + userId);
   },
   getHistory: (userId) => {
+    return axios.get("/api/beers/" + userId);
+  },
+  getReviews: (userId) => {
     return axios.get("/api/reviews/" + userId);
+  },
+  postBeerReview: function(beerReviewData) {
+    console.log("API.js postBeerReview: ", beerReviewData);
+    return axios.post("/api/reviews", beerReviewData);
+  },
+  updateBeerReview: function(beerReviewData) {
+    return axios.put("/api/reviews", beerReviewData);
+  },
+  postUsersBeers: function(userId, beerData) {
+    return axios.post("/api/beers/" + userId, beerData);
   }
 };

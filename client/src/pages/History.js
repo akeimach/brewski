@@ -1,32 +1,34 @@
 import React from "react";
-import { List, ListItem } from "../components/List";
+import { List, ListButtonItem } from "../components/List";
 import { Jumbotron } from "react-bootstrap";
 
+
 const History = (props) => {
+  const beerArr = props.userHistory.Beers;
   return (
     <div>
       <br/>
       <Jumbotron>
         <h3>Viewing History</h3>
         <div>
-        {props.userHistory.length ? (
+        {beerArr ? (
           <List>
-            {props.userHistory.map(review => {
+            {beerArr.map(history => {
               return (
-                <ListItem
-                  key={review.id}
-                  id={review.id}
-                  content={[(`${review.Beer.beername}`)]}
-                  reviewModalOpen={props.reviewModalOpen}
-                  toggleModal={props.toggleModal}
-                  modalValue={`Write your review`}
+                <ListButtonItem
+                  key={history.id}
+                  id={history.id}
+                  name="reviewModalOpen"
+                  content={[(`${history.beername}`)]}
+                  value={[(`${history.beername}`), (`${history.beerScore}`), (`${history.beerRev}`)]}
                   buttonValue={`Review this Beer`}
+                  onClick={props.handleReviewModal}
                 />
               );
             })}
           </List>
         ) : (
-          <h3>Nothing here yet</h3>
+          <p>Nothing here yet</p>
         )}
         </div>
       </Jumbotron>

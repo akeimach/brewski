@@ -27,7 +27,6 @@
     "google-auth-library": "^0.12.0",
     "isomorphic-fetch": "^2.2.1",
     "method-override": "^2.3.10",
-    "mongoose": "^4.11.7",
     "mysql2": "^1.5.1",
     "node-cloud-vision-api": "^0.2.0",
     "path": "^0.12.7",
