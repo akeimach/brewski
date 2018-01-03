@@ -9,13 +9,12 @@ const Capture = (props) => {
     <div>
       <br/>
       <Jumbotron>
-        <h1>Take Photo</h1>
+        <h3>Upload Photo</h3>
         <Input
           value={props.imageData}
           onChange={props.handleInputChange}
           name="imageData"
           placeholder="http://yourimage.com"
-          label="Image URL"
           type="url"
         />
         <FormBtn
