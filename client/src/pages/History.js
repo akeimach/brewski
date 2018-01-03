@@ -10,13 +10,13 @@ const History = (props) => {
     <div>
       <br/>
       <Jumbotron>
-        <h3>Viewing History</h3>
+        <h3>Your History</h3>
         <div>
         {beerArr ? (
           <List>
             {beerArr.map(history => {
-              let beerRev = undefined;
-              let beerScore = undefined;
+              let beerRev = "";
+              let beerScore = "";
               for (let key in reviewArr) {
                 (history.id === reviewArr[key].BeerId ?
                   beerRev = reviewArr[key].beerRev :

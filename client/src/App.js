@@ -138,6 +138,7 @@ class App extends React.Component {
 
   handleReviewModal = (event) => {
     const valueArr = event.target.value.split(",");
+    console.log(valueArr);
     this.setState({
       reviewId: event.target.id,
       beerName: valueArr[0],
@@ -154,11 +155,11 @@ class App extends React.Component {
       const beerReviewData = {
         BeerId: this.state.reviewId,
         UserId: this.state.userId,
-        beerScore: (this.state.beerScore ? 0 : this.state.beerScore),
+        beerScore: this.state.beerScore,
         beerRev: this.state.beerRev,
         starred: true //just for now
       }
-      console.log("App.js handleBeerReview: ", beerReviewData, this.state.beerName);
+      console.log("App.js handleBeerReview: ", beerReviewData, this.state.beerName, this.state.isNewReview);
       if (this.state.isNewReview) {
         API.postBeerReview( beerReviewData )
         .then(res => {
@@ -191,10 +192,10 @@ class App extends React.Component {
         <br />
         <h6>Write a review for {this.state.beerName}</h6>
         <TextArea
-          value={this.beerRev}
+          value={this.state.beerRev ? this.state.beerRev : ""} //if there is already a review written, let them edit it
           onChange={this.handleInputChange}
           name="beerRev"
-          placeholder={this.state.beerRev ? this.state.beerRev : "This beer was..."}
+          placeholder={this.state.beerRev ? "" : "This beer was..."} //if there is no review yet, put a placeholder
           type="text"
         />
         <FormBtn
