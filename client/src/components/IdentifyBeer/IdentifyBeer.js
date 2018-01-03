@@ -9,9 +9,9 @@ const IdentifyBeer = (props) => {
       <Jumbotron>
         <h3>Your Identified Beer</h3>
         <div>
-        {props.beerName.length ? (
+        {props.visionBeerName.length ? (
           <Item
-            content={[(`Name: ${props.beerName}`), (`Brewery: ${props.breweryName}`), (`ABV: ${props.beerAbv}`), (`Description: ${props.beerShortDes}`)]}
+            content={[(`Name: ${props.visionBeerName}`), (`Brewery: ${props.visionBreweryName}`), (`ABV: ${props.visionBeerAbv}`), (`Description: ${props.visionBeerShortDes}`)]}
           />
         ) : (
           <p>Nothing here yet</p>

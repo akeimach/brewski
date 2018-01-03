@@ -14,13 +14,13 @@ const Nav = (props) => {
       </button>
       <div className="collapse navbar-collapse" id="navbarCollapse">
         <div className="navbar-nav">
-          <Link to="/home">
+          <Link to="/home" style={{ margin: 5, textDecoration: "none" }}>
             <span className="nav-style nav-item nav-link">Home</span>
           </Link>
-          <Link to="/reviews">
+          <Link to="/reviews" style={{ margin: 5, textDecoration: "none" }}>
             <span className="nav-style nav-item nav-link">Reviews</span>
           </Link>
-          <Link to="/history">
+          <Link to="/history" style={{ margin: 5, textDecoration: "none" }}>
             <span className="nav-style nav-item nav-link">History</span>
           </Link>
           <span className="nav-style nav-item nav-link">

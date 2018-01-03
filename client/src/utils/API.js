@@ -28,7 +28,6 @@ export default {
     return axios.get("/api/reviews/" + userId);
   },
   postBeerReview: function(beerReviewData) {
-    console.log("API.js postBeerReview: ", beerReviewData);
     return axios.post("/api/reviews", beerReviewData);
   },
   updateBeerReview: function(beerReviewData) {

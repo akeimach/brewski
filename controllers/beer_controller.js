@@ -8,9 +8,10 @@ router.get("/:id", (req, res) => {
     where: {
       id: req.params.id
     },
-    include: [{
-      model: db.Beers
-    }]
+    include: [
+      { model: db.Beers },
+      { model: db.Reviews }
+    ]
   })
   .then((data) => {
     res.json(data);
