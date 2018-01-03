@@ -13,7 +13,7 @@ export const ListButtonItem = (props) => {
           />
         </Col>
         <Col size="4">
-          <button className="btn btn-action" id={props.id} name={props.name} onClick={props.onClick}>{props.buttonValue}</button>
+          <button className="btn btn-action" id={props.id} name={props.name} value={props.value} onClick={props.onClick}>{props.buttonValue}</button>
         </Col>
       </Row>
     </li>

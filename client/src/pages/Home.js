@@ -23,8 +23,8 @@ const Home = (props) => {
             <IdentifyBeer
               breweryName={props.breweryName}
               beerName={props.beerName}
-              abv={props.abv}
-              description={props.description}
+              beerAbv={props.beerAbv}
+              beerShortDes={props.beerShortDes}
             />
           </Container>
         </Row>

@@ -16,17 +16,19 @@ class App extends React.Component {
   state = {
     imageData: "",
     imageResults: [],
-    userId: 1,
+    userId: 1, //temporary
     userData: [],
     userHistory: [],
-    isLoading: true,
-    breweryName: "",
-    beerName: "",
-    beerID: "",
+    reviewId: "",
+    isNewReview: true,
     beerReviews: [],
-    currBeerReview: "",
-    abv: "",
-    description: "",
+    beerRev: "",
+    beerName: "",
+    beerId: "",
+    beerScore: 0,
+    beerAbv: "",
+    beerShortDes: "",
+    breweryName: "",
     loginModalOpen: false,
     reviewModalOpen: false
   };
@@ -80,10 +82,9 @@ class App extends React.Component {
       console.log("Beer results: ", res.data);
       if (res.data) {
         this.setState({
-          isLoading: false,
           beerName: res.data.name,
-          abv: res.data.abv + "%",
-          description: res.data.description,
+          beerAbv: res.data.abv + "%",
+          beerShortDes: res.data.description,
         });
         API.postRateBeer({ beerName: this.state.beerName })
         .then(res => {
@@ -117,55 +118,74 @@ class App extends React.Component {
   };
 
 
-  handleBeerReview = (event) => {
-    this.openModal(event);
+  handleReviewModal = (event) => {
+    const valueArr = event.target.value.split(",");
     this.setState({
-        beerID: event.target.id
-      });
-    if (this.state.currBeerReview) {
+      reviewId: event.target.id,
+      beerName: valueArr[0],
+      beerScore: valueArr[1],
+      beerRev: valueArr[2],
+      isNewReview: (valueArr[2] ? false : true)
+    });
+    this.openModal(event);
+  };
+
+
+  handleBeerReview = (event) => {
+    if (this.state.beerRev) {
       const beerReviewData = {
-        currBeerReview: this.state.currBeerReview,
-        currBeer: 1
+        id: this.state.reviewId,
+        UserId: this.state.userId,
+        beerScore: this.state.beerScore,
+        beerRev: this.state.beerRev,
+        starred: true //just for now
       }
-      API.postBeerReview( beerReviewData )
-      .then(res => {
-        console.log("Review results: ", res.data);
-        if (res.data) {
-          
-        }
-      })
-      .catch(err => console.log(err));
+      console.log(beerReviewData);
+      console.log(this.state.beerName);
+      if (this.state.isNewReview) {
+        API.postBeerReview( beerReviewData )
+        .then(res => {
+          console.log("Review results: ", res.data);
+          if (res.data) {
+            this.setState({ isNewReview: false });
+          }
+        })
+        .catch(err => console.log(err));
+      }
+      else {
+        API.updateBeerReview( beerReviewData )
+        .then(res => {
+          console.log("Review results: ", res.data);
+          if (res.data) {
+            
+          }
+        })
+        .catch(err => console.log(err));
+      }
     }
+    this.closeModal(event);
   };
 
 
   render() {
 
     const reviewModal = (
-      <Modal
-        isOpen={this.state.reviewModalOpen}
-        onRequestClose={this.closeModal}
-        contentLabel="Example Modal"
-        // appElement={el}
-      >
+      <Modal isOpen={this.state.reviewModalOpen} onRequestClose={this.closeModal}>
         <br />
-        <h6>Write a review for {this.state.beerID}</h6>
+        <h6>Write a review for {this.state.beerName}</h6>
         <TextArea
-          value={this.currBeerReview}
+          value={this.beerRev}
           onChange={this.handleInputChange}
-          name="currBeerReview"
-          placeholder="This beer was..."
+          name="beerRev"
+          placeholder={this.state.beerRev ? this.state.beerRev : "This beer was..."}
           type="text"
         />
         <FormBtn
           name="Submit"
-          value={this.state.beerID}
-          onClick={this.closeModal}
+          value={this.state.beerId}
+          onClick={this.handleBeerReview}
         />
-        <h2 ref={subtitle => this.subtitle = subtitle}>Hello</h2>
-        <button onClick={this.closeModal}>close</button>
-        <div>I am a modal</div>
-        <div>{this.state.beerID}</div>
+        <button onClick={this.closeModal}>Close</button>
       </Modal>
     );
 
@@ -187,8 +207,8 @@ class App extends React.Component {
               handleBeerImage={this.handleBeerImage}
               breweryName={this.state.breweryName}
               beerName={this.state.beerName}
-              abv={this.state.abv}
-              description={this.state.description}
+              beerAbv={this.state.beerAbv}
+              beerShortDes={this.state.beerShortDes}
               beerReviews={this.state.beerReviews}
             />
           )}/>
@@ -201,7 +221,7 @@ class App extends React.Component {
           <Route exact path="/history" render={() => (
             <History
               userHistory={this.state.userHistory}
-              handleBeerReview={this.handleBeerReview}
+              handleReviewModal={this.handleReviewModal}
             />
           )}/>
         </Container>

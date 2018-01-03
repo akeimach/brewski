@@ -12,7 +12,7 @@ const IdentifyBeer = (props) => {
         <div>
         {props.beerName.length ? (
           <Item
-            content={[(`Name: ${props.beerName}`), (`Brewery: ${props.breweryName}`), (`ABV: ${props.abv}`), (`Description: ${props.description}`)]}
+            content={[(`Name: ${props.beerName}`), (`Brewery: ${props.breweryName}`), (`ABV: ${props.beerAbv}`), (`Description: ${props.beerShortDes}`)]}
           />
         ) : (
           <p>Nothing here yet</p>

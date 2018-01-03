@@ -19,8 +19,9 @@ const History = (props) => {
                   id={review.id}
                   name="reviewModalOpen"
                   content={[(`${review.Beer.beername}`)]}
+                  value={[(`${review.Beer.beername}`), (`${review.beerScore}`), (`${review.beerRev}`)]}
                   buttonValue={`Review this Beer`}
-                  onClick={props.handleBeerReview}
+                  onClick={props.handleReviewModal}
                 />
               );
             })}

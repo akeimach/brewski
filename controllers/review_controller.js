@@ -12,7 +12,7 @@ router.get("/:userId", (req, res) => {
         UserId: req.params.userId,
       },
       include: [{
-          model: db.Beers
+        model: db.Beers
       }],
       order: [
         ["createdAt", "DESC"]
@@ -47,7 +47,13 @@ router.get("/beers/:beerId", (req, res) => {
 
 // POST route to create new review
 router.post("/", (req, res) => {
-	db.Reviews.create(req.body)
+  console.log("Post review: ", req.body);
+	db.Reviews.create(req.body, {
+    where: {
+      UserId: req.body.UserId,
+      BeerId: req.body.BeerId
+    }
+  })
 	.then((data) => {
 		res.json(data);
 	})
@@ -58,11 +64,10 @@ router.post("/", (req, res) => {
 
 // PUT route to update previous review
 router.put("/", (req, res) => {
-	db.Reviews.update(req.body, {    
+  db.Reviews.update(req.body, {
 		where: {
 			UserId: req.body.UserId,
-			id: req.body.id,
-			BeerId: req.body.BeerId
+			id: req.body.id
 		}
 	})
 	.then((data) => {
