@@ -19,6 +19,7 @@ class App extends React.Component {
     userId: 1, //temporary
     userData: [],
     userHistory: [],
+    userReviews: [],
     reviewId: "",
     isNewReview: true,
     beerReviews: [],
@@ -42,7 +43,12 @@ class App extends React.Component {
     });
     API.getHistory( this.state.userId )
     .then(res => {
-      this.setState({ userHistory: res.data });
+      this.setState({ userHistory: res.data[0] });
+      console.log(this.state.userHistory);
+    });
+    API.getReviews( this.state.userId )
+    .then(res => {
+      this.setState({ userReviews: res.data });
     });
   }
 
@@ -75,27 +81,39 @@ class App extends React.Component {
           breweryName: res.data.name
         });
       }
-    });
+      API.postBeerID({ imageResults: this.state.imageResults })
+      .then(res => {
+        console.log("Beer results: ", res.data);
+        if (res.data) {
+          this.setState({
+            beerName: res.data.name,
+            beerAbv: res.data.abv + "%",
+            beerShortDes: res.data.description,
+          });
+          API.postRateBeer({ beerName: this.state.beerName })
+          .then(res => {
+            console.log("Review results: ", res.data);
+            if (res.data) {
+              this.setState({
+                beerReviews: res.data
+              });
+            }
+          })
+          .catch(err => console.log(err));
 
-    API.postBeerID({ imageResults: this.state.imageResults })
-    .then(res => {
-      console.log("Beer results: ", res.data);
-      if (res.data) {
-        this.setState({
-          beerName: res.data.name,
-          beerAbv: res.data.abv + "%",
-          beerShortDes: res.data.description,
-        });
-        API.postRateBeer({ beerName: this.state.beerName })
-        .then(res => {
-          console.log("Review results: ", res.data);
-          if (res.data) {
-            this.setState({
-              beerReviews: res.data
-            });
+          const userBeer = {
+            beername: this.state.beerName,
+            brewery: this.state.breweryName,
+            abv: 5, //temp - need to change DB to float
+            shortDes: "hey dood" //temp - change DB to text
           }
-        });
-      }
+          API.postUsersBeers( this.state.userId, userBeer )
+          .then(res => {
+            console.log("Added to history: ", res.data);
+          })
+          .catch(err => console.log(err));
+        }
+      });
     });
   };
 
@@ -123,7 +141,7 @@ class App extends React.Component {
     this.setState({
       reviewId: event.target.id,
       beerName: valueArr[0],
-      beerScore: valueArr[1],
+      beerScore: (valueArr[1] ? valueArr[1] : 0),
       beerRev: valueArr[2],
       isNewReview: (valueArr[2] ? false : true)
     });
@@ -134,18 +152,17 @@ class App extends React.Component {
   handleBeerReview = (event) => {
     if (this.state.beerRev) {
       const beerReviewData = {
-        id: this.state.reviewId,
+        BeerId: this.state.reviewId,
         UserId: this.state.userId,
-        beerScore: this.state.beerScore,
+        beerScore: (this.state.beerScore ? 0 : this.state.beerScore),
         beerRev: this.state.beerRev,
         starred: true //just for now
       }
-      console.log(beerReviewData);
-      console.log(this.state.beerName);
+      console.log("App.js handleBeerReview: ", beerReviewData, this.state.beerName);
       if (this.state.isNewReview) {
         API.postBeerReview( beerReviewData )
         .then(res => {
-          console.log("Review results: ", res.data);
+          console.log("Add review results: ", res.data);
           if (res.data) {
             this.setState({ isNewReview: false });
           }
@@ -155,7 +172,7 @@ class App extends React.Component {
       else {
         API.updateBeerReview( beerReviewData )
         .then(res => {
-          console.log("Review results: ", res.data);
+          console.log("Update review results: ", res.data);
           if (res.data) {
             
           }
@@ -170,7 +187,7 @@ class App extends React.Component {
   render() {
 
     const reviewModal = (
-      <Modal isOpen={this.state.reviewModalOpen} onRequestClose={this.closeModal}>
+      <Modal isOpen={this.state.reviewModalOpen} onRequestClose={this.closeModal} ariaHideApp={false}>
         <br />
         <h6>Write a review for {this.state.beerName}</h6>
         <TextArea
@@ -214,7 +231,7 @@ class App extends React.Component {
           )}/>
           <Route exact path="/reviews" render={() => (
             <Reviews
-              userHistory={this.state.userHistory}
+              userReviews={this.state.userReviews}
             />
           )}/>
           {reviewModal}
