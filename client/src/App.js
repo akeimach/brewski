@@ -30,7 +30,7 @@ class App extends React.Component {
     beerShortDes: "",
     breweryName: "",
     loginModalOpen: false,
-    reviewModalOpen: false
+    reviewModalOpen: false,
   };
 
 
