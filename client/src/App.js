@@ -75,27 +75,39 @@ class App extends React.Component {
           breweryName: res.data.name
         });
       }
-    });
+      API.postBeerID({ imageResults: this.state.imageResults })
+      .then(res => {
+        console.log("Beer results: ", res.data);
+        if (res.data) {
+          this.setState({
+            beerName: res.data.name,
+            beerAbv: res.data.abv + "%",
+            beerShortDes: res.data.description,
+          });
+          API.postRateBeer({ beerName: this.state.beerName })
+          .then(res => {
+            console.log("Review results: ", res.data);
+            if (res.data) {
+              this.setState({
+                beerReviews: res.data
+              });
+            }
+          })
+          .catch(err => console.log(err));
 
-    API.postBeerID({ imageResults: this.state.imageResults })
-    .then(res => {
-      console.log("Beer results: ", res.data);
-      if (res.data) {
-        this.setState({
-          beerName: res.data.name,
-          beerAbv: res.data.abv + "%",
-          beerShortDes: res.data.description,
-        });
-        API.postRateBeer({ beerName: this.state.beerName })
-        .then(res => {
-          console.log("Review results: ", res.data);
-          if (res.data) {
-            this.setState({
-              beerReviews: res.data
-            });
+          const userBeer = {
+            beername: this.state.beerName,
+            brewery: this.state.breweryName,
+            abv: 5, //temp - need to change DB to float
+            shortDes: "hey dood" //temp - change DB to text
           }
-        });
-      }
+          API.postUsersBeers( this.state.userId, userBeer )
+          .then(res => {
+            console.log("Added to history: ", res.data);
+          })
+          .catch(err => console.log(err));
+        }
+      });
     });
   };
 
