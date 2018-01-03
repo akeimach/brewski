@@ -50,7 +50,6 @@ router.post("/", (req, res) => {
             })
             .spread((user, created) => {
                 console.log("HEYO OVER HERE" + JSON.stringify(user));
-                
             })
             .catch((err) => {
                 console.log(err);
