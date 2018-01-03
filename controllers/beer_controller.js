@@ -29,12 +29,14 @@ router.get("/", (req, res) => {
 
 // POST route to create new beer when user takes a pic of beer
 router.post("/:id", (req, res) => {
-  db.Beers.create(req.body)
+  db.Beers.create(req.body, {
+    include: [ Users ]
+  })
   .then((data) => {
-    db.UsersBeers.create({
-      UserId: req.params.id,
-      BeerId: data.dataValues.id
-    })
+    // db.UsersBeers.create({
+    //   UserId: req.params.id,
+    //   BeerId: data.dataValues.id
+    // })
     // db.Beers.prototype.setUsers(db.Users, {
     //  through: {
     //    BeerId: data.dataValues.id,
@@ -43,12 +45,12 @@ router.post("/:id", (req, res) => {
     //  }
     // });
 
-    .then((data2) => {
-      res.json(data2);
-    })
-    .catch((err) => {
-      console.log(err);
-    });
+    // .then((data2) => {
+    //   res.json(data2);
+    // })
+    // .catch((err) => {
+    //   console.log(err);
+    // });
   })
   .catch((err) => {
     console.log(err);
