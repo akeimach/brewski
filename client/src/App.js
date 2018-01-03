@@ -32,6 +32,10 @@ class App extends React.Component {
     beerAbv: "",
     beerShortDes: "",
     breweryName: "",
+    visionBeerName: "",
+    visionBreweryName: "",
+    visionBeerAbv: "",
+    visionBeerShortDes: "",
     loginModalOpen: false,
     reviewModalOpen: false
   };
@@ -88,7 +92,7 @@ class App extends React.Component {
       console.log("Brewery results: ", res.data);
       if (res.data) {
         this.setState({
-          breweryName: res.data.name
+          visionBreweryName: res.data.name
         });
       }
       API.postBeerID({ imageResults: this.state.imageResults })
@@ -96,26 +100,26 @@ class App extends React.Component {
         console.log("Beer results: ", res.data);
         if (res.data) {
           this.setState({
-            beerName: res.data.name,
-            beerAbv: res.data.abv + "%",
-            beerShortDes: res.data.description,
+            visionBeerName: res.data.name,
+            visionBeerAbv: res.data.abv + "%",
+            visionBeerShortDes: res.data.description,
           });
-          API.postRateBeer({ beerName: this.state.beerName })
+          API.postRateBeer({ visionBeerName: this.state.visionBeerName })
           .then(res => {
             console.log("Review results: ", res.data);
             if (res.data) {
               this.setState({
-                beerReviews: res.data
+                visionBeerReviews: res.data
               });
             }
           })
           .catch(err => console.log(err));
 
           const userBeer = {
-            beername: this.state.beerName,
-            brewery: this.state.breweryName,
-            abv: 5, //temp - need to change DB to float
-            shortDes: "hey dood" //temp - change DB to text
+            beername: this.state.visionBeerName,
+            brewery: this.state.visionBreweryName,
+            abv: this.state.visionBeerAbv,
+            shortDes: this.state.visionBeerShortDes
           }
           API.postUsersBeers( this.state.userId, userBeer )
           .then(res => {
@@ -238,10 +242,10 @@ class App extends React.Component {
               imageResults={this.state.imageResults}
               handleInputChange={this.handleInputChange}
               handleBeerImage={this.handleBeerImage}
-              breweryName={this.state.breweryName}
-              beerName={this.state.beerName}
-              beerAbv={this.state.beerAbv}
-              beerShortDes={this.state.beerShortDes}
+              visionBreweryName={this.state.visionBreweryName}
+              visionBeerName={this.state.visionBeerName}
+              visionBeerAbv={this.state.visionBeerAbv}
+              visionBeerShortDes={this.state.visionBeerShortDes}
               beerReviews={this.state.beerReviews}
             />
           )}/>
