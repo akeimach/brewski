@@ -8,7 +8,8 @@ import { Container } from "./components/Grid";
 import { Route } from "react-router-dom";
 import dotenv from "dotenv";
 import Modal from 'react-modal';
-import { TextArea, FormBtn } from "./components/Form";
+import { TextArea } from "./components/Form";
+import StarRatings from "react-star-ratings";
 
 
 class App extends React.Component {
@@ -21,6 +22,7 @@ class App extends React.Component {
     userHistory: [],
     userReviews: [],
     reviewId: "",
+    rating: 0,
     isNewReview: true,
     beerReviews: [],
     beerRev: "",
@@ -68,6 +70,14 @@ class App extends React.Component {
     this.setState({
       loginModalOpen: false,
       reviewModalOpen: false
+    });
+  };
+
+
+  changeRating = (newRating) => {
+    this.setState({
+      rating: newRating,
+      beerScore: newRating
     });
   };
 
@@ -191,6 +201,15 @@ class App extends React.Component {
       <Modal isOpen={this.state.reviewModalOpen} onRequestClose={this.closeModal} ariaHideApp={false}>
         <br />
         <h6>Write a review for {this.state.beerName}</h6>
+        <StarRatings
+          rating={this.state.rating}
+          isSelectable={true}
+          isAggregateRating={false}
+          changeRating={this.changeRating}
+          numOfStars={5}
+          starRatedColor={"red"}
+          starWidthAndHeight={"30px"}
+        />
         <TextArea
           value={this.state.beerRev ? this.state.beerRev : ""} //if there is already a review written, let them edit it
           onChange={this.handleInputChange}
@@ -198,12 +217,8 @@ class App extends React.Component {
           placeholder={this.state.beerRev ? "" : "This beer was..."} //if there is no review yet, put a placeholder
           type="text"
         />
-        <FormBtn
-          name="Submit"
-          value={this.state.beerId}
-          onClick={this.handleBeerReview}
-        />
-        <button onClick={this.closeModal}>Close</button>
+        <button style={{ margin: 5 }} className="btn btn-primary" value={this.state.beerId} onClick={this.handleBeerReview}>Submit</button>
+        <button style={{ margin: 5 }} className="btn btn-dark" onClick={this.closeModal}>Close</button>
       </Modal>
     );
 

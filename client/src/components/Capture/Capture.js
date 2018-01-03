@@ -1,7 +1,7 @@
 import React from "react";
 import ReactFileReader from "react-file-reader";
 import { Jumbotron } from 'react-bootstrap';
-import { Input, FormBtn } from "../Form"
+import { Input } from "../Form"
 
 
 const Capture = (props) => {
@@ -17,13 +17,9 @@ const Capture = (props) => {
           placeholder="http://yourimage.com"
           type="url"
         />
-        <FormBtn
-          name="Search"
-          disabled={!(props.imageData)}
-          onClick={props.handleBeerImage}
-        />
+        <button style={{ margin: 5 }} className="btn btn-primary" disabled={!(props.imageData)} onClick={props.handleBeerImage}>Search</button>
         <ReactFileReader base64={true} multipleFiles={false} handleFiles={props.handleBeerImage}>
-          <button className='btn'>Upload</button>
+          <button style={{ margin: 5 }} className="btn btn-primary">Upload</button>
         </ReactFileReader>
       </Jumbotron>
     </div>

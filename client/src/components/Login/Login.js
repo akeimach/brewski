@@ -13,7 +13,7 @@ const Login = (props) => {
   );
   return (
     <div>
-      <button className="btn btn-action" name="loginModalOpen" onClick={props.openModal}>Login</button>
+      <button style={{ margin: 0 }} className="btn btn-primary" name="loginModalOpen" onClick={props.openModal}>Login</button>
       <Modal
         open={props.isOpen}
         onClose={props.closeModal}
