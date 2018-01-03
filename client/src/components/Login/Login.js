@@ -13,10 +13,10 @@ const Login = (props) => {
   );
   return (
     <div>
-      <button className="btn btn-action" name="loginModalOpen" onClick={props.toggleModal}>Login</button>
+      <button className="btn btn-action" name="loginModalOpen" onClick={props.openModal}>Login</button>
       <Modal
-        open={props.modalOpen}
-        onClose={props.toggleModal}
+        open={props.isOpen}
+        onClose={props.closeModal}
         children={modalContent}
         little
       />

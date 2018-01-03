@@ -32,14 +32,6 @@ class App extends React.Component {
   };
 
 
-  openModal = event => {
-    this.setState({reviewModalOpen: true});
-  };
-
-  closeModal = event => {
-    this.setState({reviewModalOpen: false});
-  };
-
   componentDidMount() {
     dotenv.config();
     API.getUser( this.state.userId )
@@ -59,15 +51,16 @@ class App extends React.Component {
   };
 
 
-  toggleModal = (event) => {
+  openModal = (event) => {
     if (event) this.setState({ [event.target.name]: true });
-    else {
-      this.setState({
-        loginModalOpen: false,
-        reviewModalOpen: false
-      });
-    }
-    console.log(this.state.reviewModalOpen);
+  };
+
+
+  closeModal = (event) => {
+    this.setState({
+      loginModalOpen: false,
+      reviewModalOpen: false
+    });
   };
 
 
@@ -123,8 +116,9 @@ class App extends React.Component {
     }
   };
 
+
   handleBeerReview = (event) => {
-    this.toggleModal(event);
+    this.openModal(event);
     this.setState({
         beerID: event.target.id
       });
@@ -179,8 +173,9 @@ class App extends React.Component {
       <div>
         <Container fullwidth>
           <Nav
-            modalOpen={this.state.loginModalOpen}
-            toggleModal={this.toggleModal}
+            isOpen={this.state.loginModalOpen}
+            openModal={this.openModal}
+            closeModal={this.closeModal}
           />
         </Container>
         <Container>
