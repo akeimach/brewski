@@ -64,10 +64,11 @@ router.post("/", (req, res) => {
 
 // PUT route to update previous review
 router.put("/", (req, res) => {
+  console.log("Update review: ", req.body);
   db.Reviews.update(req.body, {
     where: {
       UserId: req.body.UserId,
-      id: req.body.id
+      BeerId: req.body.BeerId
     }
   })
   .then((data) => {

@@ -141,7 +141,7 @@ class App extends React.Component {
     this.setState({
       reviewId: event.target.id,
       beerName: valueArr[0],
-      beerScore: valueArr[1],
+      beerScore: (valueArr[1] ? valueArr[1] : 0),
       beerRev: valueArr[2],
       isNewReview: (valueArr[2] ? false : true)
     });
@@ -152,18 +152,17 @@ class App extends React.Component {
   handleBeerReview = (event) => {
     if (this.state.beerRev) {
       const beerReviewData = {
-        id: this.state.reviewId,
+        BeerId: this.state.reviewId,
         UserId: this.state.userId,
-        beerScore: this.state.beerScore,
+        beerScore: (this.state.beerScore ? 0 : this.state.beerScore),
         beerRev: this.state.beerRev,
         starred: true //just for now
       }
-      console.log(beerReviewData);
-      console.log(this.state.beerName);
+      console.log("App.js handleBeerReview: ", beerReviewData, this.state.beerName);
       if (this.state.isNewReview) {
         API.postBeerReview( beerReviewData )
         .then(res => {
-          console.log("Review results: ", res.data);
+          console.log("Add review results: ", res.data);
           if (res.data) {
             this.setState({ isNewReview: false });
           }
@@ -173,7 +172,7 @@ class App extends React.Component {
       else {
         API.updateBeerReview( beerReviewData )
         .then(res => {
-          console.log("Review results: ", res.data);
+          console.log("Update review results: ", res.data);
           if (res.data) {
             
           }
@@ -188,7 +187,7 @@ class App extends React.Component {
   render() {
 
     const reviewModal = (
-      <Modal isOpen={this.state.reviewModalOpen} onRequestClose={this.closeModal}>
+      <Modal isOpen={this.state.reviewModalOpen} onRequestClose={this.closeModal} ariaHideApp={false}>
         <br />
         <h6>Write a review for {this.state.beerName}</h6>
         <TextArea

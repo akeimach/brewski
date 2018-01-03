@@ -13,7 +13,7 @@ export default {
     return axios.post("/api/identifybrewery", nameOfBrewery);
   },
   postRateBeer: function(beerName) {
-    console.log(beerName);
+    console.log("API.js postRateBeer: ", beerName);
     return axios.post("/api/ratebeer", beerName);
   },
   getUser: function(userId) {
