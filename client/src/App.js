@@ -16,7 +16,7 @@ class App extends React.Component {
   state = {
     imageData: "",
     imageResults: [],
-    userId: 1, //temporary
+    userId: null, //temporary
     userData: [],
     userHistory: [],
     userReviews: [],
@@ -64,6 +64,14 @@ class App extends React.Component {
   };
 
 
+  setUserId = (userId) => {
+    this.setState({
+      userId: userId
+    });
+    console.log(this.state.userId);
+  };
+
+
   openModal = (event) => {
     if (event) this.setState({ [event.target.name]: true });
   };
@@ -108,7 +116,7 @@ class App extends React.Component {
             console.log("Review results: ", res.data);
             if (res.data) {
               this.setState({
-                visionBeerReviews: res.data
+                beerReviews: res.data
               });
             }
           })
@@ -232,6 +240,7 @@ class App extends React.Component {
             isOpen={this.state.loginModalOpen}
             openModal={this.openModal}
             closeModal={this.closeModal}
+            setUserId={this.setUserId}
           />
         </Container>
         <Container>

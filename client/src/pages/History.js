@@ -4,8 +4,8 @@ import { Jumbotron } from "react-bootstrap";
 
 
 const History = (props) => {
-  const beerArr = props.userHistory.Beers;
-  const reviewArr = props.userHistory.Reviews;
+  const beerArr = (props.userHistory ? props.userHistory.Beers : null);
+  const reviewArr = (props.userHistory ? props.userHistory.Reviews : null);
   return (
     <div>
       <br/>
