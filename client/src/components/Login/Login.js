@@ -8,9 +8,7 @@ const Login = (props) => {
     <div>
       <br />
       <h2>Google Authentication</h2>
-      <OAuth
-        setUserId={props.setUserId}
-      />
+      <OAuth />
     </div>
   );
   return (
