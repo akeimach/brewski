@@ -56,7 +56,6 @@ router.post("/", (req, res) => {
       });
     }
   );
-
 });
 // DELETE route to delete user account 
 router.delete("/", (req, res) => {
