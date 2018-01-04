@@ -1,7 +1,7 @@
 import React from "react";
 import ReactFileReader from "react-file-reader";
 import { Jumbotron } from 'react-bootstrap';
-import { Input } from "../Form"
+import { Input } from "../Form";
 
 
 const Capture = (props) => {

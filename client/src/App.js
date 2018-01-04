@@ -8,8 +8,8 @@ import { Container } from "./components/Grid";
 import { Route } from "react-router-dom";
 import dotenv from "dotenv";
 import Modal from 'react-modal';
-import { TextArea } from "./components/Form";
 import StarRatings from "react-star-ratings";
+import { TextArea, FormBtn } from "./components/Form";
 
 class App extends React.Component {
 
@@ -138,7 +138,7 @@ class App extends React.Component {
         }
       })
       .catch(err => console.log(err));
-    }
+    };
   };
 
 
