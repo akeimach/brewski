@@ -18,7 +18,7 @@ First of all, users will click Login to create an account using either a Google 
 
 ### How it works.
 
-Users upload the image of the beer by using an image URL, uploading a local image file, or by taking a picture of it with a phone camera. Since the Google Cloud Vision API is used, the uploaded image will be sized down to 4MB before it gets used on the app. Once this is done, users can begin reviewing the beer that has been uploaded. All user submitted content will be stored using MySQL.
+Users upload an image of a beer by using an image URL, uploading a local image file, or by taking a picture of it with a phone camera. The Google Cloud Vision API helps to identify the uploaded beer by detecting the beer's logo and name. The Brewery DB API will use the information on the logo and name of the beer to to return a description of the uploaded beer. Once this is done, users can begin reviewing the beer that has been uploaded. Once ratings are present for each beer, the RateBeer API will display all ratings and give the beer an average rating. All user submitted content will be stored using MySQL.
 
 ### Screenshots
 
