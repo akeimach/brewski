@@ -18,6 +18,7 @@ const ShowReviews = (props) => {
       <br/>
       <Jumbotron>
         <h3>Public Reviews</h3>
+        <h5>Average Score: {average ? average.toFixed(1) : "...loading" }</h5>
         <div>
         {props.beerReviews.length ? (
           <List>
@@ -33,8 +34,6 @@ const ShowReviews = (props) => {
         ) : (
           <p>Nothing here yet</p>
         )}
-
-        <h5>Average Score: {average ? average.toFixed(1) : "Loading" }</h5>
         </div>
       </Jumbotron>
     </div>
@@ -42,10 +41,5 @@ const ShowReviews = (props) => {
 }
 
 export default ShowReviews;
-
-
-
-
-
 
 
