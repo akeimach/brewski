@@ -22,7 +22,7 @@ const Reviews = (props) => {
             })}
           </List>
         ) : (
-          <p>Nothing here yet</p>
+          <p></p>
         )}
         </div>
       </Jumbotron>

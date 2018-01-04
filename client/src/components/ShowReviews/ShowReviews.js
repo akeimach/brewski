@@ -7,24 +7,15 @@ import { Col, Row } from "../Grid";
 
 
 const ShowReviews = (props) => {
-
-  const reviewArr = JSON.parse(localStorage.getItem("beerReviews"));
-  let index = 0;
-  let total = 0;
-  let count = 1;
-
-  {(reviewArr && reviewArr.length > 1) ? (
-    count = reviewArr.length,
-    reviewArr.map(review => {
-      return (total += review.score);
-    })
-  ) : (
-    total = 0
-  )}
   
+  const reviewArr = JSON.parse(localStorage.getItem("beerReviews"));
+  const reducer = (a, b) => { return { score: a.score + b.score }};
+  const total = ((reviewArr && reviewArr.length > 1) ? (reviewArr.reduce(reducer).score) : (0));
+  const count = ((reviewArr && reviewArr.length > 1) ? (reviewArr.length) : (1));
   const average = total / count;
   const scoreDisplay = (total / count).toFixed(1);
   const resultStatus = (total === 0 ? "None found" : "");
+  let index = 0;
 
   return (
     <div>
