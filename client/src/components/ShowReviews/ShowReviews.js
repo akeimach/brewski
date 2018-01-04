@@ -3,6 +3,7 @@ import { Jumbotron } from "react-bootstrap";
 import { List, Item } from "../List";
 import CircularProgressbar from 'react-circular-progressbar';
 import styles from './percentStyle.css';
+import API from "../../utils/API";
 
 
 const Circle = (props) => {
@@ -23,23 +24,40 @@ const Circle = (props) => {
   );
 };
 
+
 const ShowReviews = (props) => {
+  let totalScore2 = 0;
+  let totalReviews2 = 0;
+  let percentVal2 = 0;
+  API.getReviewHistory(localStorage.getItem("visionBeerName"))
+  .then(res => {
+    console.log("Reviews from beername: ", res.data);
+    for (let i = 0; i < res.data.length; i++) {
+      if (res.data[i].Reviews.length) {
+        totalReviews2++;
+        totalScore2 += res.data[i].Reviews[0].beerScore;
+      }
+    }
+    percentVal2 = ((totalScore2 / totalReviews2) * 100) / 5.0;
+  })
+  .catch(err => console.log(err));
   let index = 0;
-  let totalScore = 0;
+  let totalScore1 = 0;
   let totalReviews = 0;
-  let percentVal = 0;
+  let percentVal1 = 0;
   const reviewArr = JSON.parse(localStorage.getItem("beerReviews"));
   for (let key in reviewArr) {
-    totalScore += reviewArr[key].score;
+    totalScore1 += reviewArr[key].score;
     totalReviews++;
   }
-  percentVal = ((totalScore / totalReviews) * 100) / 5.0;
+  percentVal1 = ((totalScore1 / totalReviews) * 100) / 5.0;
   return (
     <div>
       <br/>
       <Jumbotron>
         <h3>Public Reviews</h3>
-        <Circle percentage={parseInt(percentVal, 10)} />
+        <Circle percentage={parseInt(percentVal1, 10)} />
+        <Circle percentage={parseInt(percentVal2, 10)} />
         <div>
         {reviewArr.length ? (
           <List>
