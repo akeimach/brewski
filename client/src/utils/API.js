@@ -15,8 +15,8 @@ export default {
   postUser: (googleToken) => {
     return axios.post("/api/user", googleToken)
   },
-  postRateBeer: (beerName) => {
-    return axios.post("/api/ratebeer", beerName);
+  postRateBeer: (visionBeerName) => {
+    return axios.post("/api/ratebeer", visionBeerName);
   },
   getUser: (userId) => {
     return axios.get("/api/user/" + userId);
