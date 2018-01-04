@@ -11,7 +11,15 @@ const IdentifyBeer = (props) => {
         <div>
         {localStorage.getItem("visionBeerName") ? (
           <Item
-            content={[(`Name: ${localStorage.getItem("visionBeerName")}`), (`Brewery: ${localStorage.getItem("visionBreweryName")}`), (`ABV: ${localStorage.getItem("visionBeerAbv")}`), (`Description: ${localStorage.getItem("visionBeerShortDes")}`)]}
+            content={[
+              (`Name: ${localStorage.getItem("visionBeerName")}`), 
+              (`Brewery: ${localStorage.getItem("visionBreweryName")}`), 
+              (`ABV: ${localStorage.getItem("visionBeerAbv")}%`), 
+              (`IBU: ${localStorage.getItem("visionBeerIbu")}`), 
+              (`Food Pairings: ${localStorage.getItem("visionBeerFoodPairings")}`), 
+              (`Organic: ${localStorage.getItem("visionBeerIsOrganic")}`), 
+              (`Description: ${localStorage.getItem("visionBeerShortDes")}`)
+            ]}
           />
         ) : (
           <p>Nothing here yet</p>
