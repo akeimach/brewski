@@ -10,7 +10,6 @@ import dotenv from "dotenv";
 import Modal from 'react-modal';
 import StarRatings from "react-star-ratings";
 import { TextArea, FormBtn } from "./components/Form";
-import resizebase64 from 'resize-base64';
 
 class App extends React.Component {
 
@@ -132,10 +131,8 @@ class App extends React.Component {
 
   handleBeerImage = (event) => {
     if (event.base64) this.setState({ imageData: event.base64 });
-    console.log(event.base64);
     if (this.state.imageData) {
-      const resizedImage = resizebase64(this.state.imageData, 200, 200);
-      API.postVision({ imageData: resizedImage })
+      API.postVision({ imageData: this.state.imageData })
       .then(res => {
         console.log("Image results: ", res.data);
         if (res.data) {

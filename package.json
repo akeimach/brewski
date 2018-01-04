@@ -32,7 +32,6 @@
     "path": "^0.12.7",
     "react-router-dom": "^4.1.2",
     "request": "^2.83.0",
-    "resize-base64": "^1.0.12",
     "sequelize": "^4.28.6",
     "sequelize-cli": "^3.2.0",
     "spelling": "^2.0.0"
