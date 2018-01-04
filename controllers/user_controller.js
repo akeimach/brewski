@@ -35,7 +35,7 @@ router.post("/", (req, res) => {
       let username = payload["name"];
       let useremail = payload["email"];
       let userpicture = payload["picture"];
-      console.log("THE EMAIL OF THIS GUY IS " + email);
+      console.log("THE EMAIL OF THIS GUY IS " + useremail);
       // If request specified a G Suite domain:
       //var domain = payload['hd'];
       db.Users.findOrCreate({

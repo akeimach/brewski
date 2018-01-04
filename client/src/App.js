@@ -131,6 +131,7 @@ class App extends React.Component {
       .then(res => {
         console.log("Image results: ", res.data);
         if (res.data) {
+          console.log(res.data);
           this.setState({ imageResults: 
             [res.data.logoDescription.replace(/[\n\r]/g, ' ').trim(),
              res.data.textDescription.replace(/[\n\r]/g, ' ').trim()] });
