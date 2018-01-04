@@ -93,7 +93,7 @@ class App extends React.Component {
         if (res.data) {
           localStorage.setItem("visionBeerName", res.data.name);
           localStorage.setItem("visionBeerAbv", res.data.abv);
-          localStorage.setItem("visionBeerIbu", res.data.ibu);
+          localStorage.setItem("visionBeerIbu", (res.data.ibu ? res.data.ibu : 0));
           localStorage.setItem("visionBeerFoodPairings", res.data.foodPairings);
           localStorage.setItem("visionBeerIsOrganic", res.data.isOrganic);
           localStorage.setItem("visionBeerShortDes", res.data.description);
@@ -116,7 +116,7 @@ class App extends React.Component {
             foodPairings: localStorage.getItem("visionBeerFoodPairings"),
             isOrganic: localStorage.getItem("visionBeerIsOrganic"),
             shortDes: localStorage.getItem("visionBeerShortDes")
-          }
+          };
           API.postUsersBeers( localStorage.getItem("userId"), beerData )
           .then(res => {
             console.log("Added to history: ", res.data);
