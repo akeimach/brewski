@@ -4,8 +4,8 @@ import { Jumbotron } from "react-bootstrap";
 
 
 const History = (props) => {
-  const beerArr = props.userHistory.Beers;
-  const reviewArr = props.userHistory.Reviews;
+  const beerArr = (props.userHistory ? props.userHistory.Beers : null);
+  const reviewArr = (props.userHistory ? props.userHistory.Reviews : null);
   return (
     <div>
       <br/>
@@ -15,13 +15,11 @@ const History = (props) => {
         {beerArr ? (
           <List>
             {beerArr.map(history => {
-              let beerRev = "";
-              let beerScore = "";
+              let beerStats = [];
               for (let key in reviewArr) {
-                (history.id === reviewArr[key].BeerId ?
-                  beerRev = reviewArr[key].beerRev :
-                  beerScore = reviewArr[key].beerScore
+                (history.id === reviewArr[key].BeerId ? beerStats.push(reviewArr[key].beerScore, reviewArr[key].beerRev) : beerStats.push(null, null)
                 )
+                console.log(beerStats);
               }
               return (
                 <ListButtonItem
@@ -29,7 +27,7 @@ const History = (props) => {
                   id={history.id}
                   name="reviewModalOpen"
                   content={[(`${history.beername}`)]}
-                  value={[(`${history.beername}`), (`${beerScore}`), (`${beerRev}`)]}
+                  value={[(`${history.beername}`), (`${beerStats[0]}`), (`${beerStats[1]}`)]}
                   buttonValue={`Review this Beer`}
                   onClick={props.handleReviewModal}
                 />

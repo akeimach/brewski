@@ -1,28 +1,29 @@
 import React from 'react';
-import { GoogleLogin } from 'react-google-login-component';
+import { GoogleLogin } from 'react-google-login';
 import API from '../../utils/API.js';
 
 export default class OAuth extends React.Component {
 
   responseGoogle = (googleUser) => {
+    
     let id_token = googleUser.getAuthResponse().id_token;
+    console.log(googleUser.getAuthResponse());
     console.log(id_token);
     API.postUser({
       googleId: id_token
     })
     .then(res => {
-      console.log("data is " + res.data);
+      console.log("User is ", res.data.id);
+      localStorage.setItem("userId", res.data.id);
     });
   }
 
   render () {
     return (
       <GoogleLogin
-        socialId={process.env.REACT_APP_OAUTH_CLIENT_ID}
-        className="google-login"
-        scope="profile"
-        fetchBasicProfile={false}
-        responseHandler={this.responseGoogle}
+        clientId={process.env.REACT_APP_OAUTH_CLIENT_ID}
+        fetchBasicProfile={true}
+        onSuccess={this.responseGoogle}
         buttonText="Login With Google"
       />
     );
