@@ -5,6 +5,14 @@ import { List, Item } from "../List";
 
 let index = 0;
 const ShowReviews = (props) => {
+
+  let total = 0;
+  props.beerReviews.map(review => {
+    total += review.score 
+  });
+
+  let average = total/props.beerReviews.length;
+
   return (
     <div>
       <br/>
@@ -25,6 +33,8 @@ const ShowReviews = (props) => {
         ) : (
           <p>Nothing here yet</p>
         )}
+
+        <h5>Average Score: {average ? average.toFixed(1) : "Loading" }</h5>
         </div>
       </Jumbotron>
     </div>
@@ -32,3 +42,10 @@ const ShowReviews = (props) => {
 }
 
 export default ShowReviews;
+
+
+
+
+
+
+
