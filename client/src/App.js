@@ -16,7 +16,6 @@ class App extends React.Component {
   state = {
     imageData: "",
     imageResults: [],
-    userId: 1, //temporary
     userData: [],
     userHistory: [],
     userReviews: [],
@@ -42,16 +41,15 @@ class App extends React.Component {
 
   componentDidMount() {
     dotenv.config();
-    API.getUser( this.state.userId )
+    API.getUser( localStorage.getItem("userId") )
     .then(res => {
       this.setState({ userData: res.data });
     });
-    API.getHistory( this.state.userId )
+    API.getHistory( localStorage.getItem("userId") )
     .then(res => {
       this.setState({ userHistory: res.data[0] });
-      console.log(this.state.userHistory);
     });
-    API.getReviews( this.state.userId )
+    API.getReviews( localStorage.getItem("userId") )
     .then(res => {
       this.setState({ userReviews: res.data });
     });
@@ -100,7 +98,7 @@ class App extends React.Component {
         if (res.data) {
           this.setState({
             visionBeerName: res.data.name,
-            visionBeerAbv: res.data.abv + "%",
+            visionBeerAbv: res.data.abv,
             visionBeerShortDes: res.data.description,
           });
           API.postRateBeer({ visionBeerName: this.state.visionBeerName })
@@ -108,7 +106,7 @@ class App extends React.Component {
             console.log("Review results: ", res.data);
             if (res.data) {
               this.setState({
-                visionBeerReviews: res.data
+                beerReviews: res.data
               });
             }
           })
@@ -120,7 +118,7 @@ class App extends React.Component {
             abv: this.state.visionBeerAbv,
             shortDes: this.state.visionBeerShortDes
           }
-          API.postUsersBeers( this.state.userId, userBeer )
+          API.postUsersBeers( localStorage.getItem("userId"), userBeer )
           .then(res => {
             console.log("Added to history: ", res.data);
           })
@@ -151,13 +149,13 @@ class App extends React.Component {
 
   handleReviewModal = (event) => {
     const valueArr = event.target.value.split(",");
-    console.log(valueArr);
+    console.log("valueArr", valueArr);
     this.setState({
       reviewId: event.target.id,
       beerName: valueArr[0],
       beerScore: (valueArr[1] ? valueArr[1] : 0),
       beerRev: valueArr[2],
-      isNewReview: (valueArr[2] ? false : true)
+      isNewReview: (valueArr[2] === "null" ? false : true)
     });
     this.openModal(event);
   };
@@ -167,7 +165,7 @@ class App extends React.Component {
     if (this.state.beerRev) {
       const beerReviewData = {
         BeerId: this.state.reviewId,
-        UserId: this.state.userId,
+        UserId: localStorage.getItem("userId"),
         beerScore: this.state.beerScore,
         beerRev: this.state.beerRev,
         starred: true //just for now
