@@ -12,7 +12,7 @@ const ShowReviews = (props) => {
       <Jumbotron>
         <h3>Public Reviews</h3>
         <div>
-        {reviewArr.length ? (
+        {reviewArr ? (
           <List>
             {reviewArr.map(review => {
               return (
