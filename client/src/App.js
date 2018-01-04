@@ -91,6 +91,9 @@ class App extends React.Component {
         if (res.data) {
           localStorage.setItem("visionBeerName", res.data.name);
           localStorage.setItem("visionBeerAbv", res.data.abv);
+          localStorage.setItem("visionBeerIbu", res.data.ibu);
+          localStorage.setItem("visionBeerFoodPairings", res.data.foodPairings);
+          localStorage.setItem("visionBeerIsOrganic", res.data.isOrganic);
           localStorage.setItem("visionBeerShortDes", res.data.description);
           API.postRateBeer({ visionBeerName: localStorage.getItem("visionBeerName") })
           .then(res => {
@@ -105,6 +108,9 @@ class App extends React.Component {
             beername: localStorage.getItem("visionBeerName"),
             brewery: localStorage.getItem("visionBreweryName"),
             abv: localStorage.getItem("visionBeerAbv"),
+            ibu: localStorage.getItem("visionBeerIbu"),
+            foodPairings: localStorage.getItem("visionBeerFoodPairings"),
+            isOrganic: localStorage.getItem("visionBeerIsOrganic"),
             shortDes: localStorage.getItem("visionBeerShortDes")
           }
           API.postUsersBeers( localStorage.getItem("userId"), userBeer )
