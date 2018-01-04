@@ -4,7 +4,6 @@ import Capture from "../components/Capture";
 import IdentifyBeer from "../components/IdentifyBeer";
 import ShowReviews from "../components/ShowReviews";
 
-
 const Home = (props) => {
   return (
     <Row>
