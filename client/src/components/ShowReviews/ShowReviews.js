@@ -6,32 +6,13 @@ import styles from './percentStyle.css';
 import API from "../../utils/API";
 
 
-const Circle = (props) => {
-  return (
-    <div className="col-xs-12 col-sm-6 col-md-3">
-      <div className="row mb-1">
-        <div className="col-xs-6 offset-xs-3">
-          <CircularProgressbar
-            className="CircularProgressbar-inverted"
-            background
-            backgroundPadding={5}
-            strokeWidth={6}
-            percentage={props.percentage}
-          />
-        </div>
-      </div>
-    </div>
-  );
-};
-
-
 const ShowReviews = (props) => {
   let totalScore2 = 0;
   let totalReviews2 = 0;
   let percentVal2 = 0;
+  let circle2;
   API.getReviewHistory(localStorage.getItem("visionBeerName"))
   .then(res => {
-    console.log("Reviews from beername: ", res.data);
     for (let i = 0; i < res.data.length; i++) {
       if (res.data[i].Reviews.length) {
         totalReviews2++;
@@ -39,6 +20,16 @@ const ShowReviews = (props) => {
       }
     }
     percentVal2 = ((totalScore2 / totalReviews2) * 100) / 5.0;
+    console.log(percentVal2);
+    circle2 = (
+      <CircularProgressbar
+        className="CircularProgressbar-inverted"
+        background
+        backgroundPadding={5}
+        strokeWidth={6}
+        percentage={parseInt(percentVal2, 10)}
+      />
+    );
   })
   .catch(err => console.log(err));
   let index = 0;
@@ -56,8 +47,27 @@ const ShowReviews = (props) => {
       <br/>
       <Jumbotron>
         <h3>Public Reviews</h3>
-        <Circle percentage={parseInt(percentVal1, 10)} />
-        <Circle percentage={parseInt(percentVal2, 10)} />
+        {circle2}
+        <div className="col-xs-12 col-sm-6 col-md-3">
+          <div className="row mb-1">
+            <div className="col-xs-6 offset-xs-3">
+              <CircularProgressbar
+                className="CircularProgressbar-inverted"
+                background
+                backgroundPadding={5}
+                strokeWidth={6}
+                percentage={parseInt(percentVal1, 10)}
+              />
+              <CircularProgressbar
+                className="CircularProgressbar-inverted"
+                background
+                backgroundPadding={5}
+                strokeWidth={6}
+                percentage={parseInt(percentVal2, 10)}
+              />
+            </div>
+          </div>
+        </div>
         <div>
         {reviewArr.length ? (
           <List>
