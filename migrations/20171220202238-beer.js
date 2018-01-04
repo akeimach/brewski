@@ -24,7 +24,7 @@ module.exports = {
         type: Sequelize.STRING
       },
       isOrganic: {
-        type: Sequelize.BOOLEAN
+        type: Sequelize.CHAR
       },
       shortDes: {
         type: Sequelize.TEXT("long")

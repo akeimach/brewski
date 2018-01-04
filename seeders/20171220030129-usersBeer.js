@@ -12,20 +12,7 @@ module.exports = {
         UserId: 2,
         createdAt : new Date(),
         updatedAt : new Date(),
-      },
-      {
-        BeerId: 1,
-        UserId: 5,
-        createdAt : new Date(),
-        updatedAt : new Date(),
-      },
-      {
-        BeerId: 4,
-        UserId: 6,
-        createdAt : new Date(),
-        updatedAt : new Date(),
-      },
-
+      }
     ], {});
   },
 
