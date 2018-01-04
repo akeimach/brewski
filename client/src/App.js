@@ -104,7 +104,7 @@ class App extends React.Component {
           })
           .catch(err => console.log(err));
 
-          const userBeer = {
+          const beerData = {
             beername: localStorage.getItem("visionBeerName"),
             brewery: localStorage.getItem("visionBreweryName"),
             abv: localStorage.getItem("visionBeerAbv"),
@@ -113,7 +113,7 @@ class App extends React.Component {
             isOrganic: localStorage.getItem("visionBeerIsOrganic"),
             shortDes: localStorage.getItem("visionBeerShortDes")
           }
-          API.postUsersBeers( localStorage.getItem("userId"), userBeer )
+          API.postUsersBeers( localStorage.getItem("userId"), beerData )
           .then(res => {
             console.log("Added to history: ", res.data);
           })
