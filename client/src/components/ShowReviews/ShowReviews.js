@@ -4,58 +4,26 @@ import { List, Item } from "../List";
 import CircularProgressbar from "react-circular-progressbar";
 import "./percentStyle.css";
 import { Col, Row } from "../Grid";
-// import API from "../../utils/API";
 
 
 const ShowReviews = (props) => {
 
-  // let totalScore2 = 0;
-  // let totalReviews2 = 0;
-  // let percentVal2 = 0;
-  // let circle2;
-  // API.getReviewHistory(localStorage.getItem("visionBeerName"))
-  // .then(res => {
-  //   for (let i = 0; i < res.data.length; i++) {
-  //     if (res.data[i].Reviews.length) {
-  //       totalReviews2++;
-  //       totalScore2 += res.data[i].Reviews[0].beerScore;
-  //     }
-  //   }
-  //   percentVal2 = ((totalScore2 / totalReviews2) * 100) / 5.0;
-  //   console.log(percentVal2);
-  //   circle2 = (
-  //     <CircularProgressbar
-  //       className="CircularProgressbar-inverted"
-  //       background
-  //       backgroundPadding={5}
-  //       strokeWidth={6}
-  //       percentage={parseInt(percentVal2, 10)}
-  //     />
-  //   );
-  // })
-  // .catch(err => console.log(err));
-
   const reviewArr = JSON.parse(localStorage.getItem("beerReviews"));
   let index = 0;
   let total = 0;
-  reviewArr.map(review => {
-    return (total += review.score);
-  });
-  let average = total / reviewArr.length;
-  let scoreDisplay = (total / reviewArr.length).toFixed(1);
-
-  const circle = (
-    <CircularProgressbar
-      className="CircularProgressbar-inverted"
-      background
-      backgroundPadding={5}
-      strokeWidth={6}
-      percentage={parseInt(((average * 100) / 5.0), 10)}
-      textForPercentage={(average) => {
-        return `${scoreDisplay} / 5`;
-      }}
-    />
-  );
+  let count = 1;
+  {reviewArr.length > 1 ? (
+    count = reviewArr.length,
+    reviewArr.map(review => {
+      return (total += review.score);
+    })
+  ) : (
+    total = 0
+  )}
+  
+  const average = total / count;
+  const scoreDisplay = (total / count).toFixed(1);
+  const resultStatus = (total === 0 ? "None found" : "");
 
   return (
     <div>
@@ -66,7 +34,7 @@ const ShowReviews = (props) => {
             <h3>Public Reviews</h3>
           </Col>
           <Col size="6">
-            <h5 style={{ textAlign: "center" }}>RateBeer Average {average ? "" : "...loading" }</h5>
+            <h5 style={{ textAlign: "center" }}>{`RateBeer Average\n${resultStatus}`}</h5>
             <CircularProgressbar
               className="CircularProgressbar-inverted"
               background
@@ -92,7 +60,7 @@ const ShowReviews = (props) => {
               })}
             </List>
           ) : (
-            <p>Nothing here yet</p>
+            <p></p>
           )}
         </div>
       </Jumbotron>

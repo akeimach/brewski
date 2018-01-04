@@ -41,42 +41,5 @@ router.post("/:id", (req, res) => {
   });
 });
 
-
-router.get("/scores/:beername", (req, res) => {
-  console.log("=====", req.params.beername, "=====");
-  db.Beers.findAll({
-    where: {
-      beername: req.params.beername
-    },
-    include: [
-      { model: db.Reviews }
-    ]
-  })
-  .then((data) => {
-    res.json(data);
-  })
-  .catch((err1) => {
-    console.log(err1);
-  });
-});
-
-
-// // PUT route to update avgBeerScore LOOK INTO THIS
-// router.put("/api/beers", (req, res) => {
-//   db.Beers.update({
-//       req.body,
-//     },
-//     {    
-//       where: {
-//         id: req.params.id
-//       },
-//       include: [
-//         {
-//           model: db.Review
-//         }
-//       ] 
-//   }).then(function(data) {
-//     res.json(data);
-//   });  
-// });  
+ 
 module.exports = router;
