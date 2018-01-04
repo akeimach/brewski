@@ -8,7 +8,6 @@ const brewdb = new BreweryDb(process.env.BREWERY_DB);
 
 router.post("/", (req, res) => {
   
-  console.log("In beer router");
   let spellCheckedName = "";
   let arrayOfBeer = req.body.imageResults[1].split(" ");
   for (let i = 0; i < arrayOfBeer.length; i++) {

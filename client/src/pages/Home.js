@@ -20,20 +20,13 @@ const Home = (props) => {
         </Row>
         <Row>
           <Container fluid>
-            <IdentifyBeer
-              visionBreweryName={props.visionBreweryName}
-              visionBeerName={props.visionBeerName}
-              visionBeerAbv={props.visionBeerAbv}
-              visionBeerShortDes={props.visionBeerShortDes}
-            />
+            <IdentifyBeer />
           </Container>
         </Row>
       </Col>
       <Col size="7">
         <Container fluid>
-          <ShowReviews
-            beerReviews={props.beerReviews}
-          />
+          <ShowReviews />
         </Container>
       </Col>
     </Row>
