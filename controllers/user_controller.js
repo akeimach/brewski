@@ -7,9 +7,6 @@ const GoogleAuth = require('google-auth-library');
 const auth = new GoogleAuth;
 const client = new auth.OAuth2(process.env.REACT_APP_OAUTH_CLIENT_ID, '', '');
 
-
-
-
 // GET route to display user name at user's page
 router.get("/:id", (req, res) => {
 // router.get("/api/user", (req, res) => {
@@ -34,7 +31,11 @@ router.post("/", (req, res) => {
     //[CLIENT_ID_1, CLIENT_ID_2, CLIENT_ID_3],
     function(e, login) {
       const payload = login.getPayload();
-      let userid = payload['sub'];
+      let userid = payload["sub"];
+      let username = payload["name"];
+      let useremail = payload["email"];
+      let userpicture = payload["picture"];
+      console.log("THE EMAIL OF THIS GUY IS " + email);
       // If request specified a G Suite domain:
       //var domain = payload['hd'];
       db.Users.findOrCreate({
@@ -42,9 +43,9 @@ router.post("/", (req, res) => {
           googleId: userid
         }, 
         defaults: {
-          username: "yyyyyyyyyy",
-          email: "sxxxxxxxxx@gmail.com",
-          location: "xccccccccccch",
+          username: username,
+          email: useremail,
+          picture: userpicture,
         }    
       })
       .spread((user, created) => {
