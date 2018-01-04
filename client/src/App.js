@@ -7,7 +7,7 @@ import API from "./utils/API";
 import { Container } from "./components/Grid";
 import { Route } from "react-router-dom";
 import dotenv from "dotenv";
-import Modal from 'react-modal';
+import Modal from "react-modal";
 import { TextArea } from "./components/Form";
 import StarRatings from "react-star-ratings";
 
@@ -30,7 +30,8 @@ class App extends React.Component {
     beerShortDes: "",
     breweryName: "",
     loginModalOpen: false,
-    reviewModalOpen: false
+    reviewModalOpen: false,
+    visionUpdate: ""
   };
 
 
@@ -84,6 +85,7 @@ class App extends React.Component {
       console.log("Brewery results: ", res.data);
       if (res.data) {
         localStorage.setItem("visionBreweryName", res.data.name);
+        this.setState({ visionUpdate: res.data });
       }
       API.postBeerID({ imageResults: this.state.imageResults })
       .then(res => {
@@ -91,15 +93,17 @@ class App extends React.Component {
         if (res.data) {
           localStorage.setItem("visionBeerName", res.data.name);
           localStorage.setItem("visionBeerAbv", res.data.abv);
-          localStorage.setItem("visionBeerIbu", res.data.ibu);
+          localStorage.setItem("visionBeerIbu", (res.data.ibu ? res.data.ibu : 0));
           localStorage.setItem("visionBeerFoodPairings", res.data.foodPairings);
           localStorage.setItem("visionBeerIsOrganic", res.data.isOrganic);
           localStorage.setItem("visionBeerShortDes", res.data.description);
+          this.setState({ visionUpdate: res.data });
           API.postRateBeer({ visionBeerName: localStorage.getItem("visionBeerName") })
           .then(res => {
             console.log("Review results: ", res.data);
             if (res.data) {
               localStorage.setItem("beerReviews", JSON.stringify(res.data));
+              this.setState({ visionUpdate: res.data });
             }
           })
           .catch(err => console.log(err));
@@ -112,10 +116,14 @@ class App extends React.Component {
             foodPairings: localStorage.getItem("visionBeerFoodPairings"),
             isOrganic: localStorage.getItem("visionBeerIsOrganic"),
             shortDes: localStorage.getItem("visionBeerShortDes")
-          }
+          };
           API.postUsersBeers( localStorage.getItem("userId"), beerData )
           .then(res => {
             console.log("Added to history: ", res.data);
+            API.getHistory( localStorage.getItem("userId") )
+            .then(res => {
+              this.setState({ userHistory: res.data[0] });
+            });
           })
           .catch(err => console.log(err));
         }
@@ -132,8 +140,8 @@ class App extends React.Component {
         console.log("Image results: ", res.data);
         if (res.data) {
           this.setState({ imageResults: 
-            [res.data.logoDescription.replace(/[\n\r]/g, ' ').trim(),
-             res.data.textDescription.replace(/[\n\r]/g, ' ').trim()] });
+            [res.data.logoDescription.replace(/[\n\r]/g, " ").trim(),
+             res.data.textDescription.replace(/[\n\r]/g, " ").trim()] });
           this.handleBeerInfomation();
         }
       })
@@ -168,9 +176,11 @@ class App extends React.Component {
         API.postBeerReview( beerReviewData )
         .then(res => {
           console.log("Add review results: ", res.data);
-          if (res.data) {
-            this.setState({ isNewReview: false });
-          }
+          this.setState({ isNewReview: false });
+          API.getReviews( localStorage.getItem("userId") )
+          .then(res => {
+            this.setState({ userReviews: res.data });
+          });
         })
         .catch(err => console.log(err));
       }
@@ -178,6 +188,10 @@ class App extends React.Component {
         API.updateBeerReview( beerReviewData )
         .then(res => {
           console.log("Update review results: ", res.data);
+          API.getReviews( localStorage.getItem("userId") )
+          .then(res => {
+            this.setState({ userReviews: res.data });
+          });
         })
         .catch(err => console.log(err));
       }
@@ -229,6 +243,7 @@ class App extends React.Component {
               imageResults={this.state.imageResults}
               handleInputChange={this.handleInputChange}
               handleBeerImage={this.handleBeerImage}
+              visionUpdate={this.state.visionUpdate}
             />
           )}/>
           <Route exact path="/reviews" render={() => (

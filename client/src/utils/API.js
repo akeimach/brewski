@@ -24,9 +24,6 @@ export default {
   getHistory: (userId) => {
     return axios.get("/api/beers/" + userId);
   },
-  getReviewHistory: (beername) => {
-    return axios.get("/api/beers/scores/" + beername);
-  },
   getReviews: (userId) => {
     return axios.get("/api/reviews/" + userId);
   },

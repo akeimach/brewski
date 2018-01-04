@@ -17,7 +17,7 @@ const IdentifyBeer = (props) => {
               (`ABV: ${localStorage.getItem("visionBeerAbv")}%`), 
               (`IBU: ${localStorage.getItem("visionBeerIbu")}`), 
               (`Food Pairings: ${localStorage.getItem("visionBeerFoodPairings")}`), 
-              (`Organic: ${localStorage.getItem("visionBeerIsOrganic")}`), 
+              (`Organic: ${localStorage.getItem("visionBeerIsOrganic") === "Y" ? "Yes" : "No"}`), 
               (`Description: ${localStorage.getItem("visionBeerShortDes")}`)
             ]}
           />

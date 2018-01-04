@@ -1,8 +1,8 @@
-'use strict';
+"use strict";
 module.exports = {
   up: (queryInterface, Sequelize) => {
-    return queryInterface.bulkInsert('Users', [{
-        username: 'Vlad',
+    return queryInterface.bulkInsert("Users", [{
+        username: "Vlad",
         googleId: "sdgdflgkdflgkjljk35345345",
         email: "something@gmail.com",
         picture: "Oakland",
@@ -10,7 +10,7 @@ module.exports = {
         updatedAt : new Date(),
       },
       {
-        username: 'Boofer',
+        username: "Boofer",
         googleId: "sdgdflgkdflgkjljk35345345",
         email: "something@gmail.com",
         picture: "Oakland",
@@ -18,7 +18,7 @@ module.exports = {
         updatedAt : new Date(),
       },
       {
-        username: 'Borris',
+        username: "Borris",
         googleId: "sdgdflgkdflgkjljk35345345",
         email: "something@gmail.com",
         picture: "Oakland",
@@ -26,7 +26,7 @@ module.exports = {
         updatedAt : new Date(),
       },
       {
-        username: 'John',
+        username: "John",
         googleId: "sdgdflgkdflgkjljk35345345",
         email: "something@gmail.com",
         picture: "Oakland",
@@ -34,7 +34,7 @@ module.exports = {
         updatedAt : new Date(),
       },
       {
-        username: 'Korkie',
+        username: "Korkie",
         googleId: "sdgdflgkdflgkjljk35345345",
         email: "something@gmail.com",
         picture: "Oakland",
@@ -42,7 +42,7 @@ module.exports = {
         updatedAt : new Date(),
       },
       {
-        username: 'Dork Man',
+        username: "Dork Man",
         googleId: "sdgdflgkdflgkjljk35345345",
         email: "something@gmail.com",
         picture: "Oakland",
@@ -50,7 +50,7 @@ module.exports = {
         updatedAt : new Date(),
       },
       {
-        username: 'An alligator',
+        username: "An alligator",
         googleId: "sdgdflgkdflgkjljk35345345",
         email: "something@gmail.com",
         picture: "Oakland",
@@ -58,7 +58,7 @@ module.exports = {
         updatedAt : new Date(),
       },
       {
-        username: 'Mohammad Sanchez',
+        username: "Mohammad Sanchez",
         googleId: "sdgdflgkdflgkjljk35345345",
         email: "something@gmail.com",
         picture: "Oakland",
@@ -66,7 +66,7 @@ module.exports = {
         updatedAt : new Date(),
       },
       {
-        username: 'Peeee',
+        username: "Peeee",
         googleId: "sdgdflgkdflgkjljk35345345",
         email: "something@gmail.com",
         picture: "Oakland",
@@ -75,7 +75,7 @@ module.exports = {
       },
       {
 
-        username: 'Gorn',
+        username: "Gorn",
         googleId: "sdgdflgkdflgkjljk35345345",
         email: "something@gmail.com",
         picture: "Oakland",
@@ -83,7 +83,7 @@ module.exports = {
         updatedAt : new Date(),
       },
       {
-        username: 'Passionfruit',
+        username: "Passionfruit",
         googleId: "sdgdflgkdflgkjljk35345345",
         email: "something@gmail.com",
         picture: "Oakland",
@@ -91,7 +91,7 @@ module.exports = {
         updatedAt : new Date(),
       },
       {
-        username: 'Mike',
+        username: "Mike",
         googleId: "sdgdflgkdflgkjljk35345345",
         email: "something@gmail.com",
         picture: "Oakland",
@@ -99,7 +99,7 @@ module.exports = {
         updatedAt : new Date(),
       },
       {
-        username: 'Mark',
+        username: "Mark",
         googleId: "sdgdflgkdflgkjljk35345345",
         email: "something@gmail.com",
         picture: "Oakland",
@@ -107,7 +107,7 @@ module.exports = {
         updatedAt : new Date(),
       },
       {
-        username: 'abe',
+        username: "abe",
         googleId: "sdgdflgkdflgkjljk35345345",
         email: "something@gmail.com",
         picture: "Oakland",
@@ -115,7 +115,7 @@ module.exports = {
         updatedAt : new Date(),
       },
       {
-        username: 'dope',
+        username: "dope",
         googleId: "sdgdflgkdflgkjljk35345345",
         email: "something@gmail.com",
         picture: "Oakland",
@@ -123,7 +123,7 @@ module.exports = {
         updatedAt : new Date(),
       },
       {
-        username: 'rrrrrrrrrrrrrrrrrrrrrrrrrreeerrrrrrr',
+        username: "rrrrrrrrrrrrrrrrrrrrrrrrrreeerrrrrrr",
         googleId: "sdgdflgkdflgkjljk35345345",
         email: "something@gmail.com",
         picture: "Oakland",
@@ -134,6 +134,6 @@ module.exports = {
   },
 
   down: (queryInterface, Sequelize) => {
-    return queryInterface.bulkDelete('Users', null, {});
+    return queryInterface.bulkDelete("Users", null, {});
   }
 };

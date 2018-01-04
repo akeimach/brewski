@@ -1,5 +1,5 @@
 const router = require("express").Router();
-const vision = require('node-cloud-vision-api');
+const vision = require("node-cloud-vision-api");
 
 //TODO: replace with oauthClient
 vision.init({ auth: process.env.VISION_API_KEY });
@@ -13,8 +13,8 @@ router.post("/", (req, res) => {
   const request = new vision.Request({
     image: new vision.Image({ [format]: imageData }),
     features: [
-      new vision.Feature('TEXT_DETECTION', 10),
-      new vision.Feature('LOGO_DETECTION', 10),
+      new vision.Feature("TEXT_DETECTION", 10),
+      new vision.Feature("LOGO_DETECTION", 10),
     ]
   });
   vision.annotate(request)
@@ -33,7 +33,7 @@ router.post("/", (req, res) => {
     res.json(response);
   })
   .catch((error) => {
-    console.log('Error: ', error)
+    console.log("Error: ", error)
   });
 });
 
