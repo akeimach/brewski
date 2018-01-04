@@ -4,8 +4,8 @@ import { Jumbotron } from "react-bootstrap";
 
 
 const History = (props) => {
-  const beerArr = (props.userHistory ? props.userHistory.Beers : null);
-  const reviewArr = (props.userHistory ? props.userHistory.Reviews : null);
+  const beerArr = (props.userHistory ? props.userHistory.Beers : []);
+  const reviewArr = (props.userHistory ? props.userHistory.Reviews : []);
   return (
     <div>
       <br/>
@@ -15,11 +15,17 @@ const History = (props) => {
         {beerArr ? (
           <List>
             {beerArr.map(history => {
-              let beerStats = [];
+              let beerStats = {
+                beerScore: "",
+                beerRev: ""
+              };
               for (let key in reviewArr) {
-                (history.id === reviewArr[key].BeerId ? beerStats.push(reviewArr[key].beerScore, reviewArr[key].beerRev) : beerStats.push(null, null)
-                )
-                console.log(beerStats);
+                if (history.id === reviewArr[key].BeerId) {
+                  beerStats = {
+                    beerScore: reviewArr[key].beerScore,
+                    beerRev: reviewArr[key].beerRev
+                  };
+                }
               }
               return (
                 <ListButtonItem
@@ -27,7 +33,7 @@ const History = (props) => {
                   id={history.id}
                   name="reviewModalOpen"
                   content={[(`${history.beername}`)]}
-                  value={[(`${history.beername}`), (`${beerStats[0]}`), (`${beerStats[1]}`)]}
+                  value={[(`${history.beername}`), (`${beerStats.beerScore}`), (`${beerStats.beerRev}`)]}
                   buttonValue={`Review this Beer`}
                   onClick={props.handleReviewModal}
                 />

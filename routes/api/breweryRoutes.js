@@ -5,8 +5,7 @@ const brewdb = new BreweryDb(process.env.BREWERY_DB);
 
 
 router.post("/", (req, res) => {
-  
-  console.log("In brewery router");
+
   brewdb.search.breweries({ q: req.body.nameOfBrewery }, (request, brewdbResult) => {
     console.log("Searching breweries for: " + req.body.nameOfBrewery);
     if (brewdbResult) {

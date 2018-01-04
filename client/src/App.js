@@ -149,20 +149,19 @@ class App extends React.Component {
 
   handleReviewModal = (event) => {
     const valueArr = event.target.value.split(",");
-    console.log("valueArr", valueArr);
     this.setState({
       reviewId: event.target.id,
       beerName: valueArr[0],
-      beerScore: (valueArr[1] ? valueArr[1] : 0),
       beerRev: valueArr[2],
-      isNewReview: (valueArr[2] === "null" ? false : true)
+      isNewReview: (valueArr[2] ? false : true) //beerRev changed in modal, store info here
     });
+    this.changeRating(valueArr[1] ? parseInt(valueArr[1], 10) : 0);
     this.openModal(event);
   };
 
 
   handleBeerReview = (event) => {
-    if (this.state.beerRev) {
+    if (this.state.beerRev || this.state.beerScore) {
       const beerReviewData = {
         BeerId: this.state.reviewId,
         UserId: localStorage.getItem("userId"),
@@ -170,7 +169,6 @@ class App extends React.Component {
         beerRev: this.state.beerRev,
         starred: true //just for now
       }
-      console.log("App.js handleBeerReview: ", beerReviewData, this.state.beerName, this.state.isNewReview);
       if (this.state.isNewReview) {
         API.postBeerReview( beerReviewData )
         .then(res => {
@@ -185,9 +183,6 @@ class App extends React.Component {
         API.updateBeerReview( beerReviewData )
         .then(res => {
           console.log("Update review results: ", res.data);
-          if (res.data) {
-            
-          }
         })
         .catch(err => console.log(err));
       }
