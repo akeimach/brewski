@@ -14,20 +14,6 @@ module.exports = (sequelize, DataTypes) => {
 		googleId: {
 			type: DataTypes.TEXT('long')
 		},
-		age: {
-			type: DataTypes.INTEGER(3),
-			allowNull: true,
-			validate: {
-				min: {
-					args: 21,
-					msg: "You need to be at least 21 to use this app"
-				},
-				max: {
-					args: 120,
-					msg: "I highly doubt you are that old"
-				}
-			}
-		},
 		email: {
 			type: DataTypes.STRING,
 			allowNull: true,
@@ -38,7 +24,7 @@ module.exports = (sequelize, DataTypes) => {
 		        }
 		    }
 		},
-		location: {
+		picture: {
 			type: DataTypes.STRING,
 			allowNull: true
 		}

@@ -5,7 +5,6 @@ const spelling = require("spelling");
 const dict = new spelling(require("spelling/dictionaries/en_US"));
 const brewdb = new BreweryDb(process.env.BREWERY_DB);
 
-
 router.post("/", (req, res) => {
   
   let spellCheckedName = "";

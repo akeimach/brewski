@@ -14,13 +14,10 @@ module.exports = {
       googleId: {
         type: Sequelize.TEXT('long')
       },
-      age: {
-        type: Sequelize.INTEGER
-      },
       email: {
         type: Sequelize.STRING
       },
-      location: {
+      picture: {
         type: Sequelize.STRING
       },
       createdAt: {
