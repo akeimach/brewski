@@ -5,15 +5,16 @@ import { List, Item } from "../List";
 
 let index = 0;
 const ShowReviews = (props) => {
+  const reviewArr = JSON.parse(localStorage.getItem("beerReviews"));
   return (
     <div>
       <br/>
       <Jumbotron>
         <h3>Public Reviews</h3>
         <div>
-        {props.beerReviews.length ? (
+        {reviewArr.length ? (
           <List>
-            {props.beerReviews.map(review => {
+            {reviewArr.map(review => {
               return (
                 <Item
                   key={index++}

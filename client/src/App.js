@@ -22,7 +22,6 @@ class App extends React.Component {
     reviewId: "",
     rating: 0,
     isNewReview: true,
-    beerReviews: [],
     beerRev: "",
     beerName: "",
     beerId: "",
@@ -30,10 +29,6 @@ class App extends React.Component {
     beerAbv: "",
     beerShortDes: "",
     breweryName: "",
-    visionBeerName: "",
-    visionBreweryName: "",
-    visionBeerAbv: "",
-    visionBeerShortDes: "",
     loginModalOpen: false,
     reviewModalOpen: false
   };
@@ -88,35 +83,29 @@ class App extends React.Component {
     .then(res => {
       console.log("Brewery results: ", res.data);
       if (res.data) {
-        this.setState({
-          visionBreweryName: res.data.name
-        });
+        localStorage.setItem("visionBreweryName", res.data.name);
       }
       API.postBeerID({ imageResults: this.state.imageResults })
       .then(res => {
         console.log("Beer results: ", res.data);
         if (res.data) {
-          this.setState({
-            visionBeerName: res.data.name,
-            visionBeerAbv: res.data.abv,
-            visionBeerShortDes: res.data.description,
-          });
-          API.postRateBeer({ visionBeerName: this.state.visionBeerName })
+          localStorage.setItem("visionBeerName", res.data.name);
+          localStorage.setItem("visionBeerAbv", res.data.abv);
+          localStorage.setItem("visionBeerShortDes", res.data.description);
+          API.postRateBeer({ visionBeerName: localStorage.getItem("visionBeerName") })
           .then(res => {
             console.log("Review results: ", res.data);
             if (res.data) {
-              this.setState({
-                beerReviews: res.data
-              });
+              localStorage.setItem("beerReviews", JSON.stringify(res.data));
             }
           })
           .catch(err => console.log(err));
 
           const userBeer = {
-            beername: this.state.visionBeerName,
-            brewery: this.state.visionBreweryName,
-            abv: this.state.visionBeerAbv,
-            shortDes: this.state.visionBeerShortDes
+            beername: localStorage.getItem("visionBeerName"),
+            brewery: localStorage.getItem("visionBreweryName"),
+            abv: localStorage.getItem("visionBeerAbv"),
+            shortDes: localStorage.getItem("visionBeerShortDes")
           }
           API.postUsersBeers( localStorage.getItem("userId"), userBeer )
           .then(res => {
@@ -234,11 +223,6 @@ class App extends React.Component {
               imageResults={this.state.imageResults}
               handleInputChange={this.handleInputChange}
               handleBeerImage={this.handleBeerImage}
-              visionBreweryName={this.state.visionBreweryName}
-              visionBeerName={this.state.visionBeerName}
-              visionBeerAbv={this.state.visionBeerAbv}
-              visionBeerShortDes={this.state.visionBeerShortDes}
-              beerReviews={this.state.beerReviews}
             />
           )}/>
           <Route exact path="/reviews" render={() => (

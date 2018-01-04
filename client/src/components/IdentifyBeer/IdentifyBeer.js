@@ -9,9 +9,9 @@ const IdentifyBeer = (props) => {
       <Jumbotron>
         <h3>Your Identified Beer</h3>
         <div>
-        {props.visionBeerName.length ? (
+        {localStorage.getItem("visionBeerName") ? (
           <Item
-            content={[(`Name: ${props.visionBeerName}`), (`Brewery: ${props.visionBreweryName}`), (`ABV: ${props.visionBeerAbv}`), (`Description: ${props.visionBeerShortDes}`)]}
+            content={[(`Name: ${localStorage.getItem("visionBeerName")}`), (`Brewery: ${localStorage.getItem("visionBreweryName")}`), (`ABV: ${localStorage.getItem("visionBeerAbv")}`), (`Description: ${localStorage.getItem("visionBeerShortDes")}`)]}
           />
         ) : (
           <p>Nothing here yet</p>
