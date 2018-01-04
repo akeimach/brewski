@@ -18,7 +18,7 @@ module.exports = (sequelize, DataTypes) => {
 			type: DataTypes.STRING,
 		},
 		isOrganic: {
-			type: DataTypes.BOOLEAN,
+			type: DataTypes.CHAR,
 		},
 		shortDes: {
 			type: DataTypes.TEXT("long"),
