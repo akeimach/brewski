@@ -1,6 +1,5 @@
 import React from "react";
 import { GoogleLogin } from "react-google-login";
-import { GoogleLogout } from 'react-google-login';
 import API from "../../utils/API.js";
 
 export default class OAuth extends React.Component {
@@ -17,18 +16,12 @@ export default class OAuth extends React.Component {
 
   render () {
     return (
-      <div>
-        <GoogleLogin
-          clientId={process.env.REACT_APP_OAUTH_CLIENT_ID}
-          fetchBasicProfile={true}
-          onSuccess={this.responseGoogle}
-          buttonText="Login With Google"
-        />
-        <GoogleLogout
-          buttonText="Logout"
-        >
-        </GoogleLogout>
-      </div>  
+      <GoogleLogin
+        clientId={process.env.REACT_APP_OAUTH_CLIENT_ID}
+        fetchBasicProfile={true}
+        onSuccess={this.responseGoogle}
+        buttonText="Login With Google"
+      />
     );
   }
 }
