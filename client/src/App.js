@@ -22,7 +22,6 @@ class App extends React.Component {
     reviewId: "",
     rating: 0,
     isNewReview: true,
-    beerReviews: [],
     beerRev: "",
     beerName: "",
     beerId: "",
@@ -30,10 +29,6 @@ class App extends React.Component {
     beerAbv: "",
     beerShortDes: "",
     breweryName: "",
-    visionBeerName: "",
-    visionBreweryName: "",
-    visionBeerAbv: "",
-    visionBeerShortDes: "",
     loginModalOpen: false,
     reviewModalOpen: false,
   };
@@ -88,35 +83,35 @@ class App extends React.Component {
     .then(res => {
       console.log("Brewery results: ", res.data);
       if (res.data) {
-        this.setState({
-          visionBreweryName: res.data.name
-        });
+        localStorage.setItem("visionBreweryName", res.data.name);
       }
       API.postBeerID({ imageResults: this.state.imageResults })
       .then(res => {
         console.log("Beer results: ", res.data);
         if (res.data) {
-          this.setState({
-            visionBeerName: res.data.name,
-            visionBeerAbv: res.data.abv,
-            visionBeerShortDes: res.data.description,
-          });
-          API.postRateBeer({ visionBeerName: this.state.visionBeerName })
+          localStorage.setItem("visionBeerName", res.data.name);
+          localStorage.setItem("visionBeerAbv", res.data.abv);
+          localStorage.setItem("visionBeerIbu", res.data.ibu);
+          localStorage.setItem("visionBeerFoodPairings", res.data.foodPairings);
+          localStorage.setItem("visionBeerIsOrganic", res.data.isOrganic);
+          localStorage.setItem("visionBeerShortDes", res.data.description);
+          API.postRateBeer({ visionBeerName: localStorage.getItem("visionBeerName") })
           .then(res => {
             console.log("Review results: ", res.data);
             if (res.data) {
-              this.setState({
-                beerReviews: res.data
-              });
+              localStorage.setItem("beerReviews", JSON.stringify(res.data));
             }
           })
           .catch(err => console.log(err));
 
           const userBeer = {
-            beername: this.state.visionBeerName,
-            brewery: this.state.visionBreweryName,
-            abv: this.state.visionBeerAbv,
-            shortDes: this.state.visionBeerShortDes
+            beername: localStorage.getItem("visionBeerName"),
+            brewery: localStorage.getItem("visionBreweryName"),
+            abv: localStorage.getItem("visionBeerAbv"),
+            ibu: localStorage.getItem("visionBeerIbu"),
+            foodPairings: localStorage.getItem("visionBeerFoodPairings"),
+            isOrganic: localStorage.getItem("visionBeerIsOrganic"),
+            shortDes: localStorage.getItem("visionBeerShortDes")
           }
           API.postUsersBeers( localStorage.getItem("userId"), userBeer )
           .then(res => {
@@ -149,20 +144,19 @@ class App extends React.Component {
 
   handleReviewModal = (event) => {
     const valueArr = event.target.value.split(",");
-    console.log("valueArr", valueArr);
     this.setState({
       reviewId: event.target.id,
       beerName: valueArr[0],
-      beerScore: (valueArr[1] ? valueArr[1] : 0),
       beerRev: valueArr[2],
-      isNewReview: (valueArr[2] === "null" ? false : true)
+      isNewReview: (valueArr[2] ? false : true) //beerRev changed in modal, store info here
     });
+    this.changeRating(valueArr[1] ? parseInt(valueArr[1], 10) : 0);
     this.openModal(event);
   };
 
 
   handleBeerReview = (event) => {
-    if (this.state.beerRev) {
+    if (this.state.beerRev || this.state.beerScore) {
       const beerReviewData = {
         BeerId: this.state.reviewId,
         UserId: localStorage.getItem("userId"),
@@ -170,7 +164,6 @@ class App extends React.Component {
         beerRev: this.state.beerRev,
         starred: true //just for now
       }
-      console.log("App.js handleBeerReview: ", beerReviewData, this.state.beerName, this.state.isNewReview);
       if (this.state.isNewReview) {
         API.postBeerReview( beerReviewData )
         .then(res => {
@@ -185,9 +178,6 @@ class App extends React.Component {
         API.updateBeerReview( beerReviewData )
         .then(res => {
           console.log("Update review results: ", res.data);
-          if (res.data) {
-            
-          }
         })
         .catch(err => console.log(err));
       }
@@ -239,11 +229,6 @@ class App extends React.Component {
               imageResults={this.state.imageResults}
               handleInputChange={this.handleInputChange}
               handleBeerImage={this.handleBeerImage}
-              visionBreweryName={this.state.visionBreweryName}
-              visionBeerName={this.state.visionBeerName}
-              visionBeerAbv={this.state.visionBeerAbv}
-              visionBeerShortDes={this.state.visionBeerShortDes}
-              beerReviews={this.state.beerReviews}
             />
           )}/>
           <Route exact path="/reviews" render={() => (

@@ -4,7 +4,6 @@ import Capture from "../components/Capture";
 import IdentifyBeer from "../components/IdentifyBeer";
 import ShowReviews from "../components/ShowReviews";
 
-
 const Home = (props) => {
   return (
     <Row>
@@ -20,20 +19,13 @@ const Home = (props) => {
         </Row>
         <Row>
           <Container fluid>
-            <IdentifyBeer
-              visionBreweryName={props.visionBreweryName}
-              visionBeerName={props.visionBeerName}
-              visionBeerAbv={props.visionBeerAbv}
-              visionBeerShortDes={props.visionBeerShortDes}
-            />
+            <IdentifyBeer />
           </Container>
         </Row>
       </Col>
       <Col size="7">
         <Container fluid>
-          <ShowReviews
-            beerReviews={props.beerReviews}
-          />
+          <ShowReviews />
         </Container>
       </Col>
     </Row>

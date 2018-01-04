@@ -7,7 +7,6 @@ vision.init({ auth: process.env.VISION_API_KEY });
 // Matches with "/api/vision"
 router.post("/", (req, res) => {
   
-  console.log("In vision router");
   let imageData = req.body.imageData;
   let format = "url";
   if (imageData.match(/^data:/)) format = "base64"; 

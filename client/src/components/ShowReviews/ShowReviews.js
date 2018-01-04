@@ -12,7 +12,7 @@ const ShowReviews = (props) => {
   });
 
   let average = total/props.beerReviews.length;
-
+  const reviewArr = JSON.parse(localStorage.getItem("beerReviews"));
   return (
     <div>
       <br/>
@@ -20,9 +20,9 @@ const ShowReviews = (props) => {
         <h3>Public Reviews</h3>
         <h5>Average Score: {average ? average.toFixed(1) : "...loading" }</h5>
         <div>
-        {props.beerReviews.length ? (
+        {reviewArr ? (
           <List>
-            {props.beerReviews.map(review => {
+            {reviewArr.map(review => {
               return (
                 <Item
                   key={index++}
