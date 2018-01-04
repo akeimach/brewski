@@ -12,6 +12,7 @@
    * If you're not using "display: flex", you can remove this style.
    */
   width: 100%;
+  height: 100px;
 }
 
 .CircularProgressbar .CircularProgressbar-path {

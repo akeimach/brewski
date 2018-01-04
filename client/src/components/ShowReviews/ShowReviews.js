@@ -1,9 +1,10 @@
 import React from "react";
 import { Jumbotron } from "react-bootstrap";
 import { List, Item } from "../List";
-import CircularProgressbar from 'react-circular-progressbar';
-import styles from './percentStyle.css';
-import API from "../../utils/API";
+import CircularProgressbar from "react-circular-progressbar";
+import "./percentStyle.css";
+import { Col, Row } from "../Grid";
+// import API from "../../utils/API";
 
 
 const ShowReviews = (props) => {
@@ -38,44 +39,61 @@ const ShowReviews = (props) => {
   let index = 0;
   let total = 0;
   reviewArr.map(review => {
-    total += review.score 
+    return (total += review.score);
   });
-  let average = total/reviewArr.length;
+  let average = total / reviewArr.length;
+  let scoreDisplay = (total / reviewArr.length).toFixed(1);
+
+  const circle = (
+    <CircularProgressbar
+      className="CircularProgressbar-inverted"
+      background
+      backgroundPadding={5}
+      strokeWidth={6}
+      percentage={parseInt(((average * 100) / 5.0), 10)}
+      textForPercentage={(average) => {
+        return `${scoreDisplay} / 5`;
+      }}
+    />
+  );
 
   return (
     <div>
       <br/>
       <Jumbotron>
-        <h3>Public Reviews</h3>
-        <div className="col-xs-12 col-sm-6 col-md-3">
-          <div className="row mb-1">
-            <div className="col-xs-6 offset-xs-3">
-              <CircularProgressbar
-                className="CircularProgressbar-inverted"
-                background
-                backgroundPadding={5}
-                strokeWidth={6}
-                percentage={parseInt(average, 10)}
-              />
-            </div>
-          </div>
-        </div>
-        <h5>Average Score: {average ? average.toFixed(1) : "...loading" }</h5>
+        <Row>
+          <Col size="6">
+            <h3>Public Reviews</h3>
+          </Col>
+          <Col size="6">
+            <h5 style={{ textAlign: "center" }}>RateBeer Average {average ? "" : "...loading" }</h5>
+            <CircularProgressbar
+              className="CircularProgressbar-inverted"
+              background
+              backgroundPadding={5}
+              strokeWidth={6}
+              percentage={parseInt(((average * 100) / 5.0), 10)}
+              textForPercentage={(average) => {
+                return `${scoreDisplay} / 5`;
+              }}
+            />
+          </Col>
+        </Row>
         <div>
-        {reviewArr.length ? (
-          <List>
-            {reviewArr.map(review => {
-              return (
-                <Item
-                  key={index++}
-                  content={[(`Score: ${review.score}`), (`${review.comment}`)]}
-                />
-              );
-            })}
-          </List>
-        ) : (
-          <p>Nothing here yet</p>
-        )}
+          {reviewArr.length ? (
+            <List>
+              {reviewArr.map(review => {
+                return (
+                  <Item
+                    key={index++}
+                    content={[(`Score: ${review.score}`), (`${review.comment}`)]}
+                  />
+                );
+              })}
+            </List>
+          ) : (
+            <p>Nothing here yet</p>
+          )}
         </div>
       </Jumbotron>
     </div>
