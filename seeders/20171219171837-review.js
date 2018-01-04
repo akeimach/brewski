@@ -7,6 +7,8 @@ module.exports = {
         beerScore: 5,     
         createdAt : new Date(),
         updatedAt : new Date(),
+        UserId: 1,
+        BeerId: 1
       },
       {
         starred: false,
@@ -14,27 +16,8 @@ module.exports = {
         beerScore: 2,     
         createdAt : new Date(),
         updatedAt : new Date(),
-      },
-      {
-        starred: false,
-        beerRev: "I am in love with this beer",
-        beerScore: 4,     
-        createdAt : new Date(),
-        updatedAt : new Date(),
-      },
-      {
-        starred: true,
-        beerRev: "I wish they made more of this beer",
-        beerScore: 4,     
-        createdAt : new Date(),
-        updatedAt : new Date(),
-      },
-      {
-        starred: true,
-        beerRev: "I have no doubt in my mind that Jeb Bush won the election",
-        beerScore: 3,     
-        createdAt : new Date(),
-        updatedAt : new Date(),
+        UserId: 2,
+        BeerId: 2
       }
     ], {});
   },
