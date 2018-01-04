@@ -7,7 +7,7 @@ import API from "./utils/API";
 import { Container } from "./components/Grid";
 import { Route } from "react-router-dom";
 import dotenv from "dotenv";
-import Modal from 'react-modal';
+import Modal from "react-modal";
 import { TextArea } from "./components/Form";
 import StarRatings from "react-star-ratings";
 
@@ -140,8 +140,8 @@ class App extends React.Component {
         console.log("Image results: ", res.data);
         if (res.data) {
           this.setState({ imageResults: 
-            [res.data.logoDescription.replace(/[\n\r]/g, ' ').trim(),
-             res.data.textDescription.replace(/[\n\r]/g, ' ').trim()] });
+            [res.data.logoDescription.replace(/[\n\r]/g, " ").trim(),
+             res.data.textDescription.replace(/[\n\r]/g, " ").trim()] });
           this.handleBeerInfomation();
         }
       })

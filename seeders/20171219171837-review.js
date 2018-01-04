@@ -1,7 +1,7 @@
-'use strict';
+"use strict";
 module.exports = {
   up: (queryInterface, Sequelize) => {
-    return queryInterface.bulkInsert('Reviews', [{
+    return queryInterface.bulkInsert("Reviews", [{
         starred: true,
         beerRev: "I really enjoyed it!",
         beerScore: 5,     
@@ -23,6 +23,6 @@ module.exports = {
   },
 
   down: (queryInterface, Sequelize) => {
-    return queryInterface.bulkDelete('Reviews', null, {});
+    return queryInterface.bulkDelete("Reviews", null, {});
   }
 };

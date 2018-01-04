@@ -1,7 +1,7 @@
-require('dotenv').config();
+require("dotenv").config();
 const express = require("express");
 const bodyParser = require("body-parser");
-const methodOverride = require('method-override');
+const methodOverride = require("method-override");
 const db = require("./models");
 const routes = require("./routes");
 
@@ -25,7 +25,7 @@ app.use(routes);
 // Syncing our sequelize models and then starting our Express app
 // =============================================================
 db.sequelize.sync({ force: false }).then(function() {
-	app.listen(PORT, function() {
-		console.log(`🌎  ==> API Server now listening on PORT ${PORT}!`);
-	});
+  app.listen(PORT, function() {
+    console.log(`🌎  ==> API Server now listening on PORT ${PORT}!`);
+  });
 });

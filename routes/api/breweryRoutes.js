@@ -1,6 +1,6 @@
 const router = require("express").Router();
 const axios = require("axios");
-const BreweryDb = require('brewerydb-node');
+const BreweryDb = require("brewerydb-node");
 const brewdb = new BreweryDb(process.env.BREWERY_DB);
 
 
