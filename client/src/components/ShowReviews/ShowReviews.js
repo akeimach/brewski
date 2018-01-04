@@ -12,7 +12,8 @@ const ShowReviews = (props) => {
   let index = 0;
   let total = 0;
   let count = 1;
-  {reviewArr.length > 1 ? (
+
+  {(reviewArr && reviewArr.length > 1) ? (
     count = reviewArr.length,
     reviewArr.map(review => {
       return (total += review.score);
@@ -48,7 +49,7 @@ const ShowReviews = (props) => {
           </Col>
         </Row>
         <div>
-          {reviewArr.length ? (
+          {(reviewArr && reviewArr.length)  ? (
             <List>
               {reviewArr.map(review => {
                 return (
