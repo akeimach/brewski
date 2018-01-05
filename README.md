@@ -22,7 +22,12 @@ Users upload an image of a beer by using an image URL, uploading a local image f
 
 ### Screenshots
 
-
+![Home Page](client/public/images/home-page.png)
+![Google Login](client/public/images/google-authentication.png)
+![Upload Beer](client/public/images/beer-image-upload.png)
+![History Page](client/public/images/history-page.png)
+![Leaving Review](client/public/images/review-form.png)
+![Review Page](client/public/images/review-page.png)
 
 ### Dependencies Used
 
