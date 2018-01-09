@@ -14,7 +14,7 @@ https://brewski-beer-review.herokuapp.com/
 
 ### How to Use
 
-First of all, users will click Login to create an account using either a Google account or an email address and password. Once logged in, the user will upload the image of a beer they drink. Users can then go to the History page and leave beer reviews and ratings for each uploaded beer. Once reviews have been submitted, users have the option to edit and delete each of those reviews.
+First of all, users will click Login to authenticate using a Google account. Once logged in, the user will upload the image of a beer they drink. Users can then go to the History page and leave beer reviews and ratings for each uploaded beer. Once reviews have been submitted, users have the option to edit and delete each of those reviews.
 
 ### How it works.
 
