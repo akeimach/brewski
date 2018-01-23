@@ -58,6 +58,17 @@ class App extends React.Component {
   };
 
 
+  handleImageChange = (event) => {
+    event.preventDefault();
+    let reader = new FileReader();
+    let file = event.target.files[0];
+    reader.onloadend = () => {
+      this.setState({ imageData: reader.result });
+    }
+    if (file) reader.readAsDataURL(file);
+  };
+
+
   openModal = (event) => {
     if (event) this.setState({ [event.target.name]: true });
   };
@@ -79,7 +90,7 @@ class App extends React.Component {
   };
 
 
-  handleBeerInfomation = () => {
+  handleBeerInfomation = (event) => {
     API.postBreweryID({ nameOfBrewery: this.state.imageResults[0] })
     .then(res => {
       console.log("Brewery results: ", res.data);
@@ -240,10 +251,9 @@ class App extends React.Component {
           <Route exact path="(/|/home)" render={() => (
             <Home
               imageData={this.state.imageData}
-              imageResults={this.state.imageResults}
               handleInputChange={this.handleInputChange}
+              handleImageChange={this.handleImageChange}
               handleBeerImage={this.handleBeerImage}
-              visionUpdate={this.state.visionUpdate}
             />
           )}/>
           <Route exact path="/reviews" render={() => (

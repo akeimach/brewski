@@ -10,11 +10,7 @@ const Home = (props) => {
       <Col size="5">
         <Row>
           <Container fluid>
-            <Capture
-              imageData={props.imageData}
-              handleInputChange={props.handleInputChange}
-              handleBeerImage={props.handleBeerImage}
-            />
+            <Capture {...props} />
           </Container>
         </Row>
         <Row>
