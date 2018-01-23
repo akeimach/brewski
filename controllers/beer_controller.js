@@ -21,9 +21,13 @@ router.get("/:id", (req, res) => {
   });
 });
 
-// POST route to create new beer when user takes a pic of beer
+// POST route to find or create new beer when user takes a pic of beer
 router.post("/:id", (req, res) => {
-  db.Beers.create(req.body)
+  db.Beers.findOrCreate({
+    where: {
+      beername: name
+    }
+    req.body)
   .then((data1) => {
     db.UsersBeers.create({
       UserId: req.params.id,
@@ -41,5 +45,22 @@ router.post("/:id", (req, res) => {
   });
 });
 
- 
+db.Users.findOrCreate({
+        where: {
+          googleId: userid
+        }, 
+        defaults: {
+          username: username,
+          email: useremail,
+          picture: userpicture,
+        }    
+      })
+      .spread((user, created) => {
+        res.json(user);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+
+
 module.exports = router;

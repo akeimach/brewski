@@ -12,11 +12,6 @@ const PORT = process.env.PORT || 3001;
 app.use(bodyParser.urlencoded({ limit: "50mb", extended: true }));
 app.use(bodyParser.json({ limit: "50mb" }));
 
-// MAYBE???
-// app.use(bodyParser.json({ type: "application/vnd.api+json" }));
-// app.use(bodyParser.text());
-// app.use(bodyParser.urlencoded({ extended: true }));
-
 // Serve up static assets
 app.use(express.static("client/build"));
 
