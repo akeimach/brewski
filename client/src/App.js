@@ -95,38 +95,38 @@ class App extends React.Component {
     .then(res => {
       console.log("Brewery results: ", res.data);
       if (res.data) {
-        localStorage.setItem("visionBreweryName", res.data.name);
+        sessionStorage.setItem("visionBreweryName", res.data.name);
         this.setState({ visionUpdate: res.data });
       }
       API.postBeerID({ imageResults: this.state.imageResults })
       .then(res => {
         console.log("Beer results: ", res.data);
         if (res.data) {
-          localStorage.setItem("visionBeerName", res.data.name);
-          localStorage.setItem("visionBeerAbv", res.data.abv);
-          localStorage.setItem("visionBeerIbu", (res.data.ibu ? res.data.ibu : 0));
-          localStorage.setItem("visionBeerFoodPairings", res.data.foodPairings);
-          localStorage.setItem("visionBeerIsOrganic", res.data.isOrganic);
-          localStorage.setItem("visionBeerShortDes", res.data.description);
+          sessionStorage.setItem("visionBeerName", res.data.name);
+          sessionStorage.setItem("visionBeerAbv", res.data.abv);
+          sessionStorage.setItem("visionBeerIbu", (res.data.ibu ? res.data.ibu : 0));
+          sessionStorage.setItem("visionBeerFoodPairings", res.data.foodPairings);
+          sessionStorage.setItem("visionBeerIsOrganic", res.data.isOrganic);
+          sessionStorage.setItem("visionBeerShortDes", res.data.description);
           this.setState({ visionUpdate: res.data });
-          API.postRateBeer({ visionBeerName: localStorage.getItem("visionBeerName") })
+          API.postRateBeer({ visionBeerName: sessionStorage.getItem("visionBeerName") })
           .then(res => {
             console.log("Review results: ", res.data);
             if (res.data) {
-              localStorage.setItem("beerReviews", JSON.stringify(res.data));
+              sessionStorage.setItem("beerReviews", JSON.stringify(res.data));
               this.setState({ visionUpdate: res.data });
             }
           })
           .catch(err => console.log(err));
 
           const beerData = {
-            beername: localStorage.getItem("visionBeerName"),
-            brewery: localStorage.getItem("visionBreweryName"),
-            abv: localStorage.getItem("visionBeerAbv"),
-            ibu: localStorage.getItem("visionBeerIbu"),
-            foodPairings: localStorage.getItem("visionBeerFoodPairings"),
-            isOrganic: localStorage.getItem("visionBeerIsOrganic"),
-            shortDes: localStorage.getItem("visionBeerShortDes")
+            beername: sessionStorage.getItem("visionBeerName"),
+            brewery: sessionStorage.getItem("visionBreweryName"),
+            abv: sessionStorage.getItem("visionBeerAbv"),
+            ibu: sessionStorage.getItem("visionBeerIbu"),
+            foodPairings: sessionStorage.getItem("visionBeerFoodPairings"),
+            isOrganic: sessionStorage.getItem("visionBeerIsOrganic"),
+            shortDes: sessionStorage.getItem("visionBeerShortDes")
           };
           API.postUsersBeers( localStorage.getItem("userId"), beerData )
           .then(res => {
