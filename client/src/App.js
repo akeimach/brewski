@@ -38,18 +38,20 @@ class App extends React.Component {
 
   componentDidMount() {
     dotenv.config();
-    API.getUser( localStorage.getItem("userId") )
-    .then(res => {
-      this.setState({ userData: res.data });
-    });
-    API.getHistory( localStorage.getItem("userId") )
-    .then(res => {
-      this.setState({ userHistory: res.data[0] });
-    });
-    API.getReviews( localStorage.getItem("userId") )
-    .then(res => {
-      this.setState({ userReviews: res.data });
-    });
+    if (localStorage.getItem("userId")) { //if a user is logged on
+      API.getUser( localStorage.getItem("userId") )
+      .then(res => {
+        this.setState({ userData: res.data });
+      });
+      API.getHistory( localStorage.getItem("userId") )
+      .then(res => {
+        this.setState({ userHistory: res.data[0] });
+      });
+      API.getReviews( localStorage.getItem("userId") )
+      .then(res => {
+        this.setState({ userReviews: res.data });
+      });
+    }
   }
 
 
@@ -129,15 +131,17 @@ class App extends React.Component {
             isOrganic: sessionStorage.getItem("visionBeerIsOrganic"),
             shortDes: sessionStorage.getItem("visionBeerShortDes")
           };
-          API.postUsersBeers( localStorage.getItem("userId"), beerData )
-          .then(res => {
-            console.log("Added to history: ", res.data);
-            API.getHistory( localStorage.getItem("userId") )
+          if (localStorage.getItem("userId")) { //check if user is logged in, if so post history
+            API.postUsersBeers( localStorage.getItem("userId"), beerData )
             .then(res => {
-              this.setState({ userHistory: res.data[0] });
-            });
-          })
-          .catch(err => console.log(err));
+              console.log("Added to history: ", res.data);
+              API.getHistory( localStorage.getItem("userId") )
+              .then(res => {
+                this.setState({ userHistory: res.data[0] });
+              });
+            })
+            .catch(err => console.log(err));
+          }
         }
       });
     });
