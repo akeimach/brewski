@@ -6,7 +6,7 @@
 }
 
 
-@media only screen and (min-width: 995px) {
+@media only screen and (min-width: 993px) {
   .width-1 { width: 8.33%; }
   .width-2 { width: 16.67%; }
   .width-3 { width: 25%; }
