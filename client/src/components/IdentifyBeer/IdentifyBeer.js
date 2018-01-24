@@ -9,16 +9,16 @@ const IdentifyBeer = (props) => {
       <Jumbotron>
         <h3>Your Identified Beer</h3>
         <div>
-        {localStorage.getItem("visionBeerName") ? (
+        {sessionStorage.getItem("visionBeerName") ? (
           <Item
             content={[
-              (`Name: ${localStorage.getItem("visionBeerName")}`), 
-              (`Brewery: ${localStorage.getItem("visionBreweryName")}`), 
-              (`ABV: ${localStorage.getItem("visionBeerAbv")}%`), 
-              (`IBU: ${localStorage.getItem("visionBeerIbu")}`), 
-              (`Food Pairings: ${localStorage.getItem("visionBeerFoodPairings")}`), 
-              (`Organic: ${localStorage.getItem("visionBeerIsOrganic") === "Y" ? "Yes" : "No"}`), 
-              (`Description: ${localStorage.getItem("visionBeerShortDes")}`)
+              (`Name: ${sessionStorage.getItem("visionBeerName")}`), 
+              (`Brewery: ${sessionStorage.getItem("visionBreweryName")}`), 
+              (`ABV: ${sessionStorage.getItem("visionBeerAbv")}%`), 
+              (`IBU: ${sessionStorage.getItem("visionBeerIbu")}`), 
+              (`Food Pairings: ${sessionStorage.getItem("visionBeerFoodPairings")}`), 
+              (`Organic: ${sessionStorage.getItem("visionBeerIsOrganic") === "Y" ? "Yes" : "No"}`), 
+              (`Description: ${sessionStorage.getItem("visionBeerShortDes")}`)
             ]}
           />
         ) : (
