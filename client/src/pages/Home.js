@@ -20,9 +20,11 @@ const Home = (props) => {
         </Row>
       </Col>
       <Col size="7">
-        <Container fluid>
-          <ShowReviews />
-        </Container>
+        <Row>
+          <Container fluid>
+            <ShowReviews />
+          </Container>
+        </Row>
       </Col>
     </Row>
   );
