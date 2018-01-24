@@ -3,7 +3,7 @@
   "name": "Brewski React App",
   "icons": [
     {
-      "src": "favicon.gif",
+      "src": "images/favicon.gif",
       "sizes": "192x192",
       "type": "image/png"
     }
