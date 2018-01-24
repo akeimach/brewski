@@ -10,6 +10,7 @@ import dotenv from "dotenv";
 import Modal from "react-modal";
 import { TextArea } from "./components/Form";
 import StarRatings from "react-star-ratings";
+import Analytics from "./components/Analytics";
 
 class App extends React.Component {
 
@@ -238,6 +239,34 @@ class App extends React.Component {
       </Modal>
     );
 
+    const HomeComponent = () => {
+      return (
+        <Home
+          imageData={this.state.imageData}
+          handleInputChange={this.handleInputChange}
+          handleImageChange={this.handleImageChange}
+          handleBeerImage={this.handleBeerImage}
+        />
+      );
+    };
+
+    const ReviewComponent = () => {
+      return (
+        <Reviews
+          userReviews={this.state.userReviews}
+        />
+      );
+    };
+
+    const HistoryComponent = () => {
+      return (
+        <History
+          userHistory={this.state.userHistory}
+          handleReviewModal={this.handleReviewModal}
+        />
+      );
+    };
+
     return (
       <div>
         <Container fullwidth>
@@ -248,26 +277,10 @@ class App extends React.Component {
           />
         </Container>
         <Container>
-          <Route exact path="(/|/home)" render={() => (
-            <Home
-              imageData={this.state.imageData}
-              handleInputChange={this.handleInputChange}
-              handleImageChange={this.handleImageChange}
-              handleBeerImage={this.handleBeerImage}
-            />
-          )}/>
-          <Route exact path="/reviews" render={() => (
-            <Reviews
-              userReviews={this.state.userReviews}
-            />
-          )}/>
+          <Route exact path="(/|/home)" component={Analytics(HomeComponent)} />
+          <Route exact path="/reviews" component={Analytics(ReviewComponent)} />
           {reviewModal}
-          <Route exact path="/history" render={() => (
-            <History
-              userHistory={this.state.userHistory}
-              handleReviewModal={this.handleReviewModal}
-            />
-          )}/>
+          <Route exact path="/history" component={Analytics(HistoryComponent)} />
         </Container>
       </div>
     );
