@@ -8,7 +8,7 @@ import { Col, Row } from "../Grid";
 
 const ShowReviews = (props) => {
   
-  const reviewArr = JSON.parse(localStorage.getItem("beerReviews"));
+  const reviewArr = JSON.parse(sessionStorage.getItem("beerReviews"));
   const reducer = (a, b) => { return { score: a.score + b.score }};
   const total = ((reviewArr && reviewArr.length > 1) ? (reviewArr.reduce(reducer).score) : (0));
   const count = ((reviewArr && reviewArr.length > 1) ? (reviewArr.length) : (1));

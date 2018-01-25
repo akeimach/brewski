@@ -10,6 +10,7 @@ import dotenv from "dotenv";
 import Modal from "react-modal";
 import { TextArea } from "./components/Form";
 import StarRatings from "react-star-ratings";
+import Analytics from "./components/Analytics";
 
 class App extends React.Component {
 
@@ -37,18 +38,20 @@ class App extends React.Component {
 
   componentDidMount() {
     dotenv.config();
-    API.getUser( localStorage.getItem("userId") )
-    .then(res => {
-      this.setState({ userData: res.data });
-    });
-    API.getHistory( localStorage.getItem("userId") )
-    .then(res => {
-      this.setState({ userHistory: res.data[0] });
-    });
-    API.getReviews( localStorage.getItem("userId") )
-    .then(res => {
-      this.setState({ userReviews: res.data });
-    });
+    if (localStorage.getItem("userId")) { //if a user is logged on
+      API.getUser( localStorage.getItem("userId") )
+      .then(res => {
+        this.setState({ userData: res.data });
+      });
+      API.getHistory( localStorage.getItem("userId") )
+      .then(res => {
+        this.setState({ userHistory: res.data[0] });
+      });
+      API.getReviews( localStorage.getItem("userId") )
+      .then(res => {
+        this.setState({ userReviews: res.data });
+      });
+    }
   }
 
 
@@ -95,48 +98,50 @@ class App extends React.Component {
     .then(res => {
       console.log("Brewery results: ", res.data);
       if (res.data) {
-        localStorage.setItem("visionBreweryName", res.data.name);
+        sessionStorage.setItem("visionBreweryName", res.data.name);
         this.setState({ visionUpdate: res.data });
       }
       API.postBeerID({ imageResults: this.state.imageResults })
       .then(res => {
         console.log("Beer results: ", res.data);
         if (res.data) {
-          localStorage.setItem("visionBeerName", res.data.name);
-          localStorage.setItem("visionBeerAbv", res.data.abv);
-          localStorage.setItem("visionBeerIbu", (res.data.ibu ? res.data.ibu : 0));
-          localStorage.setItem("visionBeerFoodPairings", res.data.foodPairings);
-          localStorage.setItem("visionBeerIsOrganic", res.data.isOrganic);
-          localStorage.setItem("visionBeerShortDes", res.data.description);
+          sessionStorage.setItem("visionBeerName", res.data.name);
+          sessionStorage.setItem("visionBeerAbv", res.data.abv);
+          sessionStorage.setItem("visionBeerIbu", (res.data.ibu ? res.data.ibu : 0));
+          sessionStorage.setItem("visionBeerFoodPairings", res.data.foodPairings);
+          sessionStorage.setItem("visionBeerIsOrganic", res.data.isOrganic);
+          sessionStorage.setItem("visionBeerShortDes", res.data.description);
           this.setState({ visionUpdate: res.data });
-          API.postRateBeer({ visionBeerName: localStorage.getItem("visionBeerName") })
+          API.postRateBeer({ visionBeerName: sessionStorage.getItem("visionBeerName") })
           .then(res => {
             console.log("Review results: ", res.data);
             if (res.data) {
-              localStorage.setItem("beerReviews", JSON.stringify(res.data));
+              sessionStorage.setItem("beerReviews", JSON.stringify(res.data));
               this.setState({ visionUpdate: res.data });
             }
           })
           .catch(err => console.log(err));
 
           const beerData = {
-            beername: localStorage.getItem("visionBeerName"),
-            brewery: localStorage.getItem("visionBreweryName"),
-            abv: localStorage.getItem("visionBeerAbv"),
-            ibu: localStorage.getItem("visionBeerIbu"),
-            foodPairings: localStorage.getItem("visionBeerFoodPairings"),
-            isOrganic: localStorage.getItem("visionBeerIsOrganic"),
-            shortDes: localStorage.getItem("visionBeerShortDes")
+            beername: sessionStorage.getItem("visionBeerName"),
+            brewery: sessionStorage.getItem("visionBreweryName"),
+            abv: sessionStorage.getItem("visionBeerAbv"),
+            ibu: sessionStorage.getItem("visionBeerIbu"),
+            foodPairings: sessionStorage.getItem("visionBeerFoodPairings"),
+            isOrganic: sessionStorage.getItem("visionBeerIsOrganic"),
+            shortDes: sessionStorage.getItem("visionBeerShortDes")
           };
-          API.postUsersBeers( localStorage.getItem("userId"), beerData )
-          .then(res => {
-            console.log("Added to history: ", res.data);
-            API.getHistory( localStorage.getItem("userId") )
+          if (localStorage.getItem("userId")) { //check if user is logged in, if so post history
+            API.postUsersBeers( localStorage.getItem("userId"), beerData )
             .then(res => {
-              this.setState({ userHistory: res.data[0] });
-            });
-          })
-          .catch(err => console.log(err));
+              console.log("Added to history: ", res.data);
+              API.getHistory( localStorage.getItem("userId") )
+              .then(res => {
+                this.setState({ userHistory: res.data[0] });
+              });
+            })
+            .catch(err => console.log(err));
+          }
         }
       });
     });
@@ -238,6 +243,34 @@ class App extends React.Component {
       </Modal>
     );
 
+    const HomeComponent = () => {
+      return (
+        <Home
+          imageData={this.state.imageData}
+          handleInputChange={this.handleInputChange}
+          handleImageChange={this.handleImageChange}
+          handleBeerImage={this.handleBeerImage}
+        />
+      );
+    };
+
+    const ReviewComponent = () => {
+      return (
+        <Reviews
+          userReviews={this.state.userReviews}
+        />
+      );
+    };
+
+    const HistoryComponent = () => {
+      return (
+        <History
+          userHistory={this.state.userHistory}
+          handleReviewModal={this.handleReviewModal}
+        />
+      );
+    };
+
     return (
       <div>
         <Container fullwidth>
@@ -248,26 +281,10 @@ class App extends React.Component {
           />
         </Container>
         <Container>
-          <Route exact path="(/|/home)" render={() => (
-            <Home
-              imageData={this.state.imageData}
-              handleInputChange={this.handleInputChange}
-              handleImageChange={this.handleImageChange}
-              handleBeerImage={this.handleBeerImage}
-            />
-          )}/>
-          <Route exact path="/reviews" render={() => (
-            <Reviews
-              userReviews={this.state.userReviews}
-            />
-          )}/>
+          <Route exact path="(/|/home)" component={Analytics(HomeComponent)} />
+          <Route exact path="/reviews" component={Analytics(ReviewComponent)} />
           {reviewModal}
-          <Route exact path="/history" render={() => (
-            <History
-              userHistory={this.state.userHistory}
-              handleReviewModal={this.handleReviewModal}
-            />
-          )}/>
+          <Route exact path="/history" component={Analytics(HistoryComponent)} />
         </Container>
       </div>
     );

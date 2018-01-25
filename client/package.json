@@ -10,6 +10,7 @@
     "react-bootstrap": "^0.31.5",
     "react-circular-progressbar": "^0.6.0",
     "react-dom": "^16.2.0",
+    "react-ga": "^2.4.1",
     "react-google-login": "^3.0.4",
     "react-modal": "^3.1.10",
     "react-modal-login": "^1.1.3",

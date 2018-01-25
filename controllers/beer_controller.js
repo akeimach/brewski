@@ -21,25 +21,42 @@ router.get("/:id", (req, res) => {
   });
 });
 
-// POST route to create new beer when user takes a pic of beer
+// POST route to find or create new beer when user takes a pic of beer
 router.post("/:id", (req, res) => {
-  db.Beers.create(req.body)
-  .then((data1) => {
+  db.Beers.findOrCreate({
+    where: {
+      beername: req.body.beername
+    },
+    defaults: (req.body)
+  })  
+  .spread((beer, created) => {
     db.UsersBeers.create({
       UserId: req.params.id,
-      BeerId: data1.dataValues.id
-    })
-    .then((data2) => {
-      res.json(data2);
-    })
-    .catch((err2) => {
-      console.log(err2);
+      BeerId: beer.dataValues.id
     });
+    res.json(beer);
   })
-  .catch((err1) => {
-    console.log(err1);
+  .catch((err) => {
+    console.log(err);
   });
 });
 
- 
+// db.Users.findOrCreate({
+//         where: {
+//           googleId: userid
+//         }, 
+//         defaults: {
+//           username: username,
+//           email: useremail,
+//           picture: userpicture,
+//         }    
+//       })
+//       .spread((user, created) => {
+//         res.json(user);
+//       })
+//       .catch((err) => {
+//         console.log(err);
+//       });
+
+
 module.exports = router;
