@@ -3,7 +3,6 @@ const axios = require("axios");
 const BreweryDb = require("brewerydb-node");
 const brewdb = new BreweryDb(process.env.BREWERY_DB);
 
-
 router.post("/", (req, res) => {
 
   brewdb.search.breweries({ q: req.body.nameOfBrewery }, (request, brewdbResult) => {
