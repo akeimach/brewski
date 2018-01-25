@@ -25,7 +25,7 @@ router.get("/:id", (req, res) => {
 router.post("/:id", (req, res) => {
   db.Beers.findOrCreate({
     where: {
-      beername: req.body.name
+      beername: req.body.beername
     },
     defaults: (req.body)
   })  
