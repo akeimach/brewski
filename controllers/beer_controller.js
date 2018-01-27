@@ -41,22 +41,4 @@ router.post("/:id", (req, res) => {
   });
 });
 
-// db.Users.findOrCreate({
-//         where: {
-//           googleId: userid
-//         }, 
-//         defaults: {
-//           username: username,
-//           email: useremail,
-//           picture: userpicture,
-//         }    
-//       })
-//       .spread((user, created) => {
-//         res.json(user);
-//       })
-//       .catch((err) => {
-//         console.log(err);
-//       });
-
-
 module.exports = router;
