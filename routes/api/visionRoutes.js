@@ -1,7 +1,6 @@
 const router = require("express").Router();
 const vision = require("node-cloud-vision-api");
 
-//TODO: replace with oauthClient
 vision.init({ auth: process.env.VISION_API_KEY });
 
 // Matches with "/api/vision"
@@ -11,6 +10,7 @@ router.post("/", (req, res) => {
   let format = "url";
   if (imageData.match(/^data:/)) format = "base64"; 
   const request = new vision.Request({
+    // if [format] is string or base64, set imageData as value
     image: new vision.Image({ [format]: imageData }),
     features: [
       new vision.Feature("TEXT_DETECTION", 10),
