@@ -17,7 +17,7 @@ class App extends React.Component {
   state = {
     imageData: "",
     imageResults: [],
-    userData: [],
+    userData: [], //un-used for now
     userHistory: [],
     userReviews: [],
     reviewId: "",
@@ -32,7 +32,8 @@ class App extends React.Component {
     breweryName: "",
     loginModalOpen: false,
     reviewModalOpen: false,
-    visionUpdate: ""
+    visionUpdate: "",
+    beerResultOptions: []
   };
 
 
@@ -41,16 +42,19 @@ class App extends React.Component {
     if (localStorage.getItem("userId")) { //if a user is logged on
       API.getUser( localStorage.getItem("userId") )
       .then(res => {
-        this.setState({ userData: res.data });
-      });
+        this.setState({ userData: res.data }); //un-used for now
+      })
+      .catch(err => console.log(err));
       API.getHistory( localStorage.getItem("userId") )
       .then(res => {
         this.setState({ userHistory: res.data[0] });
-      });
+      })
+      .catch(err => console.log(err));
       API.getReviews( localStorage.getItem("userId") )
       .then(res => {
         this.setState({ userReviews: res.data });
-      });
+      })
+      .catch(err => console.log(err));
     }
   }
 
@@ -109,10 +113,13 @@ class App extends React.Component {
           sessionStorage.setItem("visionBeerName", beerInfo.name);
           sessionStorage.setItem("visionBeerAbv", beerInfo.abv);
           sessionStorage.setItem("visionBeerIbu", (beerInfo.ibu ? beerInfo.ibu : 0));
-          sessionStorage.setItem("visionBeerFoodPairings", beerInfo.foodPairings);
+          sessionStorage.setItem("visionBeerFoodPairings", beerInfo.foodPairings ? beerInfo.foodPairings : "None listed");
           sessionStorage.setItem("visionBeerIsOrganic", beerInfo.isOrganic);
           sessionStorage.setItem("visionBeerShortDes", beerInfo.description);
-          this.setState({ visionUpdate: beerInfo });
+          this.setState({ 
+            visionUpdate: beerInfo,
+            beerResultOptions: res2.data
+          });
           API.postRateBeer({ visionBeerName: sessionStorage.getItem("visionBeerName") })
           .then(res3 => {
             console.log("Review results: ", res3.data);
@@ -137,9 +144,10 @@ class App extends React.Component {
             .then(res4 => {
               console.log("Added to history: ", res4.data);
               API.getHistory( localStorage.getItem("userId") )
-              .then(res4 => {
-                this.setState({ userHistory: res4.data[0] });
-              });
+              .then(res5 => {
+                this.setState({ userHistory: res5.data[0] });
+              })
+              .catch(err5 => console.log(err5));
             })
             .catch(err4 => console.log(err4));
           }
@@ -193,29 +201,38 @@ class App extends React.Component {
       }
       if (this.state.isNewReview) {
         API.postBeerReview( beerReviewData )
-        .then(res => {
-          console.log("Add review results: ", res.data);
+        .then(res1 => {
+          console.log("Add review results: ", res1.data);
           this.setState({ isNewReview: false });
           API.getReviews( localStorage.getItem("userId") )
-          .then(res => {
-            this.setState({ userReviews: res.data });
-          });
+          .then(res2 => {
+            this.setState({ userReviews: res2.data });
+          })
+          .catch(err2 => console.log(err2));
         })
-        .catch(err => console.log(err));
+        .catch(err1 => console.log(err1));
       }
       else {
         API.updateBeerReview( beerReviewData )
-        .then(res => {
-          console.log("Update review results: ", res.data);
+        .then(res1 => {
+          console.log("Update review results: ", res1.data);
           API.getReviews( localStorage.getItem("userId") )
-          .then(res => {
-            this.setState({ userReviews: res.data });
-          });
+          .then(res2 => {
+            this.setState({ userReviews: res2.data });
+          })
+          .catch(err2 => console.log(err2));
         })
-        .catch(err => console.log(err));
+        .catch(err1 => console.log(err1));
       }
     }
     this.closeModal(event);
+  };
+
+
+  handleFeedback = (correct) => {
+    if (!correct) { //the result was incorrect / false
+      console.log(this.state.beerResultOptions);
+    }
   };
 
 
@@ -253,6 +270,7 @@ class App extends React.Component {
           handleInputChange={this.handleInputChange}
           handleImageChange={this.handleImageChange}
           handleBeerImage={this.handleBeerImage}
+          handleFeedback={this.handleFeedback}
           visionUpdate={this.state.visionUpdate} //to force a component reload
         />
       );
