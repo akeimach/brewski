@@ -22,9 +22,13 @@ router.post("/", (req, res) => {
     if (brewdbResult) {
       let maxScore = 0;
       let currentScore = 0;
-      let response = brewdbResult[0];
+      let response = []; //initialize as an array
+      response.push(brewdbResult[0]); //first index in array stores best guess
+      for (let i = 0; i < brewdbResult.length; i++) {
+        response.push(brewdbResult[i]); //add all the results to the array
+      }
       const goalArray = spellCheckedName.split(" ");
-      for (let key in brewdbResult) {
+      for (let key = 0; key < brewdbResult.length; key++) {
         if (brewdbResult[key].abv) { //it is a beer not a brewery
           currentScore = 0;
           const nameArray = brewdbResult[key].name.toUpperCase().trim().split(" ");
@@ -33,7 +37,7 @@ router.post("/", (req, res) => {
           }
           if (currentScore > maxScore) {
             maxScore = currentScore;
-            response = brewdbResult[key];
+            response[0] = brewdbResult[key];
           }
         }
       }

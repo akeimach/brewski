@@ -95,32 +95,33 @@ class App extends React.Component {
 
   handleBeerInfomation = (event) => {
     API.postBreweryID({ nameOfBrewery: this.state.imageResults[0] })
-    .then(res => {
-      console.log("Brewery results: ", res.data);
-      if (res.data) {
-        sessionStorage.setItem("visionBreweryName", res.data.name);
-        this.setState({ visionUpdate: res.data });
+    .then(res1 => {
+      console.log("Brewery results: ", res1.data);
+      if (res1.data) {
+        sessionStorage.setItem("visionBreweryName", res1.data.name);
+        this.setState({ visionUpdate: res1.data });
       }
       API.postBeerID({ imageResults: this.state.imageResults })
-      .then(res => {
-        console.log("Beer results: ", res.data);
-        if (res.data) {
-          sessionStorage.setItem("visionBeerName", res.data.name);
-          sessionStorage.setItem("visionBeerAbv", res.data.abv);
-          sessionStorage.setItem("visionBeerIbu", (res.data.ibu ? res.data.ibu : 0));
-          sessionStorage.setItem("visionBeerFoodPairings", res.data.foodPairings);
-          sessionStorage.setItem("visionBeerIsOrganic", res.data.isOrganic);
-          sessionStorage.setItem("visionBeerShortDes", res.data.description);
-          this.setState({ visionUpdate: res.data });
+      .then(res2 => {
+        console.log("Beer results: ", res2.data);
+        if (res2.data) {
+          const beerInfo = res2.data[0]; //best guess is at 0th index in array
+          sessionStorage.setItem("visionBeerName", beerInfo.name);
+          sessionStorage.setItem("visionBeerAbv", beerInfo.abv);
+          sessionStorage.setItem("visionBeerIbu", (beerInfo.ibu ? beerInfo.ibu : 0));
+          sessionStorage.setItem("visionBeerFoodPairings", beerInfo.foodPairings);
+          sessionStorage.setItem("visionBeerIsOrganic", beerInfo.isOrganic);
+          sessionStorage.setItem("visionBeerShortDes", beerInfo.description);
+          this.setState({ visionUpdate: beerInfo });
           API.postRateBeer({ visionBeerName: sessionStorage.getItem("visionBeerName") })
-          .then(res => {
-            console.log("Review results: ", res.data);
-            if (res.data) {
-              sessionStorage.setItem("beerReviews", JSON.stringify(res.data));
-              this.setState({ visionUpdate: res.data });
+          .then(res3 => {
+            console.log("Review results: ", res3.data);
+            if (res3.data) {
+              sessionStorage.setItem("beerReviews", JSON.stringify(res3.data));
+              this.setState({ visionUpdate: res3.data });
             }
           })
-          .catch(err => console.log(err));
+          .catch(err3 => console.log(err3));
 
           const beerData = {
             beername: sessionStorage.getItem("visionBeerName"),
@@ -133,18 +134,20 @@ class App extends React.Component {
           };
           if (localStorage.getItem("userId")) { //check if user is logged in, if so post history
             API.postUsersBeers( localStorage.getItem("userId"), beerData )
-            .then(res => {
-              console.log("Added to history: ", res.data);
+            .then(res4 => {
+              console.log("Added to history: ", res4.data);
               API.getHistory( localStorage.getItem("userId") )
-              .then(res => {
-                this.setState({ userHistory: res.data[0] });
+              .then(res4 => {
+                this.setState({ userHistory: res4.data[0] });
               });
             })
-            .catch(err => console.log(err));
+            .catch(err4 => console.log(err4));
           }
         }
-      });
-    });
+      })
+      .catch(err2 => console.log(err2));
+    })
+    .catch(err1 => console.log(err1));
   };
 
 
@@ -250,6 +253,7 @@ class App extends React.Component {
           handleInputChange={this.handleInputChange}
           handleImageChange={this.handleImageChange}
           handleBeerImage={this.handleBeerImage}
+          visionUpdate={this.state.visionUpdate} //to force a component reload
         />
       );
     };
