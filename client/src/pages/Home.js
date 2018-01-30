@@ -15,9 +15,7 @@ const Home = (props) => {
         </Row>
         <Row>
           <Container fluid>
-            <IdentifyBeer
-              handleFeedback={props.handleFeedback}
-            />
+            <IdentifyBeer {...props} />
           </Container>
         </Row>
       </Col>
