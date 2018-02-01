@@ -119,7 +119,7 @@ class App extends React.Component {
           sessionStorage.setItem("visionBeerIbu", (beerInfo.ibu ? beerInfo.ibu : 0));
           sessionStorage.setItem("visionBeerFoodPairings", beerInfo.foodPairings ? beerInfo.foodPairings : "None listed");
           sessionStorage.setItem("visionBeerIsOrganic", beerInfo.isOrganic);
-          sessionStorage.setItem("visionBeerShortDes", beerInfo.description);
+          sessionStorage.setItem("visionBeerShortDes", beerInfo.description ? beerInfo.description : "None");
           this.setState({ 
             visionUpdate: beerInfo,
             beerResultOptions: res2.data
@@ -188,13 +188,14 @@ class App extends React.Component {
 
 
   handleBeerFeedback = (event) => {
+    // API.updateIncorrectBeer({ imageResults: this.state.imageResults });
     const beerInfo = this.state.beerResultOptions[this.state.selectedBeerId]; //index of last clicked beer
     sessionStorage.setItem("visionBeerName", beerInfo.name);
     sessionStorage.setItem("visionBeerAbv", beerInfo.abv);
     sessionStorage.setItem("visionBeerIbu", (beerInfo.ibu ? beerInfo.ibu : 0));
     sessionStorage.setItem("visionBeerFoodPairings", beerInfo.foodPairings ? beerInfo.foodPairings : "None listed");
     sessionStorage.setItem("visionBeerIsOrganic", beerInfo.isOrganic);
-    sessionStorage.setItem("visionBeerShortDes", beerInfo.description);
+    sessionStorage.setItem("visionBeerShortDes", beerInfo.description ? beerInfo.description : "None");
     this.setState({ visionUpdate: beerInfo });
     API.postRateBeer({ visionBeerName: sessionStorage.getItem("visionBeerName") })
     .then(res1 => {
@@ -217,7 +218,7 @@ class App extends React.Component {
     };
 
     if (localStorage.getItem("userId")) { //check if user is logged in, if so post history
-      API.postUsersBeers( localStorage.getItem("userId"), beerData )
+      API.updateIncorrectBeer( localStorage.getItem("beerId"), beerData )
       .then(res2 => {
         console.log("Added to history: ", res2.data);
         API.getHistory( localStorage.getItem("userId") )

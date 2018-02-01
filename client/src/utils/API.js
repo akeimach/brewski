@@ -30,6 +30,10 @@ export default {
   postBeerReview: (beerReviewData) => {
     return axios.post("/api/reviews", beerReviewData);
   },
+  // to update a beer that was incorrect
+  updateIncorrectBeer: (beerId) => {
+    return axios.put("/api/beers/incorrect/" + beerId);
+  },
   updateBeerReview: (beerReviewData) => {
     return axios.put("/api/reviews", beerReviewData);
   },
