@@ -28,7 +28,10 @@ router.post("/", (req, res) => {
       });
       const goalArray = spellCheckedName.split(" ");
       brewdbResult.map(beerRes => {
-        if (beerRes.abv) { //it is a beer not a brewery
+        // DOES NOT WORK!!!
+        if (beerRes.type === "beer") { //it is a beer not a brewery
+          console.log(beerRes.type);
+
           currentScore = 0;
           const nameArray = beerRes.name.toUpperCase().trim().split(" ");
           nameArray.map(nameIndex => {

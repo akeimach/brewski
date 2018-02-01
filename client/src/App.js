@@ -331,7 +331,7 @@ class App extends React.Component {
                   key={beerOption.id}
                   id={this.state.beerResultOptions.indexOf(beerOption)}
                   handleBeerSelect={this.handleBeerSelect}
-                  content={[beerOption.name, beerOption.abv, beerOption.description]}
+                  content={[beerOption.name, beerOption.brewery, beerOption.abv, beerOption.ibu, beerOption.foodPairings, beerOption.isOrganic, beerOption.description]}
                 />
               );
             }
