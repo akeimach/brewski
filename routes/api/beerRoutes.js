@@ -9,12 +9,11 @@ router.post("/", (req, res) => {
   
   let spellCheckedName = "";
   let arrayOfBeer = req.body.imageResults[1].split(" ");
-  for (let i = 0; i < arrayOfBeer.length; i++) {
-    const lookupRes = dict.lookup(arrayOfBeer[i]); // is rank useful?
-    if (lookupRes.found) { // if the word is a real word
-      spellCheckedName += arrayOfBeer[i] + " ";
+  arrayOfBeer.map(word => { // loop through array, spell checking each word
+    if (dict.lookup(word).found) { // if the word is a real word
+      spellCheckedName += word + " ";
     }
-  }
+  });
   spellCheckedName = spellCheckedName.trim();
   let searchQuery = spellCheckedName + " " + req.body.imageResults[0];
   brewdb.search.all({ q: searchQuery }, (request, brewdbResult) => {
@@ -22,21 +21,25 @@ router.post("/", (req, res) => {
     if (brewdbResult) {
       let maxScore = 0;
       let currentScore = 0;
-      let response = brewdbResult[0];
+      let response = []; //initialize as an array
+      response.push(brewdbResult[0]); //first index in array stores best guess
+      brewdbResult.map(beerRes => {
+        response.push(beerRes); //add all the results to the array
+      });
       const goalArray = spellCheckedName.split(" ");
-      for (let key in brewdbResult) {
-        if (brewdbResult[key].abv) { //it is a beer not a brewery
+      brewdbResult.map(beerRes => {
+        if (beerRes.abv) { //it is a beer not a brewery
           currentScore = 0;
-          const nameArray = brewdbResult[key].name.toUpperCase().trim().split(" ");
-          for (let i = 0; i < nameArray.length; i++) {
-            if (goalArray.indexOf(nameArray[i]) !== -1) currentScore++;
-          }
+          const nameArray = beerRes.name.toUpperCase().trim().split(" ");
+          nameArray.map(nameIndex => {
+            if (goalArray.indexOf(nameIndex) !== -1) currentScore++;
+          });
           if (currentScore > maxScore) {
             maxScore = currentScore;
-            response = brewdbResult[key];
+            response[0] = beerRes;
           }
         }
-      }
+      });
       res.json(response);
     }
   });

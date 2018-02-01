@@ -6,7 +6,7 @@ import "./percentStyle.css";
 import { Col, Row } from "../Grid";
 
 
-const ShowReviews = (props) => {
+const PublicReviews = (props) => {
   
   const reviewArr = JSON.parse(sessionStorage.getItem("beerReviews"));
   const reducer = (a, b) => { return { score: a.score + b.score }};
@@ -45,7 +45,7 @@ const ShowReviews = (props) => {
               {reviewArr.map(review => {
                 return (
                   <Item
-                    key={index++}
+                    key={index++} // need key because map iterator
                     content={[(`Score: ${review.score}`), (`${review.comment}`)]}
                   />
                 );
@@ -60,6 +60,6 @@ const ShowReviews = (props) => {
   );
 }
 
-export default ShowReviews;
+export default PublicReviews;
 
 

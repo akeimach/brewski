@@ -10,17 +10,31 @@ const IdentifyBeer = (props) => {
         <h3>Your Identified Beer</h3>
         <div>
         {sessionStorage.getItem("visionBeerName") ? (
-          <Item
-            content={[
-              (`Name: ${sessionStorage.getItem("visionBeerName")}`), 
-              (`Brewery: ${sessionStorage.getItem("visionBreweryName")}`), 
-              (`ABV: ${sessionStorage.getItem("visionBeerAbv")}%`), 
-              (`IBU: ${sessionStorage.getItem("visionBeerIbu")}`), 
-              (`Food Pairings: ${sessionStorage.getItem("visionBeerFoodPairings")}`), 
-              (`Organic: ${sessionStorage.getItem("visionBeerIsOrganic") === "Y" ? "Yes" : "No"}`), 
-              (`Description: ${sessionStorage.getItem("visionBeerShortDes")}`)
-            ]}
-          />
+          <div>
+            <Item
+              content={[
+                (`Name: ${sessionStorage.getItem("visionBeerName")}`), 
+                (`Brewery: ${sessionStorage.getItem("visionBreweryName")}`), 
+                (`ABV: ${sessionStorage.getItem("visionBeerAbv")}%`), 
+                (`IBU: ${sessionStorage.getItem("visionBeerIbu")}`), 
+                (`Food Pairings: ${sessionStorage.getItem("visionBeerFoodPairings")}`), 
+                (`Organic: ${sessionStorage.getItem("visionBeerIsOrganic") === "Y" ? "Yes" : "No"}`), 
+                (`Description: ${sessionStorage.getItem("visionBeerShortDes")}`)
+              ]}
+            />
+            {props.visionUpdate ? ( //only show the buttons for newly identified beers
+              <div>
+                <br />
+                <p>Was this beer correctly identified?</p>
+                <div className="btn-group">
+                  <button style={{ margin: 5, marginRight: 0 }} className="btn btn-success" name="feedbackModalOpen" value="correct" type="button" onClick={props.handleFeedbackModal}>Correct</button>
+                  <button style={{ margin: 5, marginLeft: 0 }} className="btn btn-warning" name="feedbackModalOpen" value="incorrect" type="button" onClick={props.handleFeedbackModal}>Incorrect</button>
+                </div>
+              </div>
+            ) : (
+              <div></div>
+            )}
+          </div>
         ) : (
           <p>Nothing here yet</p>
         )}
