@@ -22,7 +22,11 @@ const Reviews = (props) => {
             })}
           </List>
         ) : (
-          <p>Nothing here yet</p>
+          (localStorage.getItem("userId")) ? (
+            <p>You have not written any reviews yet</p>
+          ) : (
+            <p>Log in to see your reviews</p>
+          )
         )}
         </div>
       </Jumbotron>

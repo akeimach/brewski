@@ -2,7 +2,7 @@ import React from "react";
 import { Col, Row, Container } from "../components/Grid";
 import Capture from "../components/Capture";
 import IdentifyBeer from "../components/IdentifyBeer";
-import ShowReviews from "../components/ShowReviews";
+import PublicReviews from "../components/PublicReviews";
 
 const Home = (props) => {
   return (
@@ -22,7 +22,7 @@ const Home = (props) => {
       <Col size="7">
         <Row>
           <Container fluid>
-            <ShowReviews />
+            <PublicReviews />
           </Container>
         </Row>
       </Col>

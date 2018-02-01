@@ -1,39 +1,44 @@
 import React from "react";
-import { List, ListButtonItem } from "../components/List";
+import { List, ListItem } from "../components/List";
 import { Jumbotron } from "react-bootstrap";
 
 
 const History = (props) => {
+
   const beerArr = (props.userHistory ? props.userHistory.Beers : []);
   const reviewArr = (props.userHistory ? props.userHistory.Reviews : []);
+
   return (
     <div>
       <br/>
       <Jumbotron>
         <h3>Your History</h3>
         <div>
-        {beerArr ? (
+        {(beerArr && beerArr.length) ? (
           <List>
             {beerArr.map(history => {
-              let beerStats = {
+              let userPrevReview = { //initialize their previous review to empty
                 beerScore: "",
                 beerRev: ""
               };
-              for (let key in reviewArr) {
-                if (history.id === reviewArr[key].BeerId) {
-                  beerStats = {
-                    beerScore: reviewArr[key].beerScore,
-                    beerRev: reviewArr[key].beerRev
+              reviewArr.map(prevReview => { //check each of the user's previous reviews for a matching beer ID
+                if (history.id === prevReview.BeerId) { //if they've written a review for this beer before
+                  userPrevReview = { //set the empty review to prev review
+                    beerScore: prevReview.beerScore,
+                    beerRev: prevReview.beerRev
                   };
                 }
-              }
+                return userPrevReview;
+              });
+
               return (
-                <ListButtonItem
+                <ListItem
+                  addButton={true}
                   key={history.id}
                   id={history.id}
                   name="reviewModalOpen"
                   content={[(`${history.beername}`)]}
-                  value={[(`${history.beername}`), (`${beerStats.beerScore}`), (`${beerStats.beerRev}`)]}
+                  value={[(`${history.beername}`), (`${userPrevReview.beerScore}`), (`${userPrevReview.beerRev}`)]}
                   buttonValue={`Review this Beer`}
                   onClick={props.handleReviewModal}
                 />
@@ -41,7 +46,11 @@ const History = (props) => {
             })}
           </List>
         ) : (
-          <p>Nothing here yet</p>
+          (localStorage.getItem("userId")) ? (
+            <p>You have no history yet</p>
+          ) : (
+            <p>Log in to see your history</p>
+          )
         )}
         </div>
       </Jumbotron>
