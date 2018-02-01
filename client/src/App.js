@@ -11,6 +11,7 @@ import Modal from "react-modal";
 import { TextArea } from "./components/Form";
 import StarRatings from "react-star-ratings";
 import Analytics from "./components/Analytics";
+import { List, ListItem } from "./components/List";
 
 class App extends React.Component {
 
@@ -32,6 +33,7 @@ class App extends React.Component {
     breweryName: "",
     loginModalOpen: false,
     reviewModalOpen: false,
+    feedbackModalOpen: false,
     visionUpdate: "",
     beerResultOptions: []
   };
@@ -84,7 +86,8 @@ class App extends React.Component {
   closeModal = (event) => {
     this.setState({
       loginModalOpen: false,
-      reviewModalOpen: false
+      reviewModalOpen: false,
+      feedbackModalOpen: false
     });
   };
 
@@ -177,6 +180,18 @@ class App extends React.Component {
   };
 
 
+  handleFeedbackModal = (event) => {
+    console.log(event.target.value);
+    if (event.target.value === "incorrect") this.openModal(event);
+  };
+
+
+  handleBeerFeedback = (event) => {
+    console.log(event);
+    this.closeModal(event);
+  };
+
+
   handleReviewModal = (event) => {
     const valueArr = event.target.value.split(",");
     this.setState({
@@ -229,13 +244,6 @@ class App extends React.Component {
   };
 
 
-  handleFeedback = (correct) => {
-    if (!correct) { //the result was incorrect / false
-      console.log(this.state.beerResultOptions);
-    }
-  };
-
-
   render() {
 
     const reviewModal = (
@@ -263,6 +271,34 @@ class App extends React.Component {
       </Modal>
     );
 
+    const feedbackModal = (
+      <Modal isOpen={this.state.feedbackModalOpen} onRequestClose={this.closeModal} ariaHideApp={false}>
+        <br />
+        <h6>Please select the correct beer from these options:</h6>
+
+        
+        <List>
+          {this.state.beerResultOptions.map(beerOption => {
+            if ((this.state.beerResultOptions.indexOf(beerOption) > 0) && 
+              (this.state.beerResultOptions.indexOf(beerOption) < 11)) {
+              return (
+                <ListItem
+                  key={beerOption.id}
+                  id={beerOption.id}
+                  content={[beerOption.name, beerOption.abv, beerOption.description]}
+                />
+              );
+            }
+            return null;
+          })}
+        </List>
+
+        <button style={{ margin: 5 }} className="btn btn-primary" onClick={this.handleBeerFeedback}>Submit</button>
+        <button style={{ margin: 5 }} className="btn btn-dark" onClick={this.closeModal}>Close</button>
+      </Modal>
+    );
+
+
     const HomeComponent = () => {
       return (
         <Home
@@ -270,7 +306,7 @@ class App extends React.Component {
           handleInputChange={this.handleInputChange}
           handleImageChange={this.handleImageChange}
           handleBeerImage={this.handleBeerImage}
-          handleFeedback={this.handleFeedback}
+          handleFeedbackModal={this.handleFeedbackModal}
           visionUpdate={this.state.visionUpdate} //to force a component reload
         />
       );
@@ -304,6 +340,7 @@ class App extends React.Component {
         </Container>
         <Container>
           <Route exact path="(/|/home)" component={Analytics(HomeComponent)} />
+          {feedbackModal}
           <Route exact path="/reviews" component={Analytics(ReviewComponent)} />
           {reviewModal}
           <Route exact path="/history" component={Analytics(HistoryComponent)} />

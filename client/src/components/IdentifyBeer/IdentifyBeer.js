@@ -27,8 +27,8 @@ const IdentifyBeer = (props) => {
                 <br />
                 <p>Was this beer correctly identified?</p>
                 <div className="btn-group">
-                  <button style={{ margin: 5, marginRight: 0 }} className="btn btn-success" type="button" onClick={() => props.handleFeedback(true)}>Correct</button>
-                  <button style={{ margin: 5, marginLeft: 0 }} className="btn btn-warning" type="button" onClick={() => props.handleFeedback(false)}>Incorrect</button>
+                  <button style={{ margin: 5, marginRight: 0 }} className="btn btn-success" name="feedbackModalOpen" value="correct" type="button" onClick={props.handleFeedbackModal}>Correct</button>
+                  <button style={{ margin: 5, marginLeft: 0 }} className="btn btn-warning" name="feedbackModalOpen" value="incorrect" type="button" onClick={props.handleFeedbackModal}>Incorrect</button>
                 </div>
               </div>
             ) : (
