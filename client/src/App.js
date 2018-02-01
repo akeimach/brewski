@@ -11,7 +11,7 @@ import Modal from "react-modal";
 import { TextArea } from "./components/Form";
 import StarRatings from "react-star-ratings";
 import Analytics from "./components/Analytics";
-import { List, ListItem } from "./components/List";
+import { List, ListSelect } from "./components/List";
 
 class App extends React.Component {
 
@@ -35,7 +35,8 @@ class App extends React.Component {
     reviewModalOpen: false,
     feedbackModalOpen: false,
     visionUpdate: "",
-    beerResultOptions: []
+    beerResultOptions: [],
+    selectedBeerId: []
   };
 
 
@@ -187,8 +188,53 @@ class App extends React.Component {
 
 
   handleBeerFeedback = (event) => {
-    console.log(event);
+    const beerInfo = this.state.beerResultOptions[this.state.selectedBeerId]; //index of last clicked beer
+    sessionStorage.setItem("visionBeerName", beerInfo.name);
+    sessionStorage.setItem("visionBeerAbv", beerInfo.abv);
+    sessionStorage.setItem("visionBeerIbu", (beerInfo.ibu ? beerInfo.ibu : 0));
+    sessionStorage.setItem("visionBeerFoodPairings", beerInfo.foodPairings ? beerInfo.foodPairings : "None listed");
+    sessionStorage.setItem("visionBeerIsOrganic", beerInfo.isOrganic);
+    sessionStorage.setItem("visionBeerShortDes", beerInfo.description);
+    this.setState({ visionUpdate: beerInfo });
+    API.postRateBeer({ visionBeerName: sessionStorage.getItem("visionBeerName") })
+    .then(res1 => {
+      console.log("Review results: ", res1.data);
+      if (res1.data) {
+        sessionStorage.setItem("beerReviews", JSON.stringify(res1.data));
+        this.setState({ visionUpdate: res1.data });
+      }
+    })
+    .catch(err1 => console.log(err1));
+
+    const beerData = {
+      beername: sessionStorage.getItem("visionBeerName"),
+      brewery: sessionStorage.getItem("visionBreweryName"),
+      abv: sessionStorage.getItem("visionBeerAbv"),
+      ibu: sessionStorage.getItem("visionBeerIbu"),
+      foodPairings: sessionStorage.getItem("visionBeerFoodPairings"),
+      isOrganic: sessionStorage.getItem("visionBeerIsOrganic"),
+      shortDes: sessionStorage.getItem("visionBeerShortDes")
+    };
+
+    if (localStorage.getItem("userId")) { //check if user is logged in, if so post history
+      API.postUsersBeers( localStorage.getItem("userId"), beerData )
+      .then(res2 => {
+        console.log("Added to history: ", res2.data);
+        API.getHistory( localStorage.getItem("userId") )
+        .then(res3 => {
+          this.setState({ userHistory: res3.data[0] });
+        })
+        .catch(err3 => console.log(err3));
+      })
+      .catch(err2 => console.log(err2));
+    }
+
     this.closeModal(event);
+  };
+
+
+  handleBeerSelect = (event) => {
+    this.setState({ selectedBeerId: event });
   };
 
 
@@ -276,15 +322,15 @@ class App extends React.Component {
         <br />
         <h6>Please select the correct beer from these options:</h6>
 
-        
         <List>
           {this.state.beerResultOptions.map(beerOption => {
             if ((this.state.beerResultOptions.indexOf(beerOption) > 0) && 
               (this.state.beerResultOptions.indexOf(beerOption) < 11)) {
               return (
-                <ListItem
+                <ListSelect
                   key={beerOption.id}
-                  id={beerOption.id}
+                  id={this.state.beerResultOptions.indexOf(beerOption)}
+                  handleBeerSelect={this.handleBeerSelect}
                   content={[beerOption.name, beerOption.abv, beerOption.description]}
                 />
               );
