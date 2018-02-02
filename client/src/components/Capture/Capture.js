@@ -1,7 +1,6 @@
 import React from "react";
 import { Jumbotron } from "react-bootstrap";
-import { Input } from "../Form"
-
+import "./CaptureStyle.css";
 
 const Capture = (props) => {
 
@@ -16,10 +15,17 @@ const Capture = (props) => {
       <Jumbotron>
         <h3>Upload Photo</h3>
         <br />
-        <form>
-          <Input type="file" onChange={props.handleImageChange} />
-          <Input onChange={props.handleInputChange} name="imageData" placeholder="http://yourimage.com" type="url" />
-        </form>
+
+        <div className="file-upload">
+          <div className="file-select">
+            <div className="file-select-button"><img style={{height: 20}} src="./images/camera-icon.png" alt="Choose Img"/></div>
+            <div className="file-select-name">Click to upload or drag and drop your image here</div>
+            <input type="file" onChange={props.handleImageChange} />
+          </div>
+          <br />
+          <input type="url" onChange={props.handleInputChange} name="imageData" value={props.imageData} placeholder="Or enter an image URL" />
+        </div>
+
         <div className="imgPreview">
           {imagePreview}
         </div>
