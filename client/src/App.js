@@ -70,11 +70,10 @@ class App extends React.Component {
 
   handleImageChange = (event) => {
     event.preventDefault();
-    let reader = new FileReader();
-    let file = event.target.files[0];
-    reader.onloadend = () => {
-      this.setState({ imageData: reader.result });
-    }
+    let reader = new FileReader(); // opens the user's file system
+    let file = event.target.files[0]; // gets their selected file
+    console.log(event.target.files[0]);
+    reader.onloadend = () => this.setState({ imageData: reader.result });
     if (file) reader.readAsDataURL(file);
   };
 
@@ -102,6 +101,7 @@ class App extends React.Component {
 
 
   handleBeerInfomation = (event) => {
+    // does a brewery search through breweryDB API
     API.postBreweryID({ nameOfBrewery: this.state.imageResults[0] })
     .then(res1 => {
       console.log("Brewery results: ", res1.data);
@@ -109,21 +109,18 @@ class App extends React.Component {
         sessionStorage.setItem("visionBreweryName", res1.data.name);
         this.setState({ visionUpdate: res1.data });
       }
+      // does a beer search through breweryDB API
       API.postBeerID({ imageResults: this.state.imageResults })
       .then(res2 => {
         console.log("Beer results: ", res2.data);
         if (res2.data) {
           const beerInfo = res2.data[0]; //best guess is at 0th index in array
-          sessionStorage.setItem("visionBeerName", beerInfo.name);
-          sessionStorage.setItem("visionBeerAbv", beerInfo.abv);
-          sessionStorage.setItem("visionBeerIbu", (beerInfo.ibu ? beerInfo.ibu : 0));
-          sessionStorage.setItem("visionBeerFoodPairings", beerInfo.foodPairings ? beerInfo.foodPairings : "None listed");
-          sessionStorage.setItem("visionBeerIsOrganic", beerInfo.isOrganic);
-          sessionStorage.setItem("visionBeerShortDes", beerInfo.description);
+          this.setBeerInSessionStorage(beerInfo);
           this.setState({ 
             visionUpdate: beerInfo,
             beerResultOptions: res2.data
           });
+          // does a reviews search through RateBeer API
           API.postRateBeer({ visionBeerName: sessionStorage.getItem("visionBeerName") })
           .then(res3 => {
             console.log("Review results: ", res3.data);
@@ -134,27 +131,7 @@ class App extends React.Component {
           })
           .catch(err3 => console.log(err3));
 
-          const beerData = {
-            beername: sessionStorage.getItem("visionBeerName"),
-            brewery: sessionStorage.getItem("visionBreweryName"),
-            abv: sessionStorage.getItem("visionBeerAbv"),
-            ibu: sessionStorage.getItem("visionBeerIbu"),
-            foodPairings: sessionStorage.getItem("visionBeerFoodPairings"),
-            isOrganic: sessionStorage.getItem("visionBeerIsOrganic"),
-            shortDes: sessionStorage.getItem("visionBeerShortDes")
-          };
-          if (localStorage.getItem("userId")) { //check if user is logged in, if so post history
-            API.postUsersBeers( localStorage.getItem("userId"), beerData )
-            .then(res4 => {
-              console.log("Added to history: ", res4.data);
-              API.getHistory( localStorage.getItem("userId") )
-              .then(res5 => {
-                this.setState({ userHistory: res5.data[0] });
-              })
-              .catch(err5 => console.log(err5));
-            })
-            .catch(err4 => console.log(err4));
-          }
+          this.updateUserHistory();
         }
       })
       .catch(err2 => console.log(err2));
@@ -163,16 +140,57 @@ class App extends React.Component {
   };
 
 
+  updateUserHistory = (event) => {
+    // create this object that will get sent to the db
+    const beerData = {
+      beername: sessionStorage.getItem("visionBeerName"),
+      brewery: sessionStorage.getItem("visionBreweryName"),
+      abv: sessionStorage.getItem("visionBeerAbv"),
+      ibu: sessionStorage.getItem("visionBeerIbu"),
+      foodPairings: sessionStorage.getItem("visionBeerFoodPairings"),
+      isOrganic: sessionStorage.getItem("visionBeerIsOrganic"),
+      shortDes: sessionStorage.getItem("visionBeerShortDes")
+    };
+    // check if user is logged in, and if so post their new history
+    if (localStorage.getItem("userId")) {
+      API.postUsersBeers( localStorage.getItem("userId"), beerData )
+      .then(res1 => {
+        console.log("Added to history: ", res1.data);
+        // update their local history object
+        API.getHistory( localStorage.getItem("userId") )
+        .then(res2 => this.setState({ userHistory: res2.data[0] }))
+        .catch(err2 => console.log(err2));
+      })
+      .catch(err1 => console.log(err1));
+    }
+  };
+
+
+  setBeerInSessionStorage = (beerInfo) => {
+    sessionStorage.setItem("visionBeerName", beerInfo.name);
+    sessionStorage.setItem("visionBeerAbv", beerInfo.abv);
+    sessionStorage.setItem("visionBeerIbu", (beerInfo.ibu ? beerInfo.ibu : 0));
+    sessionStorage.setItem("visionBeerFoodPairings", beerInfo.foodPairings ? beerInfo.foodPairings : "None listed");
+    sessionStorage.setItem("visionBeerIsOrganic", beerInfo.isOrganic);
+    sessionStorage.setItem("visionBeerShortDes", beerInfo.description);
+  };
+
+
   handleBeerImage = (event) => {
+    // if imageData isn't already set to an image url, set it to the base64 string
     if (event.base64) this.setState({ imageData: event.base64 });
     if (this.state.imageData) {
+      // sends a post request to google cloud vision API, which does OCR + logo
       API.postVision({ imageData: this.state.imageData })
       .then(res => {
         console.log("Image results: ", res.data);
         if (res.data) {
-          this.setState({ imageResults: 
-            [res.data.logoDescription.replace(/[\n\r]/g, " ").trim(),
-             res.data.textDescription.replace(/[\n\r]/g, " ").trim()] });
+          this.setState({
+            imageResults:
+              // remove new lines from google cloud vision result
+              [ res.data.logoDescription.replace(/[\n\r]/g, " ").trim(),
+                res.data.textDescription.replace(/[\n\r]/g, " ").trim() ] 
+          });
           this.handleBeerInfomation();
         }
       })
@@ -189,12 +207,7 @@ class App extends React.Component {
 
   handleBeerFeedback = (event) => {
     const beerInfo = this.state.beerResultOptions[this.state.selectedBeerId]; //index of last clicked beer
-    sessionStorage.setItem("visionBeerName", beerInfo.name);
-    sessionStorage.setItem("visionBeerAbv", beerInfo.abv);
-    sessionStorage.setItem("visionBeerIbu", (beerInfo.ibu ? beerInfo.ibu : 0));
-    sessionStorage.setItem("visionBeerFoodPairings", beerInfo.foodPairings ? beerInfo.foodPairings : "None listed");
-    sessionStorage.setItem("visionBeerIsOrganic", beerInfo.isOrganic);
-    sessionStorage.setItem("visionBeerShortDes", beerInfo.description);
+    this.setBeerInSessionStorage(beerInfo);
     this.setState({ visionUpdate: beerInfo });
     API.postRateBeer({ visionBeerName: sessionStorage.getItem("visionBeerName") })
     .then(res1 => {
@@ -206,29 +219,7 @@ class App extends React.Component {
     })
     .catch(err1 => console.log(err1));
 
-    const beerData = {
-      beername: sessionStorage.getItem("visionBeerName"),
-      brewery: sessionStorage.getItem("visionBreweryName"),
-      abv: sessionStorage.getItem("visionBeerAbv"),
-      ibu: sessionStorage.getItem("visionBeerIbu"),
-      foodPairings: sessionStorage.getItem("visionBeerFoodPairings"),
-      isOrganic: sessionStorage.getItem("visionBeerIsOrganic"),
-      shortDes: sessionStorage.getItem("visionBeerShortDes")
-    };
-
-    if (localStorage.getItem("userId")) { //check if user is logged in, if so post history
-      API.postUsersBeers( localStorage.getItem("userId"), beerData )
-      .then(res2 => {
-        console.log("Added to history: ", res2.data);
-        API.getHistory( localStorage.getItem("userId") )
-        .then(res3 => {
-          this.setState({ userHistory: res3.data[0] });
-        })
-        .catch(err3 => console.log(err3));
-      })
-      .catch(err2 => console.log(err2));
-    }
-
+    this.updateUserHistory();
     this.closeModal(event);
   };
 
