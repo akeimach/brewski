@@ -111,13 +111,16 @@ class App extends React.Component {
       }
       API.postBeerID({ imageResults: this.state.imageResults })
       .then(res2 => {
-        let beerDataForIncorrect;
-        for (let i = 0; i < res2.data[i].length; i++) {
+        let beerDataForIncorrect= [];
+
+        for (let i = 0; i < res2.data.length; i++) {
+          console.log(res2.data[i].type);
+
           if (res2.data[i].type === "beer") {
             beerDataForIncorrect.push(res2.data[i]);
           }          
         }
-        console.log("Beer results: ", res2.data);
+        console.log("Beer results: ", beerDataForIncorrect);
         if (res2.data) {
           const beerInfo = res2.data[0]; //best guess is at 0th index in array
           sessionStorage.setItem("visionBeerName", beerInfo.name);
@@ -128,7 +131,7 @@ class App extends React.Component {
           sessionStorage.setItem("visionBeerShortDes", beerInfo.description ? beerInfo.description : "None");
           this.setState({ 
             visionUpdate: beerInfo,
-            beerResultOptions: res2.data
+            beerResultOptions: beerDataForIncorrect
           });
           API.postRateBeer({ visionBeerName: sessionStorage.getItem("visionBeerName") })
           .then(res3 => {
