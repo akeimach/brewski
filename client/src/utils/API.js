@@ -7,6 +7,7 @@ export default {
     return axios.post("/api/vision", imageData);
   },
   postBeerID: (imageResults) => {
+    console.log("dingusss");
     return axios.post("/api/identifybeer", imageResults);
   },
   postBreweryID: (nameOfBrewery) => {

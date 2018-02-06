@@ -111,6 +111,12 @@ class App extends React.Component {
       }
       API.postBeerID({ imageResults: this.state.imageResults })
       .then(res2 => {
+        let beerDataForIncorrect;
+        for (let i = 0; i < res2.data[i].length; i++) {
+          if (res2.data[i].type === "beer") {
+            beerDataForIncorrect.push(res2.data[i]);
+          }          
+        }
         console.log("Beer results: ", res2.data);
         if (res2.data) {
           const beerInfo = res2.data[0]; //best guess is at 0th index in array
@@ -183,6 +189,7 @@ class App extends React.Component {
 
   handleFeedbackModal = (event) => {
     console.log(event.target.value);
+    console.log("HHHHHHEEEEEEEEEEEEEEYYYYYYYYYYYYYYYYYYYYYYYYYYYYYY");
     if (event.target.value === "incorrect") this.openModal(event);
   };
 
