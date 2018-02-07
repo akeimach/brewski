@@ -13,7 +13,6 @@ router.use("/api/vision", visionRoutes);
 router.use("/api/identifybeer", beerRoutes);
 router.use("/api/identifybrewery", breweryRoutes);
 router.use("/api/ratebeer", rateBeerRoutes);
-
 router.use("/api/user", userController);
 router.use("/api/beers", beerController);
 router.use("/api/reviews", reviewController);

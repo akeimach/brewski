@@ -41,4 +41,19 @@ router.post("/:id", (req, res) => {
   });
 });
 
+// PUT route to update beer if beer was chosen as incorrect
+router.put("/incorrect/:id",(req, res) => {
+  db.Beers.update(req.body, {
+    where: {
+      BeerId: req.body.BeerId
+    }
+  })
+  .then((data) => {
+    res.json(data);
+  })
+  .catch((err) => {
+    console.log(err);
+  });  
+});
+
 module.exports = router;

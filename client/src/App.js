@@ -112,13 +112,22 @@ class App extends React.Component {
       // does a beer search through breweryDB API
       API.postBeerID({ imageResults: this.state.imageResults })
       .then(res2 => {
-        console.log("Beer results: ", res2.data);
+        let beerDataForIncorrect= [];
+
+        for (let i = 0; i < res2.data.length; i++) {
+          console.log(res2.data[i].type);
+
+          if (res2.data[i].type === "beer") {
+            beerDataForIncorrect.push(res2.data[i]);
+          }          
+        }
+        console.log("Beer results: ", beerDataForIncorrect);
         if (res2.data) {
           const beerInfo = res2.data[0]; //best guess is at 0th index in array
           this.setBeerInSessionStorage(beerInfo);
           this.setState({ 
             visionUpdate: beerInfo,
-            beerResultOptions: res2.data
+            beerResultOptions: beerDataForIncorrect
           });
           // does a reviews search through RateBeer API
           API.postRateBeer({ visionBeerName: sessionStorage.getItem("visionBeerName") })
@@ -172,7 +181,7 @@ class App extends React.Component {
     sessionStorage.setItem("visionBeerIbu", (beerInfo.ibu ? beerInfo.ibu : 0));
     sessionStorage.setItem("visionBeerFoodPairings", beerInfo.foodPairings ? beerInfo.foodPairings : "None listed");
     sessionStorage.setItem("visionBeerIsOrganic", beerInfo.isOrganic);
-    sessionStorage.setItem("visionBeerShortDes", beerInfo.description);
+    sessionStorage.setItem("visionBeerShortDes", beerInfo.description ? beerInfo.description : "None");
   };
 
 
@@ -201,11 +210,13 @@ class App extends React.Component {
 
   handleFeedbackModal = (event) => {
     console.log(event.target.value);
+    console.log("HHHHHHEEEEEEEEEEEEEEYYYYYYYYYYYYYYYYYYYYYYYYYYYYYY");
     if (event.target.value === "incorrect") this.openModal(event);
   };
 
 
   handleBeerFeedback = (event) => {
+    // API.updateIncorrectBeer({ imageResults: this.state.imageResults });
     const beerInfo = this.state.beerResultOptions[this.state.selectedBeerId]; //index of last clicked beer
     this.setBeerInSessionStorage(beerInfo);
     this.setState({ visionUpdate: beerInfo });
@@ -322,7 +333,7 @@ class App extends React.Component {
                   key={beerOption.id}
                   id={this.state.beerResultOptions.indexOf(beerOption)}
                   handleBeerSelect={this.handleBeerSelect}
-                  content={[beerOption.name, beerOption.abv, beerOption.description]}
+                  content={[beerOption.name, beerOption.brewery, beerOption.abv, beerOption.ibu, beerOption.foodPairings, beerOption.isOrganic, beerOption.description]}
                 />
               );
             }
