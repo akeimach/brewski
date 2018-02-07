@@ -2,7 +2,7 @@ import React from "react";
 import { Jumbotron } from "react-bootstrap";
 import { List, Item } from "../List";
 import CircularProgressbar from "react-circular-progressbar";
-import "./percentStyle.css";
+import "./PercentStyle.css";
 import { Col, Row } from "../Grid";
 
 
