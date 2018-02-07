@@ -27,7 +27,7 @@ router.post("/", (req, res) => {
       dataString.query = "query { beerReviews(beerId: " + beerID + ") { items { score comment scores { aroma flavor mouthfeel overall }}}}";
       options.body = JSON.stringify(dataString);
       request(options, (req2, res2) => {
-        // res.json(JSON.parse(res2.body).data.beerReviews.items);
+        res.json(JSON.parse(res2.body).data.beerReviews.items);
       });
     }
     else {
