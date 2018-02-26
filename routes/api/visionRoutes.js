@@ -15,13 +15,15 @@ router.post("/", (req, res) => {
     features: [
       new vision.Feature("TEXT_DETECTION", 10),
       new vision.Feature("LOGO_DETECTION", 10),
+      new vision.Feature("WEB_DETECTION", 10)
     ]
   });
   vision.annotate(request)
   .then((visionResult) => {
     let response = {
       logoDescription: "",
-      textDescription: ""
+      textDescription: "",
+      webDescription: ""
     }
     if (visionResult.responses[0].logoAnnotations) {
       response.logoDescription = visionResult.responses[0].logoAnnotations[0].description;
@@ -29,7 +31,10 @@ router.post("/", (req, res) => {
     if (visionResult.responses[0].fullTextAnnotation) {
       response.textDescription = visionResult.responses[0].fullTextAnnotation.text;
     }
-    console.log("Sending vision route response: \n" + response.logoDescription + "\n" + response.textDescription);
+    if (visionResult.responses[0].webDetection) {
+      response.webDescription = visionResult.responses[0].webDetection; //store bestGuessLabels and webEntities
+    }
+    console.log("Sending vision route response: \n" + response.logoDescription + "\n" + response.textDescription + "\n" + response.webDescription);
     res.json(response);
   })
   .catch((error) => {
