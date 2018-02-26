@@ -112,18 +112,17 @@ class App extends React.Component {
       // does a beer search through breweryDB API
       API.postBeerID({ imageResults: this.state.imageResults })
       .then(res2 => {
-        let beerDataForIncorrect= [];
+        let beerDataForIncorrect = [];
 
         for (let i = 0; i < res2.data.length; i++) {
-          console.log(res2.data[i].type);
 
           if (res2.data[i].type === "beer") {
             beerDataForIncorrect.push(res2.data[i]);
           }          
         }
         console.log("Beer results: ", beerDataForIncorrect);
-        if (res2.data) {
-          const beerInfo = res2.data[0]; //best guess is at 0th index in array
+        if (beerDataForIncorrect.length > 0) {
+          const beerInfo = beerDataForIncorrect[0]; //best guess is at 0th index in array
           this.setBeerInSessionStorage(beerInfo);
           this.setState({ 
             visionUpdate: beerInfo,
@@ -210,7 +209,6 @@ class App extends React.Component {
 
   handleFeedbackModal = (event) => {
     console.log(event.target.value);
-    console.log("HHHHHHEEEEEEEEEEEEEEYYYYYYYYYYYYYYYYYYYYYYYYYYYYYY");
     if (event.target.value === "incorrect") this.openModal(event);
   };
 
