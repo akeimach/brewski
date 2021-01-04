@@ -19,7 +19,7 @@
     "nodemon": "^1.11.0"
   },
   "dependencies": {
-    "axios": "^0.18.1",
+    "axios": "^0.21.1",
     "body-parser": "^1.17.2",
     "brewerydb-node": "0.0.1",
     "dotenv": "^4.0.0",
