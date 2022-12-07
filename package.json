@@ -23,7 +23,7 @@
     "body-parser": "^1.17.2",
     "brewerydb-node": "0.0.1",
     "dotenv": "^4.0.0",
-    "express": "^4.15.4",
+    "express": "^4.17.3",
     "google-auth-library": "^0.12.0",
     "isomorphic-fetch": "^2.2.1",
     "method-override": "^2.3.10",
